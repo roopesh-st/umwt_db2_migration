@@ -1,0 +1,38 @@
+{
+	"name": "TRIGGER_DATA_DEDUPLICATION_BATCH",
+	"properties": {
+		"activities": [
+			{
+				"name": "Invoke_DeDuplication_Batch",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "http://12.0.1.4:8082/api/dms/dedup/invokejob",
+					"connectVia": {
+						"referenceName": "ADF-DMS-CLOUD-IR",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "GET",
+					"body": {
+						"value": "{\"pipeline_id\" : '@{pipeline().RunId}'\n}",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/DATA_DE_DUPLICATION_UAT"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T14:07:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

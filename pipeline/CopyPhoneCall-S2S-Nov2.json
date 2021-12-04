@@ -1,0 +1,218 @@
+{
+	"name": "CopyPhoneCall-S2S-Nov2",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyPhoneCall-S2S-Nov2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": "$filter=(SalesOrganisation eq '31E')&$top=100",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Subject",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Subject",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "StartDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDateTimeZoneCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "StartDateTimeZoneCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "EndDateTime ",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDatetimeZoneCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EndDatetimeZoneCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "InitiatorCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "InitiatorCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Priority",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Priority",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisation",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisation",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedOn",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreatedOn",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "OwnerUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "CreatedByUUID",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_PHONE_CALL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "T_CALL_LOG_COLLECTION_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY/2Nov"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-03T09:58:31Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

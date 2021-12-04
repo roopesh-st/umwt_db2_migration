@@ -1,0 +1,69 @@
+{
+	"name": "DMS_COLLECTION_DATA_MIGRATION_STATUS_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "OUTLET_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "MODULE_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "SRC_COLLECTION_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TRG_SCHEMA_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TRG_TABLE_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "ADF_PIPELINE_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PIPELINE_RUN_DATE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "DATE_TILL_DATA_MIGRATED",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "ID_TILL_DATA_MIGRATED",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DMS_COLLECTION_DATA_MIGRATION_STATUS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

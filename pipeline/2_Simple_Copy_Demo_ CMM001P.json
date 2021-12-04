@@ -1,0 +1,65 @@
+{
+	"name": "2_Simple_Copy_Demo_ CMM001P",
+	"properties": {
+		"activities": [
+			{
+				"name": "Simple_Copy",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[CUSTOMER_SINK].[CMM001P]') AND type in (N'U'))\nBEGIN\ndelete from CUSTOMER_SINK.CMM001P\nEND",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWTDLP_DB2_DEV_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB5",
+							"TableName": "CMM001P"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "CMM001P",
+							"SchemaName": "CUSTOMER_SINK"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "POC_DEMO"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-09-24T01:16:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

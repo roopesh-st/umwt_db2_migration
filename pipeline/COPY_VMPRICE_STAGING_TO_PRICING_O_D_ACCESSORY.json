@@ -1,0 +1,1409 @@
+{
+	"name": "COPY_VMPRICE_STAGING_TO_PRICING_O_D_ACCESSORY",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VMPRICE_STAGING_TO_PRICING_O_D_ACCESSORY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "VEHICLE_PRICING_O_D_ACCESSORY_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ACCESSORIES_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS01",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 7
+								},
+								"sink": {
+									"name": "SALES_PRICE",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM01",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 7
+								},
+								"sink": {
+									"name": "DEALER_COMMISSION",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD01",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD01",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD02",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD02",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD03",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD03",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD04",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD04",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD05",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD05",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD06",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD06",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD07",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD07",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD08",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD08",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD09",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD09",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD10",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD10",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD11",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD11",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD12",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD12",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD13",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD13",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD14",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD14",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD15",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD15",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD16",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD16",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD17",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD17",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD18",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD18",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD19",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD19",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD20",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD20",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD21",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD21",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD22",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD22",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD23",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD23",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD24",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD24",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD25",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD25",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD26",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD26",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD27",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD27",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD28",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD28",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD29",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD29",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD30",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD30",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD31",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD31",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD32",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD32",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD33",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD33",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD34",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD34",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD35",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD35",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD36",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD36",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD37",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD37",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD38",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD38",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD39",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD39",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOD40",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UMWT_MPOD40",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS02",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS02",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS03",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS03",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS04",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS04",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS05",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS05",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS06",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS06",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS07",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS07",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS08",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS08",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS09",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS09",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS10",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS10",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS11",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS11",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS12",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS12",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS13",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS13",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS14",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS14",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS15",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS15",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS16",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS16",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS17",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS17",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS18",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS18",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS19",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS19",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS20",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS20",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS21",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS21",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS22",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS22",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS23",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS23",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS24",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS24",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS25",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS25",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS26",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS26",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS27",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS27",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS28",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS28",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS29",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS29",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS30",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS30",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS31",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS31",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS32",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS32",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS33",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS33",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS34",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS34",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS35",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS35",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS36",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS36",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS37",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS37",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS38",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS38",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS39",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS39",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOS40",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOS40",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM02",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM02",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM03",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM03",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM04",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM04",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM05",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM05",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM06",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM06",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM07",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM07",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM08",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM08",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM09",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM09",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM10",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM10",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM11",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM11",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM12",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM12",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM13",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM13",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM14",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM14",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM15",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM15",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM16",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM16",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM17",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM17",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM18",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM18",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM19",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM19",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM20",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM20",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM21",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM21",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM22",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM22",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM23",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM23",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM24",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM24",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM25",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM25",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM26",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM26",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM27",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM27",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM28",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM28",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM29",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM29",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM30",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM30",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM31",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM31",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM32",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM32",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM33",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM33",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM34",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM34",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM35",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM35",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM36",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM36",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM37",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM37",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM38",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM38",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM39",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM39",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MPOM40",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "UMWT_MPOM40",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VMPRICE_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "T_VEHICLE_PRICING_O_D_ACCESSORY_TEMP",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER/11Nov"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-22T10:38:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

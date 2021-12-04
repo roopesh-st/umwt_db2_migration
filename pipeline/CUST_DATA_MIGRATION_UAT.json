@@ -1,0 +1,166 @@
+{
+	"name": "CUST_DATA_MIGRATION_UAT",
+	"properties": {
+		"activities": [
+			{
+				"name": "CUST_DATA_1_SRC_TO_STG_UAT",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CUST_DATA_1_SRC_TO_STG_UAT",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "CUST_DATA_2_STG_TO_TRG_UAT",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "CUST_DATA_1_SRC_TO_STG_UAT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CUST_DATA_2_STG_TO_TRG_UAT",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "UpdateModuleCustomerMigrationStatus",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CUST_DATA_2_STG_TO_TRG_UAT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[UPDATE_MODULE_OUTLET_MIGRATION_STATUS]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DMS_ADF_DEMO_LS_SINK",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Send_MigrationStatusUpdate_1_Failure_Alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "CUST_DATA_1_SRC_TO_STG_UAT",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('CUST_DATA_1_SRC_TO_STG_UAT').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Send_MigrationStatusUpdate_2_Failure_Alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "CUST_DATA_2_STG_TO_TRG_UAT",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('CUST_DATA_2_STG_TO_TRG_UAT').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Send_MigrationStatusUpdate_Failure_Alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "UpdateModuleCustomerMigrationStatus",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('UpdateModuleCustomerMigrationStatus').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/INCREMENTAL MIGRATION"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-15T09:49:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

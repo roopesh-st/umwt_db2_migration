@@ -1,0 +1,61 @@
+{
+	"name": "DATA_MIGRATION_PROGRESS_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PIPELINE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "TABLE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_AT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "WATERMARK_DATE_VALUE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "WATERMARK_NUMBER_VALUE",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "RECORDS_EXPECTED",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "RECORDS_COPIED",
+				"type": "bigint",
+				"precision": 19
+			}
+		],
+		"typeProperties": {
+			"schema": "CUSTOMER_SINK",
+			"table": "DATA_MIGRATION_PROGRESS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

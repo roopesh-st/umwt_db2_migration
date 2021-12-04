@@ -1,0 +1,461 @@
+{
+	"name": "ECMS_ALL_COLLECTIONS_C4C_TO_STAGING_UAT",
+	"properties": {
+		"activities": [
+			{
+				"name": "DMS_COLLECTION_CREATE_MIGRATION_SCOPE_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[DMS_COLLECTION_CREATE_MIGRATION_SCOPE_PROC]",
+					"storedProcedureParameters": {
+						"MigrationStatus": {
+							"value": "OPEN",
+							"type": "String"
+						},
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "DMS_ADF_DEMO_LS_SINK",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "LookupActiveModuleCollectionMigrationRecords",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "DMS_COLLECTION_CREATE_MIGRATION_SCOPE_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT DISTINCT DMS.MODULE_ID, DMS.OUTLET_ID, DMS.MIGRATE_DATA_TILL_DATE,(DMS.MIGRATE_DATA_TILL_DATE + 1) AS MIGRATE_DATA_BEFORE_DATE, MC.SRC_COLLECTION_NAME, MC.SEQUENCE_ID, MC.TRG_SCHEMA_NAME, MC.TRG_TABLE_NAME, MC.WATERMARK_TYPE, MC.WATERMARK_DATE_SRC_COLUMN_NAME, MC.WATERMARK_DATE_TRG_COLUMN_NAME, MC.WATERMARK_INT_TRG_COLUMN_NAME, MC.FILTER_KEY, MC.DATA_MAPPING_JSON, MC.POST_COPY_PROC\nFROM DMS_DATA_MIGRATION_STATUS DMS, DMS_MODULE_COLLECTION_MAPPING MC\nWHERE DMS.MODULE_ID = MC.MODULE_ID AND DMS.MIGRATION_STATUS = 'OPEN' AND MC.IS_ACTIVE = 1\nAND DMS.ADF_PIPELINE_ID = '@{pipeline().RunId}'\nORDER BY DMS.MODULE_ID, DMS.OUTLET_ID, MC.SEQUENCE_ID",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "DMS_MODULE_COLLECTION_MAPPING",
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach_OutletModuleCollectionMapping",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LookupActiveModuleCollectionMigrationRecords",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookupActiveModuleCollectionMigrationRecords').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyCollectionDataToStaging",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "DMS_COLLECTION_MIGRATION_UPDATE_INPROGRESS_STATUS_PROC",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetMappingJson",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SapCloudForCustomerSource",
+									"query": {
+										"value": "$filter=(@{item().FILTER_KEY}%20eq%20%27@{item().OUTLET_ID}%27%20and%20@{item(). WATERMARK_DATE_SRC_COLUMN_NAME}%20lt%20datetimeoffset%27@{concat(item().MIGRATE_DATA_BEFORE_DATE,'Z')}%27)",
+										"type": "Expression"
+									},
+									"httpRequestTimeout": "00:05:00"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"preCopyScript": {
+										"value": "delete from @{item().TRG_SCHEMA_NAME}.@{item().TRG_TABLE_NAME} \nwhere @{item().FILTER_KEY} = '@{item().OUTLET_ID}' and UMWT_DATA_SRC = 1",
+										"type": "Expression"
+									},
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"translator": {
+									"value": "@json(variables('DATA_COPY_MAPPING_JSON'))",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"COLLECTION_NAME": {
+											"value": "@{item().SRC_COLLECTION_NAME}",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "UAT_LEADS_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": {
+											"value": "@{item().TRG_SCHEMA_NAME}",
+											"type": "Expression"
+										},
+										"TableName": {
+											"value": "@{item().TRG_TABLE_NAME}",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "EXEC_POST_COPY_PROC",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "CopyCollectionDataToStaging",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": {
+									"value": "@{item().POST_COPY_PROC}",
+									"type": "Expression"
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "UAT_DMS_LEADS_LS",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "DMS_COLLECTION_MIGRATION_UPDATE_COMPLETED_STATUS_PROC",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "EXEC_POST_COPY_PROC",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[DMS_COLLECTION_MIGRATION_STATUS_UPDATE_PROC]",
+								"storedProcedureParameters": {
+									"OutletId": {
+										"value": {
+											"value": "@{item().OUTLET_ID}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ModuleId": {
+										"value": {
+											"value": "@{item().MODULE_ID}",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"SourceCollectionName": {
+										"value": {
+											"value": "@{item().SRC_COLLECTION_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"TargetSchemaName": {
+										"value": {
+											"value": "@{item().TRG_SCHEMA_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"TargetTableName": {
+										"value": {
+											"value": "@{item().TRG_TABLE_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipelineId": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"MigrationStatus": {
+										"value": {
+											"value": "COMPLETED",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "DMS_ADF_DEMO_LS_SINK",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "DMS_COLLECTION_MIGRATION_UPDATE_INPROGRESS_STATUS_PROC",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[DMS_COLLECTION_MIGRATION_STATUS_UPDATE_PROC]",
+								"storedProcedureParameters": {
+									"OutletId": {
+										"value": {
+											"value": "@{item().OUTLET_ID}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ModuleId": {
+										"value": {
+											"value": "@{item().MODULE_ID}",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"SourceCollectionName": {
+										"value": {
+											"value": "@{item().SRC_COLLECTION_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"TargetSchemaName": {
+										"value": {
+											"value": "@{item().TRG_SCHEMA_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"TargetTableName": {
+										"value": {
+											"value": "@{item().TRG_TABLE_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipelineId": {
+										"value": {
+											"value": "@pipeline().GroupId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"MigrationStatus": {
+										"value": {
+											"value": "IN_PROGRESS",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "DMS_ADF_DEMO_LS_SINK",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "DMS_COLLECTION_MIGRATION_UPDATE_FAILED_STATUS_PROC",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "CopyCollectionDataToStaging",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[DMS_COLLECTION_MIGRATION_STATUS_UPDATE_PROC]",
+								"storedProcedureParameters": {
+									"OutletId": {
+										"value": {
+											"value": "@{item().OUTLET_ID}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"ModuleId": {
+										"value": {
+											"value": "@{item().MODULE_ID}",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"SourceCollectionName": {
+										"value": {
+											"value": "@{item().SRC_COLLECTION_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"TargetSchemaName": {
+										"value": {
+											"value": "@{item().TRG_SCHEMA_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"TargetTableName": {
+										"value": {
+											"value": "@{item().TRG_TABLE_NAME}",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"PipelineId": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										},
+										"type": "String"
+									},
+									"MigrationStatus": {
+										"value": {
+											"value": "FAILED",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "DMS_ADF_DEMO_LS_SINK",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "SetMappingJson",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "DATA_COPY_MAPPING_JSON",
+								"value": {
+									"value": "@{item().DATA_MAPPING_JSON}",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"DATA_COPY_MAPPING_JSON": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/MIGRATION - UAT ENV"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-21T16:45:20Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,27 @@
+{
+	"name": "SAP_ECMS_COLLECTION_PARAM",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "UMWT_ECMS_SAP_C4C_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"COLLECTION_NAME": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "SAP_ECMS_DATASETS"
+		},
+		"annotations": [],
+		"type": "SapCloudForCustomerResource",
+		"schema": [],
+		"typeProperties": {
+			"path": {
+				"value": "@dataset().COLLECTION_NAME",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

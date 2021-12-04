@@ -1,0 +1,16 @@
+{
+	"name": "DMS_OPPURTUNITIES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DMS_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

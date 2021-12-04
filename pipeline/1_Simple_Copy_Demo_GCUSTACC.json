@@ -1,0 +1,66 @@
+{
+	"name": "1_Simple_Copy_Demo_GCUSTACC",
+	"properties": {
+		"activities": [
+			{
+				"name": "Simple_Copy",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "select count(*) from E31DLIB5.GREFERP"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[CUSTOMER_SINK].[GCUSTACC]') AND type in (N'U'))\nBEGIN\n\tdelete from CUSTOMER_SINK.GCUSTACC\nEND",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWTDLP_DB2_DEV_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB5",
+							"TableName": "GREFERP"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "GCUSTACC",
+							"SchemaName": "CUSTOMER_SINK"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "POC_DEMO"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-10-01T13:56:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,188 @@
+{
+	"name": "3_Multiple_Tables_Copy_Watermark_NONE",
+	"properties": {
+		"activities": [
+			{
+				"name": "LookUp_Watermark_None_Tables_In_Scope",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select * from CUSTOMER_SINK.WATERMARK where IS_ACTIVE = 1 and WATERMARK_VALUE_TYPE = 'NONE' and GETDATE() between EFFECTIVE_FROM and EFFECTIVE_TO",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SCUSTSP_SINK_DS",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach_Table_In_Scope",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LookUp_Watermark_None_Tables_In_Scope",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LookUp_Watermark_None_Tables_In_Scope').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Update_Watermark",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Copy_All_Table_Data",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[CUSTOMER_SINK].[insert_watermark_none]",
+								"storedProcedureParameters": {
+									"PipelineId": {
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										}
+									},
+									"TableName": {
+										"value": {
+											"value": "@item().TABLE_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "DMS_ADF_DEMO_LS_SINK",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Send_Failure_Alert",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Copy_All_Table_Data",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+								"method": "POST",
+								"headers": {
+									"Content-Type": "application/json"
+								},
+								"body": {
+									"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('Copy_All_Table_Data').Error.Message}\"\n}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Copy_All_Table_Data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "Db2Source"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"preCopyScript": {
+										"value": "IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'@{item().SCHEMA_NAME}.@{item().TABLE_NAME}') AND type in (N'U'))\ndelete from @{item().SCHEMA_NAME}.@{item().TABLE_NAME} ",
+										"type": "Expression"
+									},
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "UMWTDLP_DB2_DEV_DS",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "@{item().SCHEMA_NAME_SRC}",
+										"TableName": "@{item().TABLE_NAME_SRC}"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "@{item().TABLE_NAME}",
+										"SchemaName": "@{item().SCHEMA_NAME}"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "POC_DEMO"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-09-24T01:16:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

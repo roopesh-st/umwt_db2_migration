@@ -1,0 +1,200 @@
+{
+	"name": "COPY_LEAD_CONTACT",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_LEAD_CONTACT",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LookupLeadContactMappingJson",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisationID eq %27@{pipeline().parameters.OUTLET_ID}%27%20and%20LastChangeDateTime%20ge%20datetimeoffset%272021-10-11T03:02:50Z%27)",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_LEAD_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MOBILE_AREA_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MOBILE_NUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PHONE_AREA_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PHONE_NUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RETURN_MAIL_DATE",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ECMS_KUTReturnMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PREFERRED_CONTACT_METHOD",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_LEAD",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "T_LEAD_CONTACT",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "LookupLeadContactMappingJson",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select DATA_MAPPING_JSON AS LookupLeadContactMappingJsonValue from DMS_MODULE_COLLECTION_MAPPING_2 where TRG_TABLE_NAME = 'T_LEAD_CONTACT'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DMS_MODULE_COLLECTION_MAPPING_3_DS",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "357"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

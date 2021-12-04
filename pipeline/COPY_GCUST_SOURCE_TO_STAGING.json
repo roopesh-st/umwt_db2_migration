@@ -1,0 +1,1079 @@
+{
+	"name": "COPY_GCUST_SOURCE_TO_STAGING",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_GCUST_SOURCE_TO_STAGING",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "select * from E31DLIB3.GCUST FETCH FIRST 1 ROWS ONLY"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "C1CUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CUID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CUNM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CUNM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1PRFN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1PRFN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1TITL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1TITL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ACDE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ACDE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ICN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ICN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1IC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1IC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1GSTN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1GSTN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1GSTD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1GSTD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ATYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ATYP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ADR1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ADR1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ADR2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ADR2",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ADR3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ADR3",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ADPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ADPC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ADST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1ADST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MLA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MLA1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MLA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MLA2",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MLA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MLA3",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MLPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MLPC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MLST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MLST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MAIL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MAIL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1NECD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1NECD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1TELA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1TELA",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1TELN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1TELN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MOBA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MOBA",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MOBT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MOBT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1OFFA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1OFFA",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1OFFT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1OFFT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1OFFE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1OFFE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FAXA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1FAXA",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FAX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1FAX",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1BDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1BDTE",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1DDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1DDTE",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1SEX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1SEX",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CTYP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1RACE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1RACE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LANG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1LANG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1PROF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1PROF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1IND",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1IND",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1RTNM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1RTNM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1RTND",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1RTND",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1DNM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1DNM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FSRV",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1FSRV",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1PSRV",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1PSRV",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FCFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1FCFL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1DCFC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1DCFC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FCDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1FCDT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MERM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1MERM",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CCLS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CCLS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1BTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1BTYP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1SHRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1SHRC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CUSF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CUSF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1STS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1STS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1NCID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1NCID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CCID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CCID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1UDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1UDTE",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1SRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1SRC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1CDTE",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CDTM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CDTM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1BRCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1BRCD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1HSIZ",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1HSIZ",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1HINC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1HINC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1XSMS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1XSMS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1XEML",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1XEML",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1PDPF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1PDPF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1PDPD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1PDPD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LXSF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1LXSF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1MCOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1MCOM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1AFLG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1AFLG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1ADTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1ADTE",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1UPBY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1UPBY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1APLL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1APLL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FCTP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1FCTP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1TOJF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1TOJF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1UPBR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1UPBR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LMAD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1LMAD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1FLEC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1FLEC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CDC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CDC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1CSRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1CSRC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1USRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1USRC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LCAD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1LCAD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LYCS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1LYCS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LYDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1LYDT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LYPT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1LYPT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LYVF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1LYVF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1RGDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1RGDT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1RGTM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1RGTM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1EVFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1EVFL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1EVDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "C1EVDT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "C1EVTM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "C1EVTM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "C1LUPD",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "C1LUPD",
+									"type": "DateTime",
+									"physicalType": "DateTime"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "GCUST"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "GCUST_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER/11Nov"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-16T01:29:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

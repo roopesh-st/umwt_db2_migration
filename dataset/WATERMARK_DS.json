@@ -1,0 +1,57 @@
+{
+	"name": "WATERMARK_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "TABLE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "TABLE_NAME_SRC",
+				"type": "varchar"
+			},
+			{
+				"name": "WATERMARK_VALUE_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "IS_ACTIVE",
+				"type": "bit"
+			},
+			{
+				"name": "EFFECTIVE_FROM",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "EFFECTIVE_TO",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SCHEMA_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "WATERMARK_COLUMN_NAME",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CUSTOMER_SINK",
+			"table": "WATERMARK"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

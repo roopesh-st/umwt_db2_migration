@@ -1,0 +1,125 @@
+{
+	"name": "ECMS_DATA_MIGRATION_POC",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_OutletModuleCollectionMapping",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "OUTLET_MODULE_COLLECTION_MAPPING_DF_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('OUTLET_MODULE_COLLECTION_MAPPING_DF_copy1').output.runStatus.output. DmsActiveOutlerModuleCollectionMappingSink.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "CopyCollectionDataToDmsTable",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SapCloudForCustomerSource",
+									"query": {
+										"value": "$filter=SalesOrganisationID eq %27@{item().OUTLET_ID}%27",
+										"type": "Expression"
+									},
+									"httpRequestTimeout": "00:05:00"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"preCopyScript": {
+										"value": "delete from @{item().TRG_SCHEMA_NAME}.@{item().TRG_TABLE_NAME}",
+										"type": "Expression"
+									},
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"translator": {
+									"value": "@json(item().DATA_MAPPING_JSON)",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"COLLECTION_NAME": {
+											"value": "@{item().SRC_COLLECTION_NAME}",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "@{item().TRG_TABLE_NAME}",
+										"SchemaName": "@{item().TRG_SCHEMA_NAME}"
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "OUTLET_MODULE_COLLECTION_MAPPING_DF_copy1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "PARENT_TABLE_MAPPING_DF_DEV",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"variables": {
+			"OUTLET_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/BACK_UP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

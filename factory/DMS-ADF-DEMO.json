@@ -1,0 +1,17 @@
+{
+	"name": "DMS-ADF-DEMO",
+	"properties": {
+		"globalParameters": {
+			"ECMS_MODLE_ID": {
+				"type": "int",
+				"value": 1
+			}
+		}
+	},
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2bdd17ec-cac1-430b-b094-1ab1a9ad5675",
+		"tenantId": "24740e5f-aebb-42ec-ba25-9f82293d1851"
+	}
+}

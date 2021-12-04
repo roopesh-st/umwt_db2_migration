@@ -1,0 +1,107 @@
+{
+	"name": "COPY_LEADS",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_LEADS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LookupLeadMappingJson",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisationID eq %27@{pipeline().parameters.OUTLET_ID}%27%20and%20LastChangeDateTime%20ge%20datetimeoffset%272021-10-11T03:02:50Z%27)&$top=@{pipeline().parameters.TOP}&$skip=@{pipeline().parameters.SKIP}",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"value": "@json(activity('LookupLeadMappingJson').output.firstRow.LookupLeadMappingJsonValue)",
+						"type": "Expression"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_LEAD",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "T_LEAD",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "LookupLeadMappingJson",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select DATA_MAPPING_JSON AS LookupLeadMappingJsonValue from DMS_MODULE_COLLECTION_MAPPING_2 where TRG_TABLE_NAME = 'T_LEAD'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DMS_MODULE_COLLECTION_MAPPING_3_DS",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "357"
+			},
+			"TOP": {
+				"type": "string",
+				"defaultValue": "100"
+			},
+			"SKIP": {
+				"type": "string",
+				"defaultValue": "0"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,166 @@
+{
+	"name": "ECMS_DATA_MIGRATION_QA",
+	"properties": {
+		"activities": [
+			{
+				"name": "Send_Trg_Copy_Failure_Alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ECMS_ALL_COLLECTIONS_STAGING_TO_TRG_DEV",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('ECMS_ALL_COLLECTIONS_STAGING_TO_TRG_DEV').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Send_Staging_Copy_Failure_Alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ECMS_ALL_COLLECTIONS_C4C_TO_STAGING_DEV",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('ECMS_ALL_COLLECTIONS_C4C_TO_STAGING_DEV').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "UpdateModuleOutletMigrationStatus",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ECMS_ALL_COLLECTIONS_STAGING_TO_TRG_DEV",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[UPDATE_MODULE_OUTLET_MIGRATION_STATUS]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DMS_ADF_DEMO_LS_SINK",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Send_MigrationStatusUpdate_Failure_Alert",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "UpdateModuleOutletMigrationStatus",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-07.southeastasia.logic.azure.com:443/workflows/688b1f09474047459e91fb6b8ad25cc1/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=d78qnXr5OvkyqfqMOoXdr-2bt9apdPbK1bdfLFjA5Ss",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n    \"PipelineId\": \"@{pipeline().RunId}\",\n    \"Pipeline\":\"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\":\"@{activity('UpdateModuleOutletMigrationStatus').Error.Message}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ECMS_ALL_COLLECTIONS_C4C_TO_STAGING_DEV",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ECMS_ALL_COLLECTIONS_C4C_TO_STAGING_DEV",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "ECMS_ALL_COLLECTIONS_STAGING_TO_TRG_DEV",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ECMS_ALL_COLLECTIONS_C4C_TO_STAGING_DEV",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ECMS_ALL_COLLECTIONS_STAGING_TO_TRG_DEV",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/MIGRATION - QA ENV"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:09Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

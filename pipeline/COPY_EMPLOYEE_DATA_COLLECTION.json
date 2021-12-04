@@ -1,0 +1,53 @@
+{
+	"name": "COPY_EMPLOYEE_DATA_COLLECTION",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_EMPLOYEE_DATA_COLLECTION",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_EMPLOYEE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "ECMS_EMPLOYEE_DATA"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-22T02:44:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

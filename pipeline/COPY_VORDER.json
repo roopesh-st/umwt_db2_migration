@@ -1,0 +1,66 @@
+{
+	"name": "COPY_VORDER",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VOR_H",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "select count(*) from E31DLIB3.VORDER where VOBRCD = '31E' and VOUDTE > '20211101'"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VORDER')  IS NOT NULL TRUNCATE TABLE dbo.VORDER",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VORDER"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_H",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/TRAN_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-14T00:43:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

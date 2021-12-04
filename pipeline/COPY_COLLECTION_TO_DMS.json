@@ -1,0 +1,139 @@
+{
+	"name": "COPY_COLLECTION_TO_DMS",
+	"properties": {
+		"activities": [
+			{
+				"name": "LOOKUP_MODULE_COLLECTION_MAPPINGS",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select * from dbo.DMS_MODULE_COLLECTION_MAPPING where MODULE_ID = 1 ORDER BY SEQUENCE_ID",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DATA_MIGRATION_TABLE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SCHEMA_NAME": "dbo",
+							"TABLE_NAME": "DMS_MODULE_COLLECTION_MAPPING"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "FOR_EACH_COLLECTION_TO_TABLE_MAPPING",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_MODULE_COLLECTION_MAPPINGS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "SET_OUTLET_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LOOKUP_MODULE_COLLECTION_MAPPINGS').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "COPY_COLLECTION_TO_DMS_TABLE",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SapCloudForCustomerSource",
+									"query": {
+										"value": "$filter=SalesOrganisationID eq %27@{variables('OUTLET_ID')}%27",
+										"type": "Expression"
+									},
+									"httpRequestTimeout": "00:05:00"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"translator": {
+									"value": "@json(item().DATA_MAPPING_JSON)",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"COLLECTION_NAME": {
+											"value": "@{item().SRC_COLLECTION_NAME}",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "@{item().TRG_TABLE_NAME}",
+										"SchemaName": "@{item().TRG_SCHEMA_NAME}"
+									}
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "SET_OUTLET_ID",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "OUTLET_ID",
+					"value": "307"
+				}
+			}
+		],
+		"variables": {
+			"OUTLET_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/BACK_UP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

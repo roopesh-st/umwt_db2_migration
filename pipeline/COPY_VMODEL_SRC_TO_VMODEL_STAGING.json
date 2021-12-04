@@ -1,0 +1,627 @@
+{
+	"name": "COPY_VMODEL_SRC_TO_VMODEL_STAGING",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VMODEL_SRC_TO_VMODEL_STAGING",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MDMOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDMOCD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDMDSC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDMDSC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDPARM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDPARM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDCC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDCC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDOIS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDOIS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDMAKE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDMAKE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDSER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDVTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDVTYP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDFTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDFTYP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDECC",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDECC",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDCLS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDCLS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDCYL",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDCYL",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDCARB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDCARB",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDBATT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDBATT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDTRMC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDTRMC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDTRN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDTRN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSEAT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDSEAT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSPD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDSPD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDDRV",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDDRV",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDDPOS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDDPOS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDBODY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDBODY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDDRS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDDRS",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDWBCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDWBCD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDWBLN",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDWBLN",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDWT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDWT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDINTD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDINTD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDUPL",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDUPL",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDGDC",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDGDC",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSPR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDSPR",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDDTCR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDDTCR",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDLSTU",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDLSTU",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDRS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDRS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDRS2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDRS2",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDEXTE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDEXTE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDLOTC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDLOTC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDFMLY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDFMLY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDCMOC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDCMOC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSPEC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDSPEC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDEXTR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDEXTR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDTRIM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDTRIM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDMANF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDMANF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDGVW",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDGVW",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "MDETYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDETYP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDEMS1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDEMS1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDEMS2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDEMS2",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDEMS3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDEMS3",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDEMS4",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDEMS4",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDMOC6",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDMOC6",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDPMOC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDPMOC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSUFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDSUFX",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MDSEQN",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MDSEQN",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VMODEL"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VMODEL_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER/11Nov"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-16T01:29:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

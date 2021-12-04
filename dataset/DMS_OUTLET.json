@@ -1,0 +1,40 @@
+{
+	"name": "DMS_OUTLET",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "OUTLET_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OUTLET_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "OUTLET_PILOTED_DATE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DMS_OUTLET"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

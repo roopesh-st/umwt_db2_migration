@@ -1,0 +1,101 @@
+{
+	"name": "COPY_VEHICLE_COLOR",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VEHICLE_COLOR",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "select * from E31DLIB5.GREFERP where REFCAT = '566'"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VMCOLOR_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.VMCOLOR_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "REFCAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "REFCAT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REFKEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "REFKEY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REFDAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "REFDAT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB5",
+							"TableName": "GREFERP"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VMCOLOR_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-12-03T11:52:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,52 @@
+{
+	"name": "DMS_MODULE_TABLE_MAPPING_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "MODULE_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "SEQUENCE_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SRC_COLLECTION_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TRG_SCHEMA_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TRG_TABLE_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DATA_MAPPING_JSON",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DMS_MODULE_TABLE_MAPPING"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

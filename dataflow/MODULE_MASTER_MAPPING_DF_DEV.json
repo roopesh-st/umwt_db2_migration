@@ -1,0 +1,28 @@
+{
+	"name": "MODULE_MASTER_MAPPING_DF_DEV",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DMS_MODULE_TABLE_MAPPING_DS",
+						"type": "DatasetReference"
+					},
+					"name": "DmsMasterModuleToTableMappings"
+				}
+			],
+			"sinks": [
+				{
+					"name": "DmsMasterModuleTableMappingSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SortByMasterTableSequenceId"
+				}
+			],
+			"script": "source(output(\n\t\tID as long,\n\t\tMODULE_ID as long,\n\t\tSEQUENCE_ID as integer,\n\t\tSRC_COLLECTION_NAME as string,\n\t\tTRG_SCHEMA_NAME as string,\n\t\tTRG_TABLE_NAME as string,\n\t\tDATA_MAPPING_JSON as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DmsMasterModuleToTableMappings\nDmsMasterModuleToTableMappings sort(asc(SEQUENCE_ID, true)) ~> SortByMasterTableSequenceId\nSortByMasterTableSequenceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: true,\n\tsaveOrder: 1) ~> DmsMasterModuleTableMappingSink"
+		}
+	}
+}

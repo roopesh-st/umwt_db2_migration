@@ -1,0 +1,6 @@
+{
+	"name": "ADF-DMS-CLOUD-IR",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

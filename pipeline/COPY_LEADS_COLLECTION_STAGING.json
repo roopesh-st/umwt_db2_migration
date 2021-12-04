@@ -1,0 +1,618 @@
+{
+	"name": "COPY_LEADS_COLLECTION_STAGING",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_LEADS_COLLECTION_TO_STAGING",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": "$filter=(SalesOrganisationID eq '307' and ZCDC_CUST_UUID_KUT ne null)&$top=100",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerPartyIDSales",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OwnerPartyIDSales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPA_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTPDPA_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTReturnMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "Byte"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_LEAD",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "T_LEAD_COLLECTION_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

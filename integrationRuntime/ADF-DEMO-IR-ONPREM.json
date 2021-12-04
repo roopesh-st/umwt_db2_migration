@@ -1,0 +1,6 @@
+{
+	"name": "ADF-DEMO-IR-ONPREM",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

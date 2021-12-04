@@ -1,0 +1,20 @@
+{
+	"name": "UMWT_GCUSTPRD_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "UMWTDLP_DB2_DEV_DB",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "UMWT_DATASETS_PROD"
+		},
+		"annotations": [],
+		"type": "Db2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "E31DLIB5",
+			"table": "GCUSTPRD"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,95 @@
+{
+	"name": "SCUSTSP_SINK_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DMS_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "C1CUID",
+				"type": "varchar"
+			},
+			{
+				"name": "COMP_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "BIBRCD",
+				"type": "varchar"
+			},
+			{
+				"name": "CUST_CLASS",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_CUST",
+				"type": "char"
+			},
+			{
+				"name": "PAYEE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PAY_TYPE",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "CR_LIMIT",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "CURR_BAL",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "CR_TERM",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "PRICE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "MXCHK_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTS_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_DATE",
+				"type": "date"
+			},
+			{
+				"name": "STATUS",
+				"type": "char"
+			},
+			{
+				"name": "DEBT_STS",
+				"type": "char"
+			},
+			{
+				"name": "POLL_STS",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "SCUSTSP_TRG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

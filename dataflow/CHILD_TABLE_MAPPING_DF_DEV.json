@@ -1,0 +1,47 @@
+{
+	"name": "CHILD_TABLE_MAPPING_DF_DEV",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DMS_MODULE_OUTLET_MAPPING_DS_BU",
+						"type": "DatasetReference"
+					},
+					"name": "DmsModuleToOutletMapping"
+				},
+				{
+					"dataset": {
+						"referenceName": "DMS_MODULE_COLLECTION_MAPPING_2_DS",
+						"type": "DatasetReference"
+					},
+					"name": "DmsModuleToCollectionMapping"
+				}
+			],
+			"sinks": [
+				{
+					"name": "DmsActiveChildCollectionMappingsSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DmsJoinOutletModuleCollection"
+				},
+				{
+					"name": "SortBySequence"
+				},
+				{
+					"name": "SelectColumns"
+				},
+				{
+					"name": "FilterDependantTables"
+				},
+				{
+					"name": "FilterByActiveMigrationStatus"
+				}
+			],
+			"script": "source(output(\n\t\tID as long,\n\t\tMODULE_ID as long,\n\t\tOUTLET_ID as long,\n\t\tMIGRATION_STATUS as string,\n\t\tDATE_TILL_DATA_MIGRATED as timestamp,\n\t\tIS_ACTIVE as boolean\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DmsModuleToOutletMapping\nsource(output(\n\t\tID as long,\n\t\tMODULE_ID as long,\n\t\tSEQUENCE_ID as integer,\n\t\tSRC_COLLECTION_NAME as string,\n\t\tTRG_SCHEMA_NAME as string,\n\t\tTRG_TABLE_NAME as string,\n\t\tDATA_MAPPING_JSON as string,\n\t\tWATERMARK_TYPE as string,\n\t\tWATERMARK_DATE_SRC_COLUMN_NAME as string,\n\t\tWATERMARK_INT_SRC_COLUMN_NAME as string,\n\t\tWATERMARK_DATE_TRG_COLUMN_NAME as string,\n\t\tWATERMARK_INT_TRG_COLUMN_NAME as string,\n\t\tPARENT_TABLE as string,\n\t\tPARENT_TABLE_COLUMN_NAME as string,\n\t\tPARENT_TABLE_SRC_COLUMN_NAME as string,\n\t\tBATCH_SIZE as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DmsModuleToCollectionMapping\nFilterByActiveMigrationStatus, FilterDependantTables join(DmsModuleToOutletMapping@MODULE_ID == DmsModuleToCollectionMapping@MODULE_ID,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> DmsJoinOutletModuleCollection\nSelectColumns sort(asc(OUTLET_ID, true),\n\tasc(MODULE_ID, true),\n\tasc(SEQUENCE_ID, true)) ~> SortBySequence\nDmsJoinOutletModuleCollection select(mapColumn(\n\t\tMODULE_ID = DmsModuleToOutletMapping@MODULE_ID,\n\t\tOUTLET_ID,\n\t\tMIGRATION_STATUS,\n\t\tIS_ACTIVE,\n\t\tSEQUENCE_ID,\n\t\tSRC_COLLECTION_NAME,\n\t\tTRG_SCHEMA_NAME,\n\t\tTRG_TABLE_NAME,\n\t\tDATA_MAPPING_JSON,\n\t\tWATERMARK_TYPE,\n\t\tBATCH_SIZE,\n\t\tWATERMARK_DATE_SRC_COLUMN_NAME,\n\t\tWATERMARK_INT_SRC_COLUMN_NAME,\n\t\tWATERMARK_DATE_TRG_COLUMN_NAME,\n\t\tWATERMARK_INT_TRG_COLUMN_NAME,\n\t\tPARENT_TABLE,\n\t\tPARENT_TABLE_COLUMN_NAME,\n\t\tPARENT_TABLE_SRC_COLUMN_NAME\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectColumns\nDmsModuleToCollectionMapping filter(!isNull(PARENT_TABLE)) ~> FilterDependantTables\nDmsModuleToOutletMapping filter(MIGRATION_STATUS=='OPEN') ~> FilterByActiveMigrationStatus\nSortBySequence sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tstore: 'cache',\n\tformat: 'inline',\n\toutput: true,\n\tsaveOrder: 1) ~> DmsActiveChildCollectionMappingsSink"
+		}
+	}
+}

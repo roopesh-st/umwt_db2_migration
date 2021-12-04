@@ -1,0 +1,89 @@
+{
+	"name": "DMS_MODULE_COLLECTION_MAPPING_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "MODULE_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "SEQUENCE_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SRC_COLLECTION_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TRG_SCHEMA_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "TRG_TABLE_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DATA_MAPPING_JSON",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WATERMARK_TYPE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WATERMARK_DATE_SRC_COLUMN_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WATERMARK_INT_SRC_COLUMN_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WATERMARK_DATE_TRG_COLUMN_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WATERMARK_INT_TRG_COLUMN_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PARENT_TABLE",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PARENT_TABLE_MAPPING_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "MAPPING_KEY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BATCH_SIZE",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DMS_MODULE_COLLECTION_MAPPING_2"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,198 @@
+{
+	"name": "COPY_TASKS2",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_TASKS2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": "$filter=SalesOrganisationID%20eq%20%27307%27&$format=json&$top=100",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "StartDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDatetimeZoneCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "StartDatetimeZoneCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DueDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "DueDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "DueDatetimeZoneCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DueDatetimeZoneCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CompletionDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CompletionDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Account",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Account",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Owner",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Owner",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_TASKS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "T_LEAD_TASKS_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

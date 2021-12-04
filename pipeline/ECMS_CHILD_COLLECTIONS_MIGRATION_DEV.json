@@ -1,0 +1,273 @@
+{
+	"name": "ECMS_CHILD_COLLECTIONS_MIGRATION_DEV",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_OutletModuleCollectionMapping",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "CHILD_TABLE_MAPPING_DF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('CHILD_TABLE_MAPPING_DF').output.runStatus.output.DmsActiveChildCollectionMappingsSink.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "LookupParentMappingIds",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "LookupParentMappingColumnName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "LookupParentNewWatermarkValue",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "LookupChildOldWatermarkValue",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "LookupParentWatermarkColumnName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": {
+										"value": "select distinct @{activity('LookupParentMappingColumnName').output.firstRow.ParentMappingId} AS ParentMappingIds\nfrom  @{item().PARENT_TABLE}\nwhere \n@{activity('LookupParentWatermarkColumnName').output.firstRow.ParentWatermarkColumnName} > @{activity('LookupChildOldWatermarkValue').output.firstRow.ChildOldWatermarkValue} ",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "DMS_MODULE_COLLECTION_MAPPING_2",
+										"SchemaName": "dbo"
+									}
+								}
+							}
+						},
+						{
+							"name": "LookupParentWatermarkColumnName",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": {
+										"value": "select WATERMARK_DATE_TRG_COLUMN_NAME AS ParentWatermarkColumnName from dbo.DMS_MODULE_COLLECTION_MAPPING_2 where TRG_SCHEMA_NAME = 'dbo' and TRG_TABLE_NAME = 'T_LEAD'",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "DMS_MODULE_COLLECTION_MAPPING_2",
+										"SchemaName": "dbo"
+									}
+								}
+							}
+						},
+						{
+							"name": "LookupParentNewWatermarkValue",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": "select max(DATE_TILL_DATA_MIGRATED) AS ParentNewWatermarkValue from DMS_COLLECTION_DATA_MIGRATION_STATUS where TRG_SCHEMA_NAME = 'dbo' and TRG_TABLE_NAME = 'T_LEAD'",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "DMS_COLLECTION_DATA_MIGRATION_STATUS",
+										"SchemaName": "dbo"
+									}
+								}
+							}
+						},
+						{
+							"name": "LookupChildOldWatermarkValue",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": "select max(DATE_TILL_DATA_MIGRATED) AS ChildOldWatermarkValue from DMS_COLLECTION_DATA_MIGRATION_STATUS where TRG_SCHEMA_NAME = 'dbo' and TRG_TABLE_NAME = 'T_LEAD_CONTACT'",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": {
+											"value": "DMS_COLLECTION_DATA_MIGRATION_STATUS",
+											"type": "Expression"
+										},
+										"SchemaName": {
+											"value": "dbo",
+											"type": "Expression"
+										}
+									}
+								}
+							}
+						},
+						{
+							"name": "LookupParentMappingColumnName",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": "select PARENT_TABLE_COLUMN_NAME AS ParentMappingId from dbo.DMS_MODULE_COLLECTION_MAPPING_2 where TRG_TABLE_NAME='T_LEAD_CONTACT'",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "DMS_MODULE_COLLECTION_MAPPING_2",
+										"SchemaName": "dbo"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "CHILD_TABLE_MAPPING_DF",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "CHILD_TABLE_MAPPING_DF_DEV",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None"
+				}
+			}
+		],
+		"variables": {
+			"OUTLET_ID": {
+				"type": "String"
+			},
+			"MODULE_ID": {
+				"type": "String"
+			},
+			"SRC_COLLECTION_NAME": {
+				"type": "String"
+			},
+			"TRG_SCHEMA_NAME": {
+				"type": "String"
+			},
+			"TRG_TABLE_NAME": {
+				"type": "String"
+			},
+			"BATCH_SIZE": {
+				"type": "String"
+			},
+			"SRC_WATERMARK_COLUMN_NAME": {
+				"type": "String"
+			},
+			"TRG_DATE_WATERMARK_COLUMN_NAME": {
+				"type": "String"
+			},
+			"TRG_INT_WATERMARK_COLUMN_NAME": {
+				"type": "String"
+			},
+			"DATA_COPY_MAPPING_JSON": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY/BACK_UP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

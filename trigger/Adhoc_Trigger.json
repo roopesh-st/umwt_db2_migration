@@ -1,0 +1,17 @@
+{
+	"name": "Adhoc_Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2021-06-30T02:45:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

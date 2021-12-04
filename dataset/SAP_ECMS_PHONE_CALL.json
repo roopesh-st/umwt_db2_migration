@@ -1,0 +1,19 @@
+{
+	"name": "SAP_ECMS_PHONE_CALL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "UMWT_ECMS_SAP_C4C_LS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP_ECMS_DATASETS"
+		},
+		"annotations": [],
+		"type": "SapCloudForCustomerResource",
+		"schema": [],
+		"typeProperties": {
+			"path": "PhoneCallCollection"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

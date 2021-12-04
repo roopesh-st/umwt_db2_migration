@@ -1,0 +1,507 @@
+{
+	"name": "ECMS_ALL_COLLECTIONS_MIGRATION_DEV_BU",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_OutletModuleCollectionMapping",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "ALL_TABLE_MAPPINGS_DF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('ALL_TABLE_MAPPINGS_DF').output.runStatus.output.DmsActiveAllCollectionMappingsSink.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "isWatermarkDateType",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "SetOutletID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetModuleID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetSrcCollectionName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetTargetSchemaName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetTargetTableName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetBatchSize",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetSrcWatermarkColumnName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetTrgDateWatermarkColumnName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetTrgIntWatermarkColumnName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								},
+								{
+									"activity": "SetDataMappingJson",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@bool(equals(item().WATERMARK_TYPE, 'datetime'))",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "LookupOldWatermarkDateValue",
+										"type": "Lookup",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "SqlServerSource",
+												"sqlReaderQuery": {
+													"value": "select max(DATE_TILL_DATA_MIGRATED) AS OldWatermarkDateValue\nfrom dbo.DMS_COLLECTION_DATA_MIGRATION_STATUS \nwhere OUTLET_ID = @{variables('OUTLET_ID')} \nand MODULE_ID = @{variables('MODULE_ID')}\nand SRC_COLLECTION_NAME = '@{variables('SRC_COLLECTION_NAME')}'\nand TRG_SCHEMA_NAME = '@{variables('TRG_SCHEMA_NAME')}'\nand TRG_TABLE_NAME = '@{variables('TRG_TABLE_NAME')}'",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"dataset": {
+												"referenceName": "DMS_COLLECTION_DATA_MIGRATION_STATUS_DS",
+												"type": "DatasetReference"
+											},
+											"firstRowOnly": true
+										}
+									},
+									{
+										"name": "CopyCollectionDataToDmsTable",
+										"type": "Copy",
+										"dependsOn": [
+											{
+												"activity": "LookupOldWatermarkDateValue",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "SapCloudForCustomerSource",
+												"query": {
+													"value": "$filter=(SalesOrganisationID%20eq%20%27@{variables('OUTLET_ID')}%27%20and%20@{variables('SRC_WATERMARK_COLUMN_NAME')}%20ge%20datetimeoffset%27@{concat(activity('LookupOldWatermarkDateValue').output.firstRow.OldWatermarkDateValue,'Z')}%27)",
+													"type": "Expression"
+												},
+												"httpRequestTimeout": "00:05:00"
+											},
+											"sink": {
+												"type": "SqlServerSink",
+												"preCopyScript": {
+													"value": "delete from @{variables('TRG_SCHEMA_NAME')}.@{variables('TRG_TABLE_NAME')} \nwhere @{variables('TRG_DATE_WATERMARK_COLUMN_NAME')} > '@{activity('LookupOldWatermarkDateValue').output.firstRow.OldWatermarkDateValue}'",
+													"type": "Expression"
+												},
+												"tableOption": "autoCreate"
+											},
+											"enableStaging": false,
+											"enableSkipIncompatibleRow": true,
+											"translator": {
+												"value": "@json(variables('DATA_COPY_MAPPING_JSON'))",
+												"type": "Expression"
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+												"type": "DatasetReference",
+												"parameters": {
+													"COLLECTION_NAME": {
+														"value": "@{variables('SRC_COLLECTION_NAME')}",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "SINK_TABLE_PARAM",
+												"type": "DatasetReference",
+												"parameters": {
+													"TableName": {
+														"value": "@variables('TRG_TABLE_NAME')",
+														"type": "Expression"
+													},
+													"SchemaName": {
+														"value": "@variables('TRG_SCHEMA_NAME')",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									},
+									{
+										"name": "UpdateDateWatermark",
+										"type": "SqlServerStoredProcedure",
+										"dependsOn": [
+											{
+												"activity": "LookupNewWatermarkDateValue",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"storedProcedureName": "[CUSTOMER_SINK].[UPDATE_DATE_WATERMARK]",
+											"storedProcedureParameters": {
+												"OutletId": {
+													"value": {
+														"value": "@variables('OUTLET_ID')",
+														"type": "Expression"
+													}
+												},
+												"ModuleId": {
+													"value": {
+														"value": "@variables('MODULE_ID')",
+														"type": "Expression"
+													}
+												},
+												"SourceCollectionName": {
+													"value": {
+														"value": "@variables('SRC_COLLECTION_NAME')",
+														"type": "Expression"
+													}
+												},
+												"TargetSchemaName": {
+													"value": {
+														"value": "@variables('TRG_SCHEMA_NAME')",
+														"type": "Expression"
+													}
+												},
+												"TargetTableName": {
+													"value": {
+														"value": "@variables('TRG_TABLE_NAME')",
+														"type": "Expression"
+													}
+												},
+												"PipelineId": {
+													"value": {
+														"value": "@pipeline().RunId",
+														"type": "Expression"
+													}
+												},
+												"DateTillDataMigrated": {
+													"value": {
+														"value": "@activity('LookupNewWatermarkDateValue').output.firstRow.NewDateWatermarkValue",
+														"type": "Expression"
+													}
+												}
+											}
+										},
+										"linkedServiceName": {
+											"referenceName": "DMS_ADF_DEMO_LS_SINK",
+											"type": "LinkedServiceReference"
+										}
+									},
+									{
+										"name": "LookupNewWatermarkDateValue",
+										"type": "Lookup",
+										"dependsOn": [
+											{
+												"activity": "CopyCollectionDataToDmsTable",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "SqlServerSource",
+												"sqlReaderQuery": {
+													"value": "select max(@{variables('TRG_DATE_WATERMARK_COLUMN_NAME')}) as NewDateWatermarkValue from @{variables('TRG_SCHEMA_NAME')}.@{variables('TRG_TABLE_NAME')}",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"dataset": {
+												"referenceName": "SINK_TABLE_PARAM",
+												"type": "DatasetReference",
+												"parameters": {
+													"TableName": "@variables('TRG_TABLE_NAME')",
+													"SchemaName": "@variables('TRG_SCHEMA_NAME')"
+												}
+											}
+										}
+									}
+								]
+							}
+						},
+						{
+							"name": "SetOutletID",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "OUTLET_ID",
+								"value": {
+									"value": "@{item().OUTLET_ID}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetModuleID",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "MODULE_ID",
+								"value": {
+									"value": "@{item().MODULE_ID}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetSrcCollectionName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "SRC_COLLECTION_NAME",
+								"value": {
+									"value": "@{item().SRC_COLLECTION_NAME}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetTargetSchemaName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "TRG_SCHEMA_NAME",
+								"value": {
+									"value": "@{item().TRG_SCHEMA_NAME}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetTargetTableName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "TRG_TABLE_NAME",
+								"value": {
+									"value": "@{item().TRG_TABLE_NAME}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetBatchSize",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "BATCH_SIZE",
+								"value": {
+									"value": "@{item().BATCH_SIZE}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetSrcWatermarkColumnName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "SRC_WATERMARK_COLUMN_NAME",
+								"value": {
+									"value": "@{item().WATERMARK_DATE_SRC_COLUMN_NAME}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetTrgDateWatermarkColumnName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "TRG_DATE_WATERMARK_COLUMN_NAME",
+								"value": {
+									"value": "@{item().WATERMARK_DATE_TRG_COLUMN_NAME}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetTrgIntWatermarkColumnName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "TRG_INT_WATERMARK_COLUMN_NAME",
+								"value": {
+									"value": "@{item().WATERMARK_INT_TRG_COLUMN_NAME}",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "SetDataMappingJson",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "DATA_COPY_MAPPING_JSON",
+								"value": {
+									"value": "@{item().DATA_MAPPING_JSON}",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "ALL_TABLE_MAPPINGS_DF",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "ALL_TABLE_MAPPING_DF_DEV_BU",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "None"
+				}
+			}
+		],
+		"variables": {
+			"OUTLET_ID": {
+				"type": "String"
+			},
+			"MODULE_ID": {
+				"type": "String"
+			},
+			"SRC_COLLECTION_NAME": {
+				"type": "String"
+			},
+			"TRG_SCHEMA_NAME": {
+				"type": "String"
+			},
+			"TRG_TABLE_NAME": {
+				"type": "String"
+			},
+			"BATCH_SIZE": {
+				"type": "String"
+			},
+			"SRC_WATERMARK_COLUMN_NAME": {
+				"type": "String"
+			},
+			"TRG_DATE_WATERMARK_COLUMN_NAME": {
+				"type": "String"
+			},
+			"TRG_INT_WATERMARK_COLUMN_NAME": {
+				"type": "String"
+			},
+			"DATA_COPY_MAPPING_JSON": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/ECMS_SIMPLE_COPY/BACK_UP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T11:23:48Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,50 @@
+{
+	"name": "DMS_MODULE_OUTLET_MAPPING_DS_BU",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DMS_ADF_DEMO_LS_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FRAMEWORK_DATASETS_DEV"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "MODULE_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "OUTLET_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "MIGRATION_STATUS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DATE_TILL_DATA_MIGRATED",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "IS_ACTIVE",
+				"type": "bit"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DMS_MODULE_OUTLET_MAPPING"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

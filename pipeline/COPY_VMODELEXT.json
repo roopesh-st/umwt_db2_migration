@@ -1,0 +1,122 @@
+{
+	"name": "COPY_VMODELEXT",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VMODELEXT",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VMODELEXT_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.VMODELEXT_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ESMOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESMOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESIMPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESIMPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESAPD1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESAPD1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESTARF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESTARF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESPAYT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESPAYT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VMODELEXT"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VMODELEXT_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-12-03T06:33:31Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

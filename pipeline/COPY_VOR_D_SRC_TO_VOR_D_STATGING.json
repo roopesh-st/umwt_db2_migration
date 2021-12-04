@@ -1,0 +1,210 @@
+{
+	"name": "COPY_VOR_D_SRC_TO_VOR_D_STATGING",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VOR_D_SRC_TO_VOR_D_STATGING",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "select * from E31DLIB3.VOR_D FETCH FIRST 1 ROWS ONLY"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "BDORNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDORNO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDDOCN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDDOCN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDPAYT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDPAYT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDPAMT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BDPAMT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BDOGBR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDOGBR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDTRST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDTRST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDACO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDACO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDRNDA",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BDRNDA",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BDCAMT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BDCAMT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BDSMID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDSMID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDTAXC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDTAXC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDDESC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BDDESC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BDEFTC",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BDEFTC",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VOR_D"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_D_STAGING",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER/11Nov"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-12-03T12:40:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

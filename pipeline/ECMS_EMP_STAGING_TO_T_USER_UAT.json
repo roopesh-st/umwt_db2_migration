@@ -1,0 +1,135 @@
+{
+	"name": "ECMS_EMP_STAGING_TO_T_USER_UAT",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_ECMS_EMPLOYEES_DATA",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "\nWITH added_row_number AS (\n    select FormattedName, Email, Email as EMAIL_ID, EmployeeID, EmployeeUUID, IdentityUUID, UMWT_DATA_SRC,  ROW_NUMBER() OVER(PARTITION BY Email ORDER BY ChangedOn DESC) AS row_number\n    from dbo.ECMS_EMPLOYEE_DATA\n    where Email != ''  and UserValidityEndDate = '9999-12-31 00:00:00'\n    --and Email = 'alexanderrg@toyota.com.my'\n)\nSELECT\n  *\nFROM added_row_number\nWHERE row_number = 1;\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "delete from dbo.T_USER where UMWT_DATA_SRC = 1",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Email",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EMAIL_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EmployeeID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_EMPLOYEE_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EmployeeUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "ECMS_EMPLOYEE_UUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IdentityUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "ECMS_IDENTITY_UUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte"
+								},
+								"sink": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte"
+								}
+							},
+							{
+								"source": {
+									"name": "FormattedName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FULL_NAME",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "ECMS_EMPLOYEE_DATA"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_USER"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/MIGRATION - UAT ENV"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-22T12:48:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,66 @@
+{
+	"name": "COPY_GCUST",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_GCUST",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "SELECT * from E31DLIB3.GCUST FETCH FIRST 100 ROWS ONLY"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.GCUST')  IS NOT NULL TRUNCATE TABLE dbo.GCUST",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "GCUST"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_H",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/TRAN_SIMPLE_COPY"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-14T03:53:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
