@@ -478,11 +478,7 @@
 									},
 									"tableOption": "autoCreate"
 								},
-								"enableStaging": false,
-								"translator": {
-									"value": "@variables('DATA_COPY_MAPPING_JSON')",
-									"type": "Expression"
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
