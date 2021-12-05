@@ -1,5 +1,5 @@
 {
-	"name": "COPY_GREGION",
+	"name": "COPY_GREGION_STAGING",
 	"properties": {
 		"activities": [
 			{
@@ -16,8 +16,9 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "Db2Source",
-						"query": "select * from E31DLIB3.GREGION"
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -31,7 +32,8 @@
 							{
 								"source": {
 									"name": "MODULE",
-									"type": "String"
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "MODULE",
@@ -42,7 +44,8 @@
 							{
 								"source": {
 									"name": "REGION",
-									"type": "String"
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "REGION",
@@ -52,8 +55,9 @@
 							},
 							{
 								"source": {
-									"name": "DESC",
-									"type": "String"
+									"name": "DESCRIPTION",
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "DESCRIPTION",
@@ -71,21 +75,21 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "E31DLIB3",
-							"TableName": "GREGION"
-						}
-					}
-				],
-				"outputs": [
-					{
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"TableName": "GREGION_STAGING",
 							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_MASTER_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "GREGION_STAGING"
 						}
 					}
 				]
