@@ -1,9 +1,9 @@
 {
-	"name": "COPY_GREFERP",
+	"name": "COPY_GREFERP_STAGING",
 	"properties": {
 		"activities": [
 			{
-				"name": "COPY_GREFERP",
+				"name": "COPY_GREFERP_STAGING",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,8 +16,9 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "Db2Source",
-						"query": "select * from E31DLIB5.GREFERP where REFCAT IN ('513', '514','566','5Z6')\t"
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -36,21 +37,21 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "E31DLIB5",
-							"TableName": "GREFERP"
-						}
-					}
-				],
-				"outputs": [
-					{
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"TableName": "GREFERP_STAGING",
 							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_MASTER_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "GREFERP_STAGING"
 						}
 					}
 				]
