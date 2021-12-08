@@ -1,0 +1,52 @@
+{
+	"name": "ECMS_PRODUCT_COLLECTION_TO_UAT_STAGING",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_Product_Collection",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.PRODUCT_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.PRODUCT_COLLECTION_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_PRODUCT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "PRODUCT_COLLECTION_STAGING"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DATA_MIGRATION/ECMS MODULE/MIGRATION - UAT ENV"
+		},
+		"annotations": []
+	}
+}
