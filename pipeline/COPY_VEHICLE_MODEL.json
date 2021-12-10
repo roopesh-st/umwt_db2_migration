@@ -125,6 +125,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
+							"TableName": "VMODEL",
 							"SchemaName": "dbo"
 						}
 					}
