@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "Db2Source",
-						"query": "SELECT * FROM E31DLIB5.GREFERP"
+						"query": "SELECT * FROM E31DLIB5.GREFERP where REFCAT = '513'\t"
 					},
 					"sink": {
 						"type": "SqlServerSink",
