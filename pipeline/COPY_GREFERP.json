@@ -107,7 +107,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_MASTER_TABLE_PARAM",
+						"referenceName": "QA_MASTER_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
