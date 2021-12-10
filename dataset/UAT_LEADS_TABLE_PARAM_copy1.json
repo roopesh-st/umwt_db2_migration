@@ -2,7 +2,7 @@
 	"name": "UAT_LEADS_TABLE_PARAM_copy1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "UAT_DMS_LEADS_LS",
+			"referenceName": "QA_DMS_LEADS_LS",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
