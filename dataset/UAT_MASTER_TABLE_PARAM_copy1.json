@@ -2,7 +2,7 @@
 	"name": "UAT_MASTER_TABLE_PARAM_copy1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "UAT_DMS_MASTER_LS",
+			"referenceName": "QA_DMS_MASTER_LS",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
