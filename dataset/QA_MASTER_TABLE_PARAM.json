@@ -1,5 +1,5 @@
 {
-	"name": "UAT_MASTER_TABLE_PARAM_copy1",
+	"name": "QA_MASTER_TABLE_PARAM",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "QA_DMS_MASTER_LS",
