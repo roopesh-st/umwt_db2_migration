@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.GREFERP_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.GREFERP_STAGING",
+						"preCopyScript": "IF OBJECT_ID('dbo.GREFERP')  IS NOT NULL TRUNCATE TABLE dbo.GREFERP",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -49,15 +49,76 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "GREFERP_STAGING",
+							"TableName": "GREFERP",
 							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_GREFERP_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_GREFERP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.GREFERP_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.GREFERP_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "GREFERP",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_MASTER_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "GREFERP_STAGING"
 						}
 					}
 				]
 			}
 		],
 		"folder": {
-			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER"
+			"name": "DMS - PHASE 1/MASTER DATA/COPY_SRC_TO_STAGING"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-11-16T01:29:30Z"
