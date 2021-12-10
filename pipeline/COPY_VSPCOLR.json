@@ -1,9 +1,9 @@
 {
-	"name": "COPY_GREFERP",
+	"name": "COPY_VSPCOLR",
 	"properties": {
 		"activities": [
 			{
-				"name": "COPY_GREFERP",
+				"name": "COPY_VSPCOLR",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,12 +16,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "Db2Source",
-						"query": "select * from E31DLIB3.GREFERP "
+						"type": "Db2Source"
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.GREFERP_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.GREFERP_STAGING",
+						"preCopyScript": "IF OBJECT_ID('dbo.VSPCOLR')  IS NOT NULL TRUNCATE TABLE dbo.VSPCOLR",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -40,7 +39,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "GREFERP"
+							"TableName": "VSPCOLR"
 						}
 					}
 				],
@@ -49,7 +48,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "GREFERP_STAGING",
+							"TableName": "VSPCOLR",
 							"SchemaName": "dbo"
 						}
 					}
