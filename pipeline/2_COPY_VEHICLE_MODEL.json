@@ -167,6 +167,33 @@
 					"referenceName": "QA_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "MERGE_T_VEHICLE_MODEL",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_VMODEL_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_VEHICLE_MODEL]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
