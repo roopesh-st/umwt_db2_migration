@@ -148,7 +148,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "AFTER_GREFERP_STAGING_COPY",
+						"activity": "MERGE_T_MASTER",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -245,6 +245,33 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[MERGE_T_ACCESSORY_CONFIG]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_MASTER",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_GREFERP_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_MASTER]"
 				},
 				"linkedServiceName": {
 					"referenceName": "QA_DMS_MASTER_LS",
