@@ -2,7 +2,7 @@
 	"name": "QA_ADMIN_TABLE_PARAM",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "UAT_DMS_ADMIN_LS",
+			"referenceName": "QA_DMS_ADMIN_LS",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
