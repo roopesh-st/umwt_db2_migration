@@ -343,16 +343,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"ADMIN_DB_NAME": {
-				"type": "string",
-				"defaultValue": "[dms-admin-uat]"
-			},
-			"MASTER_DB_NAME": {
-				"type": "string",
-				"defaultValue": "[dms-master-uat]"
-			}
-		},
 		"folder": {
 			"name": "DMS - PHASE 1/MASTER DATA"
 		},
