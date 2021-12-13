@@ -163,6 +163,33 @@
 					"referenceName": "QA_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "CREATE_VEHICLE_PRICING_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_VMPRICE_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
