@@ -190,6 +190,114 @@
 					"referenceName": "QA_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "CREATE_VEHICLE_PRICING_DETAILS_SELLING_PRICE_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CREATE_VEHICLE_PRICING_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_SELLING_PRICE_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CREATE_VEHICLE_PRICING_DETAILS_COMPANY_COMMERCIAL_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CREATE_VEHICLE_PRICING_DETAILS_SELLING_PRICE_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_COMPANY_COMMERCIAL_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_INDIVIDUAL_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CREATE_VEHICLE_PRICING_DETAILS_COMPANY_COMMERCIAL_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_INDIVIDUAL_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_COMPANY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_INDIVIDUAL_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_COMPANY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
