@@ -23,8 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "Db2Source",
-						"query": "SELECT * FROM E31DLIB3.VMPRICE FETCH"
+						"type": "Db2Source"
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -43,8 +42,12 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_GCUSTPRD_DS",
-						"type": "DatasetReference"
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VMPRICE"
+						}
 					}
 				],
 				"outputs": [
