@@ -24,7 +24,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "Db2Source",
-						"query": "SELECT * FROM E31DLIB3.VMPRICE FETCH FIRST 10 ROWS ONLY"
+						"query": "SELECT * FROM E31DLIB3.VMPRICE FETCH FIRST 1000 ROWS ONLY"
 					},
 					"sink": {
 						"type": "SqlServerSink",
