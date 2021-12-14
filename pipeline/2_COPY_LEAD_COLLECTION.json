@@ -858,7 +858,7 @@
 					"sink": {
 						"type": "SqlServerSink",
 						"preCopyScript": {
-							"value": "IF @{activity('LOOKUP_ORG_ID').firstRow.ID} IS NOT NULL\nDELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID = @{activity('LOOKUP_ORG_ID').firstRow.ID}",
+							"value": "IF @{activity('LOOKUP_ORG_ID').output.firstRow.ID} IS NOT NULL\nDELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}\n\n",
 							"type": "Expression"
 						}
 					},
@@ -1668,7 +1668,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "SELECT TOP (1) ID FROM T_ORG_STRUCTURE WHERE ORG_ID = @{pipeline().parameters.OUTLET_ID}",
+							"value": "SELECT TOP (1) ID FROM T_ORG_STRUCTURE WHERE ORG_ID = '@{pipeline().parameters.OUTLET_ID}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
