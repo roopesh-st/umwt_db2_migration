@@ -166,6 +166,33 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "CREATE_VEHICLE_PRICING_COLOUR_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_VSPCOLR_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_COLOUR_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
