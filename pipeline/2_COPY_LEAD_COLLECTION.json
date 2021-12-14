@@ -45,7 +45,7 @@
 					"source": {
 						"type": "SapCloudForCustomerSource",
 						"query": {
-							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}')&$top=1000",
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}')",
 							"type": "Expression"
 						},
 						"httpRequestTimeout": "00:05:00"
