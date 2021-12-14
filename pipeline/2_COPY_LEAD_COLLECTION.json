@@ -850,7 +850,8 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "SqlServerSink"
+						"type": "SqlServerSink",
+						"preCopyScript": "DELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID ="
 					},
 					"enableStaging": false,
 					"translator": {
