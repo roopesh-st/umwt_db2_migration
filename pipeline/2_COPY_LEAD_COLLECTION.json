@@ -59,12 +59,12 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ID",
+									"name": "ECMS_ID",
 									"type": "String"
 								},
 								"sink": {
 									"name": "ECMS_ID",
-									"type": "String"
+									"type": "Int32"
 								}
 							},
 							{
@@ -73,7 +73,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Name",
+									"name": "ECMS_Name",
 									"type": "String"
 								}
 							},
@@ -83,7 +83,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "AccountPartyID",
+									"name": "ECMS_PROSPECT_ID",
 									"type": "String"
 								}
 							},
@@ -93,17 +93,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "AccountPartyName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "OriginTypeCode",
-									"type": "String"
-								},
-								"sink": {
-									"name": "OriginTypeCode",
+									"name": "CUST_NAME",
 									"type": "String"
 								}
 							},
@@ -113,7 +103,17 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "OriginTypeCodeText",
+									"name": "SOURCE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_OriginTypeCode",
 									"type": "String"
 								}
 							},
@@ -123,28 +123,28 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "OwnerPartyIDSales",
-									"type": "String"
+									"name": "ECMS_OWNER_ID",
+									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "OwnerUUIDSales",
-									"type": "String"
+									"name": "OWNER_ID",
+									"type": "Int32"
 								},
 								"sink": {
-									"name": "OwnerUUIDSales",
-									"type": "String"
+									"name": "OWNER_ID",
+									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "SalesOrganisationID",
-									"type": "String"
+									"name": "ORG_ID",
+									"type": "Int32"
 								},
 								"sink": {
-									"name": "SalesOrganisationID",
-									"type": "String"
+									"name": "ORG_ID",
+									"type": "Int32"
 								}
 							},
 							{
@@ -153,7 +153,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "CreationDateTime",
+									"name": "CREATED_DATE_TIME",
 									"type": "DateTime"
 								}
 							},
@@ -163,37 +163,17 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "LastChangeDateTime",
+									"name": "UPDATED_DATE_TIME",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "SalesTerritoryID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "SalesTerritoryID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "SalesTerritoryName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "SalesTerritoryName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"name": "IndividualCustomerGenderCode",
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerGenderCode",
+									"name": "ECMS_IndividualCustomerGenderCode",
 									"type": "String"
 								}
 							},
@@ -203,7 +183,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerGenderCodeText",
+									"name": "GENDER",
 									"type": "String"
 								}
 							},
@@ -213,7 +193,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerMaritalStatusCode",
+									"name": "ECMS_IndividualCustomerMaritalStatusCode",
 									"type": "String"
 								}
 							},
@@ -223,8 +203,16 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerMaritalStatusCodeText",
+									"name": "MARITAL_STATUS"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
 									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_PDI_AutoAssignmentOption_SDKText"
 								}
 							},
 							{
@@ -233,7 +221,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerEMail",
+									"name": "EMAIL",
 									"type": "String"
 								}
 							},
@@ -243,77 +231,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerMobile",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressStreetName",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressStreetName",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressCity",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressCity",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressCountry",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressCountry",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressCountryText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressCountryText",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressState",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressState",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressStateText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressStateText",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerAddressPostalCode",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerAddressPostalCode",
+									"name": "PHONE",
 									"type": "String"
 								}
 							},
@@ -323,37 +241,17 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "IndividualCustomerBirthDate",
+									"name": "DATE_OF_BIRTH",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "IndividualCustomerFormOfAddressCode",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IndividualCustomerFormOfAddressCode",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"name": "IndividualCustomerFormOfAddressCodeText",
 									"type": "String"
 								},
 								"sink": {
-									"name": "IndividualCustomerFormOfAddressCodeText",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LifeCycleStatusCode",
-									"type": "String"
-								},
-								"sink": {
-									"name": "LifeCycleStatusCode",
+									"name": "TITLE",
 									"type": "String"
 								}
 							},
@@ -363,48 +261,28 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "LifeCycleStatusCodeText",
+									"name": "STATUS",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "CreatedBy",
-									"type": "String"
+									"name": "CREATED_BY",
+									"type": "Int32"
 								},
 								"sink": {
-									"name": "CreatedBy",
-									"type": "String"
+									"name": "CREATED_BY",
+									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "CreationIdentityUUID",
-									"type": "String"
+									"name": "UPDATED_BY",
+									"type": "Int32"
 								},
 								"sink": {
-									"name": "CreationIdentityUUID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LastChangedBy",
-									"type": "String"
-								},
-								"sink": {
-									"name": "LastChangedBy",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LastChangeIdentityUUID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "LastChangeIdentityUUID",
-									"type": "String"
+									"name": "UPDATED_BY",
+									"type": "Int32"
 								}
 							},
 							{
@@ -413,7 +291,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "PDI_LeadSubSource_SDK",
+									"name": "SUB_SOURCE",
 									"type": "String"
 								}
 							},
@@ -423,7 +301,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "PDI_ActivityCategory_SDK",
+									"name": "ECMS_PDI_ActivityCategory_SDK",
 									"type": "String"
 								}
 							},
@@ -433,17 +311,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "PDI_AutoAssignmentOption_SDK",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_AutoAssignmentOption_SDKText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "PDI_AutoAssignmentOption_SDKText",
+									"name": "ECMS_PDI_AutoAssignmentOption_SDK",
 									"type": "String"
 								}
 							},
@@ -453,58 +321,48 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTCustomerBrand_KUT",
+									"name": "BRAND",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTCustomerType_KUT",
-									"type": "String"
+									"name": "CUST_TYPE",
+									"type": "Int32"
 								},
 								"sink": {
-									"name": "KUTCustomerType_KUT",
-									"type": "String"
+									"name": "CUST_TYPE",
+									"type": "Int32"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTCustomerType_KUTText",
-									"type": "String"
+									"name": "DO_EMAIL",
+									"type": "Byte"
 								},
 								"sink": {
-									"name": "KUTCustomerType_KUTText",
-									"type": "String"
+									"name": "DO_EMAIL",
+									"type": "Byte"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTDoNotEmail_KUT",
-									"type": "Boolean"
+									"name": "DO_MAIL",
+									"type": "Byte"
 								},
 								"sink": {
-									"name": "KUTDoNotEmail_KUT",
-									"type": "String"
+									"name": "DO_MAIL",
+									"type": "Byte"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTDoNotMail_KUT",
-									"type": "Boolean"
+									"name": "DO_SMS",
+									"type": "Byte"
 								},
 								"sink": {
-									"name": "KUTDoNotMail_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTDoNotSMS_KUT",
-									"type": "Boolean"
-								},
-								"sink": {
-									"name": "KUTDoNotSMS_KUT",
-									"type": "String"
+									"name": "DO_SMS",
+									"type": "Byte"
 								}
 							},
 							{
@@ -513,7 +371,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTExternalID1_KUT",
+									"name": "LEAD_3IN1_CUSTOMER_ID",
 									"type": "String"
 								}
 							},
@@ -523,47 +381,17 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTICNumberNew_KUT",
+									"name": "IDENTIFICATION_NUMBER",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTLEADMobileAreaCode_KUT",
+									"name": "IDENTIFICATION_TYPE",
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTLEADMobileAreaCode_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTLEADMobile_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "KUTLEADMobile_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTLEADPhoneAreaCode_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "KUTLEADPhoneAreaCode_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTLEADPhone_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "KUTLEADPhone_KUT",
+									"name": "IDENTIFICATION_TYPE",
 									"type": "String"
 								}
 							},
@@ -573,17 +401,27 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "KUTPDPADate_KUT",
+									"name": "PDPA_DATE",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTPDPA_KUT",
-									"type": "Boolean"
+									"name": "PDPA_FLAG",
+									"type": "Byte"
 								},
 								"sink": {
-									"name": "KUTPDPA_KUT",
+									"name": "PDPA_FLAG",
+									"type": "Byte"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PROSPECT_CATEGORY",
 									"type": "String"
 								}
 							},
@@ -593,17 +431,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTProspectCategory",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTProspectCategoryText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "KUTProspectCategoryText",
+									"name": "ECMS_KUTProspectCategory",
 									"type": "String"
 								}
 							},
@@ -613,7 +441,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTRace_KUT",
+									"name": "ECMS_KUTRace_KUT",
 									"type": "String"
 								}
 							},
@@ -623,7 +451,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUTRace_KUTText",
+									"name": "RACE",
 									"type": "String"
 								}
 							},
@@ -633,17 +461,27 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "KUTReturnMailDate_KUT",
+									"name": "RETURN_MAIL_DATE",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTReturnMail_KUT",
-									"type": "Boolean"
+									"name": "RETURN_MAIL",
+									"type": "Byte"
 								},
 								"sink": {
-									"name": "KUTReturnMail_KUT",
+									"name": "RETURN_MAIL",
+									"type": "Byte"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PREFERRED_CONTACT_METHOD",
 									"type": "String"
 								}
 							},
@@ -653,17 +491,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "KUT_CommunicationMode_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUT_CommunicationMode_KUTText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "KUT_CommunicationMode_KUTText",
+									"name": "ECMS_KUT_CommunicationMode_KUT",
 									"type": "String"
 								}
 							},
@@ -673,7 +501,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "PDI_InterestedVariant1content_SDK",
+									"name": "ECMS_PDI_InterestedVariant1content_SDK",
 									"type": "String"
 								}
 							},
@@ -683,7 +511,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ZCDC_CUST_UUID_KUT",
+									"name": "ECMS_ZCDC_CUST_UUID_KUT",
 									"type": "String"
 								}
 							},
@@ -693,38 +521,18 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"name": "ECMS_ZOM_ASSIGN_SA_DATE_TIME_KUT",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
-									"type": "Boolean"
+									"name": "ECMS_ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Byte"
 								},
 								"sink": {
-									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
-									"type": "Boolean"
-								},
-								"sink": {
-									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
-									"type": "String"
+									"name": "ECMS_ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Byte"
 								}
 							},
 							{
@@ -733,7 +541,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ZTESTDRIVE_BRAND_KUT",
+									"name": "ECMS_ZTESTDRIVE_BRAND_KUT",
 									"type": "String"
 								}
 							},
@@ -743,7 +551,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"name": "ECMS_ZTESTDRIVE_CARMODEL_KUT",
 									"type": "String"
 								}
 							},
@@ -753,7 +561,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"name": "ECMS_ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
 									"type": "DateTime"
 								}
 							},
@@ -763,18 +571,98 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"name": "ECMS_ZTESTDRIVE_PREFERRED_DATETIME_KUT",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "zsave_counter_KUT",
-									"type": "Decimal"
+									"name": "SalesOrganisationID",
+									"type": "String"
 								},
 								"sink": {
-									"name": "zsave_counter_KUT",
-									"type": "Decimal"
+									"name": "ECMS_SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_LastChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_SalesTerritoryName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_KUTCustomerType_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte"
+								},
+								"sink": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte"
 								}
 							}
 						]
@@ -793,6 +681,104 @@
 						"parameters": {
 							"SchemaName": "dbo",
 							"TableName": "T_LEAD_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_LEADS_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_ECMS_LEAD_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_LEADS_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_LEAD",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "AFTER_LEADS_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ECMS_ID",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ID",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_COLLECTION_STAGING"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD"
 						}
 					}
 				]
