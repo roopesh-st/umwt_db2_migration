@@ -59,12 +59,12 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ECMS_ID",
+									"name": "ID",
 									"type": "String"
 								},
 								"sink": {
 									"name": "ECMS_ID",
-									"type": "Int32"
+									"type": "String"
 								}
 							},
 							{
@@ -73,7 +73,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_Name",
+									"name": "Name",
 									"type": "String"
 								}
 							},
@@ -83,7 +83,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_PROSPECT_ID",
+									"name": "AccountPartyID",
 									"type": "String"
 								}
 							},
@@ -93,17 +93,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "CUST_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "OriginTypeCodeText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "SOURCE",
+									"name": "AccountPartyName",
 									"type": "String"
 								}
 							},
@@ -113,7 +103,17 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_OriginTypeCode",
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCodeText",
 									"type": "String"
 								}
 							},
@@ -123,28 +123,28 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_OWNER_ID",
-									"type": "Int32"
+									"name": "OwnerPartyIDSales",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "OWNER_ID",
-									"type": "Int32"
+									"name": "OwnerUUIDSales",
+									"type": "String"
 								},
 								"sink": {
-									"name": "OWNER_ID",
-									"type": "Int32"
+									"name": "OwnerUUIDSales",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "ORG_ID",
-									"type": "Int32"
+									"name": "SalesOrganisationID",
+									"type": "String"
 								},
 								"sink": {
-									"name": "ORG_ID",
-									"type": "Int32"
+									"name": "SalesOrganisationID",
+									"type": "String"
 								}
 							},
 							{
@@ -153,7 +153,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "CREATED_DATE_TIME",
+									"name": "CreationDateTime",
 									"type": "DateTime"
 								}
 							},
@@ -163,446 +163,8 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "UPDATED_DATE_TIME",
+									"name": "LastChangeDateTime",
 									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerGenderCode",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_IndividualCustomerGenderCode",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerGenderCodeText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "GENDER",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerMaritalStatusCode",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_IndividualCustomerMaritalStatusCode",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerMaritalStatusCodeText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "MARITAL_STATUS"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_AutoAssignmentOption_SDKText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_PDI_AutoAssignmentOption_SDKText"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerEMail",
-									"type": "String"
-								},
-								"sink": {
-									"name": "EMAIL",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerMobile",
-									"type": "String"
-								},
-								"sink": {
-									"name": "PHONE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerBirthDate",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "DATE_OF_BIRTH",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "IndividualCustomerFormOfAddressCodeText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "TITLE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LifeCycleStatusCodeText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "STATUS",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "CREATED_BY",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "CREATED_BY",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "UPDATED_BY",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "UPDATED_BY",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_LeadSubSource_SDK",
-									"type": "String"
-								},
-								"sink": {
-									"name": "SUB_SOURCE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_ActivityCategory_SDK",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_PDI_ActivityCategory_SDK",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_AutoAssignmentOption_SDK",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_PDI_AutoAssignmentOption_SDK",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTCustomerBrand_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "BRAND",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "CUST_TYPE",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "CUST_TYPE",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "DO_EMAIL",
-									"type": "Byte"
-								},
-								"sink": {
-									"name": "DO_EMAIL",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"name": "DO_MAIL",
-									"type": "Byte"
-								},
-								"sink": {
-									"name": "DO_MAIL",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"name": "DO_SMS",
-									"type": "Byte"
-								},
-								"sink": {
-									"name": "DO_SMS",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTExternalID1_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "LEAD_3IN1_CUSTOMER_ID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTICNumberNew_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IDENTIFICATION_NUMBER",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "IDENTIFICATION_TYPE",
-									"type": "String"
-								},
-								"sink": {
-									"name": "IDENTIFICATION_TYPE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTPDPADate_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "PDPA_DATE",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "PDPA_FLAG",
-									"type": "Byte"
-								},
-								"sink": {
-									"name": "PDPA_FLAG",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTProspectCategoryText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "PROSPECT_CATEGORY",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTProspectCategory",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_KUTProspectCategory",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTRace_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_KUTRace_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTRace_KUTText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "RACE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTReturnMailDate_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "RETURN_MAIL_DATE",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "RETURN_MAIL",
-									"type": "Byte"
-								},
-								"sink": {
-									"name": "RETURN_MAIL",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"name": "KUT_CommunicationMode_KUTText",
-									"type": "String"
-								},
-								"sink": {
-									"name": "PREFERRED_CONTACT_METHOD",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUT_CommunicationMode_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_KUT_CommunicationMode_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_InterestedVariant1content_SDK",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_PDI_InterestedVariant1content_SDK",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ZCDC_CUST_UUID_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_ZCDC_CUST_UUID_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "ECMS_ZOM_ASSIGN_SA_DATE_TIME_KUT",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "ECMS_ZOM_ASSIGN_SA_INDICATOR_KUT",
-									"type": "Byte"
-								},
-								"sink": {
-									"name": "ECMS_ZOM_ASSIGN_SA_INDICATOR_KUT",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"name": "ZTESTDRIVE_BRAND_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_ZTESTDRIVE_BRAND_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ZTESTDRIVE_CARMODEL_KUT",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_ZTESTDRIVE_CARMODEL_KUT",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "ECMS_ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "ECMS_ZTESTDRIVE_PREFERRED_DATETIME_KUT",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "SalesOrganisationID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_SalesOrganisationID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "CreatedBy",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_CreatedBy",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "LastChangedBy",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ECMS_LastChangedBy",
-									"type": "String"
 								}
 							},
 							{
@@ -611,7 +173,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_SalesTerritoryID",
+									"name": "SalesTerritoryID",
 									"type": "String"
 								}
 							},
@@ -621,18 +183,148 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_SalesTerritoryName",
+									"name": "SalesTerritoryName",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "KUTCustomerType_KUT",
+									"name": "IndividualCustomerGenderCode",
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_KUTCustomerType_KUTText",
+									"name": "IndividualCustomerGenderCode",
 									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountryText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStateText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStateText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
 								}
 							},
 							{
@@ -641,7 +333,17 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_IndividualCustomerFormOfAddressCode",
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
 									"type": "String"
 								}
 							},
@@ -651,18 +353,428 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ECMS_LifeCycleStatusCode",
+									"name": "LifeCycleStatusCode",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "UMWT_DATA_SRC",
-									"type": "Byte"
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
 								},
 								"sink": {
-									"name": "UMWT_DATA_SRC",
-									"type": "Byte"
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationIdentityUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreationIdentityUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeIdentityUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangeIdentityUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPA_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTPDPA_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTReturnMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "zsave_counter_KUT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "zsave_counter_KUT",
+									"type": "Decimal"
 								}
 							}
 						]
