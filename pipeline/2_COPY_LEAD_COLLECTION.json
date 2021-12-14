@@ -858,7 +858,7 @@
 					"sink": {
 						"type": "SqlServerSink",
 						"preCopyScript": {
-							"value": "IF '31E' IS NOT NULL\nDELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID = 4761",
+							"value": "IF @{activity('LOOKUP_ORG_ID').firstRow.ID} IS NOT NULL\nDELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID = @{activity('LOOKUP_ORG_ID').firstRow.ID}",
 							"type": "Expression"
 						}
 					},
