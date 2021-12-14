@@ -833,6 +833,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "LOOKUP_ORG_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -851,7 +857,10 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "DELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1"
+						"preCopyScript": {
+							"value": "IF '31E' IS NOT NULL\nDELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID = 4761",
+							"type": "Expression"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -1642,12 +1651,50 @@
 					"referenceName": "QA_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "LOOKUP_ORG_ID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT TOP (1) ID FROM T_ORG_STRUCTURE WHERE ORG_ID = @{pipeline().parameters.OUTLET_ID}",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "QA_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_ORG_STRUCTURE"
+						}
+					},
+					"firstRowOnly": true
+				}
 			}
 		],
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
 				"defaultValue": "31E"
+			}
+		},
+		"variables": {
+			"ORG_ID": {
+				"type": "String"
 			}
 		},
 		"folder": {
