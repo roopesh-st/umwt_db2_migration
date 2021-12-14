@@ -45,7 +45,7 @@
 					"source": {
 						"type": "SapCloudForCustomerSource",
 						"query": {
-							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}')&$top=2",
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}')&$top=1000",
 							"type": "Expression"
 						},
 						"httpRequestTimeout": "00:05:00"
@@ -851,7 +851,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "DELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID ="
+						"preCopyScript": "DELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1"
 					},
 					"enableStaging": false,
 					"translator": {
