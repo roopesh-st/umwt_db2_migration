@@ -250,7 +250,7 @@
 				}
 			},
 			{
-				"name": "CREATE_POLICY_SETUP_INTERIOR_COLOUR_PROC",
+				"name": "CREATE_POLICY_SETUP_STD_REC_OPT_DIO_ACCESSORY_PROC",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
