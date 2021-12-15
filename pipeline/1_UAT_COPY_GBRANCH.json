@@ -1,0 +1,2380 @@
+{
+	"name": "1_UAT_COPY_GBRANCH",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_GBRANCH_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_GBRANCH_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_ADMIN_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_GBRANCH",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_GBRANCH_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.GBRANCH')  IS NOT NULL TRUNCATE TABLE dbo.GBRANCH",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "BIBRCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRNM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRNM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRSN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISTCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRGCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRPV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIBRPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRCV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIBRCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGPV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIRGPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGCV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIRGCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRTY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICONM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICONM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLA1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLA2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLA3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLTL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLTL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLFX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRA1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRA2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRA3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRTL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRTL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRFX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTA1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTA2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTA3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTTL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTTL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTFX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICUNO",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BICUDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "BISTAX",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BISTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BILTAX",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BILTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BICURR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICURR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIFRAN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIFRAN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDBR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDBR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDHQ",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDHQ",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIUPDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIUPDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "BIUPTM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIUPTM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIUPFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIUPFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIFINC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIFINC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICUID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACBR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIACBR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACTB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIACTB",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACTC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIACTC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTKC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISTKC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDLRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDLRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIVNDC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIVNDC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIOTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIOTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISUB1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISUB1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISUB2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISUB2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICSTK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICSTK",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPDSF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPDSF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDELW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDELW",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBSVC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBSVC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIEMFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIEMFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIJPJI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIJPJI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BITXAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BITXAR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIGSTN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIGSTN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGNS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRGNS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIHRFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIHRFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIGRPI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIGRPI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BINBRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BINBRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIWSCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIWSCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISSTN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISSTN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISSST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISSST",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIAOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIAOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIAOAS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIAOAS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "GBRANCH"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "GBRANCH",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_GBRANCH_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_GBRANCH_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_GBRANCH_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_ADMIN_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_GBRANCH_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_GBRANCH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "BIBRCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRNM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRNM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRSN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISTCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRGCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRPV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIBRPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRCV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIBRCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGPV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIRGPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGCV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIRGCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBRTY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICONM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICONM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLA1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLA2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLA3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLTL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLTL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISLFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISLFX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRA1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRA2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRA3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRTL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRTL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISRFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISRFX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTA1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTA1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTA2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTA2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTA3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTA3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTPC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTPC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTTL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTTL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPTFX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPTFX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICUNO",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BICUDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "BISTAX",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BISTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BILTAX",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BILTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BICURR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICURR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIFRAN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIFRAN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDBR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDBR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDHQ",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDHQ",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIUPDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BIUPDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "BIUPTM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIUPTM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIUPFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIUPFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIFINC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIFINC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICUID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACBR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIACBR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACTB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIACTB",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACTC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIACTC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTKC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISTKC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDLRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDLRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIVNDC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIVNDC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIOTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIOTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISUB1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISUB1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISUB2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISUB2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICSTK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BICSTK",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIPDSF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIPDSF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDELW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIDELW",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBSVC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIBSVC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIEMFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIEMFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIJPJI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIJPJI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BITXAR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BITXAR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIGSTN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIGSTN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGNS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIRGNS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIHRFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIHRFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIGRPI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIGRPI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BINBRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BINBRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIWSCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIWSCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISSTN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISSTN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISSST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BISSST",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIAOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIAOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIAOAS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BIAOAS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "GBRANCH",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "GBRANCH_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_T_ORG_STRUCTURE",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "AFTER_GBRANCH_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "BIBRCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ORG_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRNM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRSN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BIBRSN",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BISTCD",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "REGION_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIAOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "AREA_OPERATION_SALES",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIAOAS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "AREA_OPERATION_SERVICE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BICOCD",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								},
+								"sink": {
+									"name": "UMWT_BIBRPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								},
+								"sink": {
+									"name": "UMWT_BIBRCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								},
+								"sink": {
+									"name": "UMWT_BIRGPV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								},
+								"sink": {
+									"name": "UMWT_BIRGCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BIBRTY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ORG_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICONM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "COMMERCIAL_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUNO",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "CUSTOM_NO",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								},
+								"sink": {
+									"name": "SALES_TAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BILTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								},
+								"sink": {
+									"name": "SERVICE_LABOUR_TAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "BICURR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BICURR",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BRAND",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "BRAND",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDBR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BIDBR",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIDHQ",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BIDHQ",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DEALER_FINANCIAL_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "DEALER_FINANCIAL_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "BICUID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BICUID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACBR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "DEALER_ACCOUNTING_BRANCH_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACTB",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ACCOUNTING_BRANCH_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIACTC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ACCOUNTING_COMM_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISTKC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ROUTE_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIVNDC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "VENDOR_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIOTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "OPERATION_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIBSVC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "SERVICE_OUTLET_MAPPING",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIEMFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BIEMFL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BITXAR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "TAX_AREA",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIGSTN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "GST_REG_NUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRGNS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "STOCKYARD_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SAP_HR_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "SAP_HR_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "BIGRPI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BIGRPI",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BINBRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BINBRC",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BIWSCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "UMWT_BIWSCD",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISSTN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "SST_NO",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BISSST",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "STATE_SST_NO",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ACTIVE",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "ACTIVE",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "CUSTOM_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "CUSTOM_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "FROM_UMWT_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "FROM_UMWT_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "GBRANCH_STAGING"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_ORG_STRUCTURE"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_T_ORGANIZATION_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_T_ORG_STRUCTURE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_T_ORGANIZATION_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_ADMIN_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/MASTER DATA/UAT ENV"
+		},
+		"annotations": []
+	}
+}
