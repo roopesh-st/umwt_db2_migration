@@ -98,6 +98,32 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "5_COPY_OPPORTUNITY_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "4_COPY_APPOINTMENT_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "5_COPY_OPPORTUNITY_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
 			}
 		],
 		"parameters": {
