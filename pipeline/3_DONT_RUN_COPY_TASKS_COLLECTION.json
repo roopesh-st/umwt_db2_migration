@@ -255,7 +255,7 @@
 				}
 			},
 			{
-				"name": "COPY_TASKS",
+				"name": "COPY_T_LEAD_TASK",
 				"type": "Copy",
 				"dependsOn": [
 					{
