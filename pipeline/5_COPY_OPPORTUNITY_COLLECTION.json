@@ -53,7 +53,382 @@
 					"sink": {
 						"type": "SqlServerSink"
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProspectPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedProcessingStartDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ExpectedProcessingStartDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "CreatedByUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "LastChangedByUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTInvoiceDateOppt_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTInvoiceDateOppt_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTInvoiceNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTInvoiceNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCOCancellationDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTRCOCancellationDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCODate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTRCODate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCONumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCONumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCORejectedReason_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCORejectedReason_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCORejectedReason_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCORejectedReason_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCOStatus",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCOStatus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCOStatusText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCOStatusText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRequireTestDrive",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTRequireTestDrive",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRequireTradeIn",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTRequireTradeIn",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTSetToLostDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTSetToLostDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTSetToWonDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTSetToWonDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CashBuyer_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUT_CashBuyer_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_LoanStatus_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_LoanStatus_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_LoanStatus_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_LoanStatus_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_LoanSubmissionDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUT_LoanSubmissionDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_ProspectStatus_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_ProspectStatus_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_ProspectStatus_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_ProspectStatus_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ObjectID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ObjectID",
+									"type": "String"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
