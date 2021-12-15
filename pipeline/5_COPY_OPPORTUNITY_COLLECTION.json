@@ -81,12 +81,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "COPY_T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"policy": {
@@ -131,102 +125,6 @@
 					"referenceName": "QA_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
-			},
-			{
-				"name": "COPY_T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "BEFORE_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SapCloudForCustomerSource",
-						"httpRequestTimeout": "00:05:00"
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
-						"tableOption": "autoCreate"
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "ParentObjectID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ParentObjectID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "OpportunityID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "OpportunityID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "OpportunityLastChangeDateTime",
-									"type": "DateTimeOffset"
-								},
-								"sink": {
-									"name": "OpportunityLastChangeDateTime",
-									"type": "DateTimeOffset"
-								}
-							}
-						]
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"COLLECTION_NAME": "OpportunityBusinessTransactionDocumentReferenceCollection"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING"
-						}
-					}
-				]
 			}
 		],
 		"parameters": {
