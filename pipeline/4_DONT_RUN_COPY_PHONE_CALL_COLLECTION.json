@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_T_CALL_LOG_COLLECTION_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "QA_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -95,7 +95,7 @@
 					"storedProcedureName": "[dbo].[AFTER_CALL_LOG_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "QA_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -381,7 +381,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "QA_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -391,7 +391,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "QA_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
