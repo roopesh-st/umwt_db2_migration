@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "2_COPY_LEAD_COLLECTION",
+						"referenceName": "1_COPY_LEAD_COLLECTION",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
@@ -35,7 +35,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "3_COPY_TASKS_COLLECTION",
+						"referenceName": "2_COPY_TASKS_COLLECTION",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
@@ -61,7 +61,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "4_COPY_PHONE_CALL_COLLECTION",
+						"referenceName": "3_COPY_PHONE_CALL_COLLECTION",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
@@ -87,7 +87,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "5_COPY_APPOINTMENT_COLLECTION",
+						"referenceName": "4_COPY_APPOINTMENT_COLLECTION",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true,
