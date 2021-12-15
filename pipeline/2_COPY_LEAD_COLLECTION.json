@@ -31,6 +31,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "PRE_COPY_LEADS_CLEANUP_IN_TARGET",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -2379,6 +2385,35 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "PRE_COPY_LEADS_CLEANUP_IN_TARGET",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[PRE_COPY_LEADS_CLEANUP_IN_TARGET]",
+					"storedProcedureParameters": {
+						"OutletId": {
+							"value": {
+								"value": "@pipeline().parameters.OUTLET_ID",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
