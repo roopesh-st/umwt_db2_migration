@@ -1,0 +1,160 @@
+{
+	"name": "MIGRATE_ECMS_ALL_COLLECTIONS",
+	"properties": {
+		"activities": [
+			{
+				"name": "1_COPY_COLLECTIONS_EMPLOYEE_PRODUCT",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "1_COPY_COLLECTIONS_EMPLOYEE_PRODUCT",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "2_COPY_LEAD_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "1_COPY_COLLECTIONS_EMPLOYEE_PRODUCT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "2_COPY_LEAD_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "3_COPY_TASKS_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "2_COPY_LEAD_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_COPY_TASKS_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "4_COPY_PHONE_CALL_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "3_COPY_TASKS_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "4_COPY_PHONE_CALL_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "5_COPY_APPOINTMENT_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "4_COPY_PHONE_CALL_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "5_COPY_APPOINTMENT_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "6_COPY_OPPORTUNITY_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "5_COPY_APPOINTMENT_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "6_COPY_OPPORTUNITY_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "31E"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE"
+		},
+		"annotations": []
+	}
+}
