@@ -1,5 +1,5 @@
 {
-	"name": "MIGRATE_ECMS_ALL_COLLECTIONS",
+	"name": "MIGRATE_ECMS_COLLECTIONS_ALL",
 	"properties": {
 		"activities": [
 			{
