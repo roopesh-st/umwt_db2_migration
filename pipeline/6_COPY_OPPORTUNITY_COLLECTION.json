@@ -219,7 +219,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "QA_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
