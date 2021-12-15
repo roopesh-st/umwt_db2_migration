@@ -1,0 +1,415 @@
+{
+	"name": "4_DONT_RUN_COPY_PHONE_CALL_COLLECTION",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_T_CALL_LOG_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_T_CALL_LOG_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_CALL_LOG_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_T_CALL_LOG_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisation eq '@{pipeline().parameters.OUTLET_ID}')",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_PHONE_CALL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_CALL_LOG_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_CALL_LOG_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_T_CALL_LOG_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_CALL_LOG_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_LEAD_CALL_LOG",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "AFTER_CALL_LOG_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "LEAD_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "LEAD_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Subject",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "PURPOSE_OF_CALL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "NOTES",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedOn",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "CREATED_DATE_TIME",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "UPDATED_DATE_TIME",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ORG_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ORG_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ECMS_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ECMS_StartDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDateTimeZoneCode",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_StartDateTimeZoneCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ECMS_EndDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDatetimeZoneCode",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_EndDatetimeZoneCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MainAccountPartyID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_MainAccountPartyID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "InitiatorCode",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_InitiatorCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Priority",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_Priority",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesTerritoryID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisation",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesOrganisation",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerUUID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_OwnerUUID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedByUUID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_CreatedByUUID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_CALL_LOG_COLLECTION_STAGING"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_CALL_LOG"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "31E"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE"
+		},
+		"annotations": []
+	}
+}
