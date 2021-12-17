@@ -631,6 +631,39 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "AFTER_VOR_H_D_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_VOR_H_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_VOR_D_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_VOR_H_D_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
