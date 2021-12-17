@@ -86,7 +86,7 @@
 				]
 			},
 			{
-				"name": "COPY_VOR_H_TO_STAGING",
+				"name": "COPY_VOR_H_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
