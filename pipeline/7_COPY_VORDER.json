@@ -79,7 +79,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "VOR_H",
+							"TableName": "VORDER",
 							"SchemaName": "dbo"
 						}
 					}
