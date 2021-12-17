@@ -45,7 +45,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "select * from E31DLIB3.VOR_H where BHBRCD = @{pipeline().parameters.OUTLET_ID}",
+							"value": "select * from E31DLIB3.VOR_H where BHBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 							"type": "Expression"
 						}
 					},
