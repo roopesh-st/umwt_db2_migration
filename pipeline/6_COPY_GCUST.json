@@ -44,7 +44,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "Db2Source",
-						"query": "SELECT * from E31DLIB3.GCUST FETCH FIRST 10 ROWS ONLY"
+						"query": "SELECT * from E31DLIB3.GCUST "
 					},
 					"sink": {
 						"type": "SqlServerSink",
