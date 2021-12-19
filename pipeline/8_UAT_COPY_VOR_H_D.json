@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_VOR_H_D_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -501,7 +501,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -623,7 +623,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -661,7 +661,7 @@
 					"storedProcedureName": "[dbo].[AFTER_VOR_H_D_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -688,7 +688,7 @@
 					"storedProcedureName": "[dbo].[UPDATE_T_LEAD_RCO]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
