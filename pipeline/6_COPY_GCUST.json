@@ -44,7 +44,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "Db2Source",
-						"query": "SELECT * from E31DLIB3.GCUST FETCH FIRST 100000 ROWS ONLY"
+						"query": {
+							"value": "SELECT * from E31DLIB3.GCUST WHERE C1BRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						}
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -3252,6 +3255,12 @@
 				]
 			}
 		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "31E"
+			}
+		},
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE"
 		},
