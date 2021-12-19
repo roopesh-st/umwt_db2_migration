@@ -1,0 +1,1873 @@
+{
+	"name": "7_UAT_COPY_VORDER",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_VORDER_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_VORDER_STAGING_COPY]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_VORDER",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_VORDER_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": {
+							"value": "select * from E31DLIB3.VORDER where VOBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VORDER')  IS NOT NULL TRUNCATE TABLE dbo.VORDER",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VORDER"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VORDER",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_VORDER_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_VORDER",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "VORCOI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORCOI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORCON",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORCON",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOBRCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOBRCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOORDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOORDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOOTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOEDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOEDTE",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOCOLR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCOLR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSTAT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSACC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSACC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSPRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSPRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSCOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSCOM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOACC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOACC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOPRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOPRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOCOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOCOM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSCCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSCCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSCPR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSCPR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTERM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTERM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSTEM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTAXA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTAXA",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOLOAN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOLOAN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCANC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCANC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORSTA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORSTA",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOUDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOUDTE",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VORTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VORDTE",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOREGN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOREGN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOEXSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOEXSN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOEXNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOEXNO",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOEXDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOEXDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTPD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSTPD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VONSP",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VONSP",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTAX",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOSTAX",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "VOTCID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTCID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTFLG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTFLG",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODEPS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VODEPS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "VOSEXP",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOSEXP",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOSCOT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOSCOT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOOVTD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOOVTD",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOFDIS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOFDIS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOADIS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOADIS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VONOTD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VONOTD",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOBMDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOBMDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOADDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOADDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VORMDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VORMDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOUCDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOUCDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOSMDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOSMDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOSNDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOSNDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOOTDI",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOOTDI",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOPDIS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOPDIS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOSCHA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSCHA",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSREG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSREG",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOMGDS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOMGDS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "VOEXC7",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOEXC7",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOBONM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOBONM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOESDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOESDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOSDTE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOSDTE",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOMOCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOMOCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOIS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOIS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTUNM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTUNM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTFN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSTFN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCUID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCHAS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCHAS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOHOVT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOHOVT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOBRTP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOBRTP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPOLL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOPOLL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOAPST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOAPST",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOAGE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOAGE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODEFC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VODEFC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPOMO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOPOMO",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSIRI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSIRI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOSTKB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOSTKB",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCANF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCANF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOMFGY",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOMFGY",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 4
+								}
+							},
+							{
+								"source": {
+									"name": "VORACC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORACC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORPRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORPRC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORCOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORCOM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODSAC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VODSAC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODSPR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VODSPR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODRAC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VODRAC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODRPR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VODRPR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPTOT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOPTOT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VODLAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VODLAM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOLDPR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOLDPR",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOFRAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOFRAM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOHPAS",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOHPAS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOPVAL",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOPVAL",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOACDD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOACDD",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOVOAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOVOAM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 9
+								}
+							},
+							{
+								"source": {
+									"name": "VOVTYP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOVTYP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTAGT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTAGT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOVDUR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOVDUR",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "VOXPFL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOXPFL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTRTP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTRTP",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOEXPC",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOEXPC",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "VONREG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VONREG",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOVIN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOVIN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOINVS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOINVS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORMKS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORMKS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VODPMT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VODPMT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOLOU",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOLOU",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOEPDT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "VOEPDT",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "VOMEFT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOMEFT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTRIM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTRIM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOTOPF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOTOPF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOBHF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOBHF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOACCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOACCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORLFF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORLFF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORLNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORLNO",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOREGL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOREGL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORITM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORITM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VORSCH",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VORSCH",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOMSSP",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOMSSP",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "VOCRDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOCRDT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOCRTM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOCRTM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 6
+								}
+							},
+							{
+								"source": {
+									"name": "VOCRBY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCRBY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOUPTM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOUPTM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 6
+								}
+							},
+							{
+								"source": {
+									"name": "VOUPBY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOUPBY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCAND",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOCAND",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOCANT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOCANT",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 6
+								}
+							},
+							{
+								"source": {
+									"name": "VOCANB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCANB",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCANM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCANM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPOMO2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOPOMO2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPTOT2",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOPTOT2",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOFLGT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOFLGT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOPID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOPID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOIAC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOIAC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOIPR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOIPR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOICM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOICM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOOICS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOOICS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOFLEC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOFLEC",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOFDAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOFDAM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "VOFLEF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOFLEF",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCTID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "VOCTID",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							},
+							{
+								"source": {
+									"name": "VOCMPI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VOCMPI",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPPID",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "VOPPID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "VOPPAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOPPAM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 9
+								}
+							},
+							{
+								"source": {
+									"name": "VOFPID",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "VOFPID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "VOFPAM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOFPAM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 9
+								}
+							},
+							{
+								"source": {
+									"name": "VOFPCV",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "VOFPCV",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 9
+								}
+							},
+							{
+								"source": {
+									"name": "VOSWID",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "VOSWID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "VORSID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "VORSID",
+									"type": "Int64",
+									"physicalType": "bigint"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VORDER",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "VORDER_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_VORDER_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_VORDER_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_VORDER_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_RCO",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_VORDER_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_RCO]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "31E"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
+		},
+		"annotations": []
+	}
+}
