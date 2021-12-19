@@ -1,6 +1,61 @@
 {
 	"name": "UAT_MIGRATE_GCUST_VORDER_VOR_H_D",
 	"properties": {
+		"activities": [
+			{
+				"name": "6_UAT_COPY_GCUST",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "6_UAT_COPY_GCUST",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "7_UAT_COPY_VORDER",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "6_UAT_COPY_GCUST",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "7_UAT_COPY_VORDER",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "8_UAT_COPY_VOR_H_D",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "7_UAT_COPY_VORDER",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "8_UAT_COPY_VOR_H_D",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
 		},
