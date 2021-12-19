@@ -12,7 +12,13 @@
 						"referenceName": "6_COPY_GCUST",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -32,7 +38,13 @@
 						"referenceName": "7_COPY_VORDER",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -52,10 +64,22 @@
 						"referenceName": "8_COPY_VOR_H_D",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "31E"
+			}
+		},
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE"
 		},
