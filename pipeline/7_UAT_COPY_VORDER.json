@@ -1854,7 +1854,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_LEAD_RCO]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
