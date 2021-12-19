@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_GCUST_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -2195,7 +2195,7 @@
 					"storedProcedureName": "[dbo].[AFTER_GCUST_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -2894,7 +2894,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2904,7 +2904,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2936,7 +2936,7 @@
 					"storedProcedureName": "[dbo].[AFTER_T_CUSTOMER_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -3114,7 +3114,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3124,7 +3124,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3235,7 +3235,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3245,7 +3245,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
