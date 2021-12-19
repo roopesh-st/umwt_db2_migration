@@ -45,7 +45,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "select * from E31DLIB3.VORDER where VOBRCD = '@{pipeline().parameters.OUTLET_ID}'\nFETCH FIRST 1000 ROWS ONLY",
+							"value": "select * from E31DLIB3.VORDER where VOBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 							"type": "Expression"
 						}
 					},
