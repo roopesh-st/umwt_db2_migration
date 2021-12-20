@@ -1,5 +1,5 @@
 {
-	"name": "pipeline3",
+	"name": "9_COPY_VINVOICE",
 	"properties": {
 		"activities": [
 			{
@@ -18,7 +18,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "select count(*) from E31DLIB3.VINVOICE where VIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"value": "select * from E31DLIB3.VINVOICE where VIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 							"type": "Expression"
 						}
 					},
