@@ -131,7 +131,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_MASTER_TABLE_PARAM",
+						"referenceName": "UAT_MASTER_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -163,7 +163,7 @@
 					"storedProcedureName": "[dbo].[AFTER_VMTRIMCOLR_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -190,7 +190,7 @@
 					"storedProcedureName": "[dbo].[MERGE_VMTRIMCOLR_TO_T_VEHICLE_COLOUR]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -217,7 +217,7 @@
 					"storedProcedureName": "[dbo].[CREATE_POLICY_SETUP_INTERIOR_COLOUR_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
