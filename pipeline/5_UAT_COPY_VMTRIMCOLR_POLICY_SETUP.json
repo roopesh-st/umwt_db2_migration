@@ -1,0 +1,230 @@
+{
+	"name": "5_UAT_COPY_VMTRIMCOLR_POLICY_SETUP",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_VMTRIMCOLR_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_VMTRIMCOLR_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_VMTRIMCOLR",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_VMTRIMCOLR_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VMTRIMCOLR')  IS NOT NULL TRUNCATE TABLE dbo.VMTRIMCOLR",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VMTRIMCOLR"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VMTRIMCOLR",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_VMTRIMCOLR_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_VMTRIMCOLR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VMTRIMCOLR",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QA_MASTER_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "VMTRIMCOLR_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_VMTRIMCOLR_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "MERGE_VMTRIMCOLR_TO_T_VEHICLE_COLOUR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_VMTRIMCOLR_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_VMTRIMCOLR_TO_T_VEHICLE_COLOUR",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_VMTRIMCOLR_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_VMTRIMCOLR_TO_T_VEHICLE_COLOUR]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CREATE_POLICY_SETUP_INTERIOR_COLOUR_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_VMTRIMCOLR_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_POLICY_SETUP_INTERIOR_COLOUR_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "QA_DMS_MASTER_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/MASTER DATA/UAT ENV"
+		},
+		"annotations": []
+	}
+}
