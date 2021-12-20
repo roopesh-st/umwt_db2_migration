@@ -1,0 +1,137 @@
+{
+	"name": "9_COPY_VINVOICE_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_VINVOICE",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": {
+							"value": "select * from E31DLIB3.VINVOICE where VIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VINVOICE')  IS NOT NULL TRUNCATE TABLE dbo.VINVOICE",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "VINVOICE"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VINVOICE",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPT_VINVOICE_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_VINVOICE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": {
+							"value": "IF OBJECT_ID('dbo.VINVOICE_STAGING') IS NOT NULL \nDELETE FROM dbo.VINVOICE_STAGING WHERE VIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						},
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VINVOICE",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "VINVOICE_STAGING"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "31E"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE"
+		},
+		"annotations": []
+	}
+}
