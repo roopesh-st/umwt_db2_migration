@@ -1,5 +1,5 @@
 {
-	"name": "9_COPY_VINVOICE_copy1",
+	"name": "9_COPY_VINVOICE",
 	"properties": {
 		"activities": [
 			{
@@ -113,7 +113,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -130,7 +130,7 @@
 			}
 		},
 		"folder": {
-			"name": "DMS - PHASE 1/LEADS MODULE"
+			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
 		},
 		"annotations": []
 	}
