@@ -86,7 +86,7 @@
 					"sink": {
 						"type": "SqlServerSink",
 						"preCopyScript": {
-							"value": "IF OBJECT_ID('dbo.VINVOICE_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.VINVOICE_STAGING WHERE VIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"value": "IF OBJECT_ID('dbo.VINVOICE_STAGING') IS NOT NULL \nDELETE FROM dbo.VINVOICE_STAGING WHERE VIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 							"type": "Expression"
 						},
 						"tableOption": "autoCreate"
