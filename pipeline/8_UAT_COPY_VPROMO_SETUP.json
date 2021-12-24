@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_VPROMO_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -131,7 +131,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_MASTER_TABLE_PARAM",
+						"referenceName": "UAT_MASTER_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -163,7 +163,7 @@
 					"storedProcedureName": "[dbo].[AFTER_VPROMO_STAGING]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -190,7 +190,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_PROMOTION_SETUP]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
