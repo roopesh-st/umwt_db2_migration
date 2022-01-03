@@ -1662,6 +1662,9 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_LEADS_COPY_PROC]"
+				},
 				"linkedServiceName": {
 					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
@@ -1944,7 +1947,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -1954,7 +1957,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2184,7 +2187,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2194,7 +2197,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2388,7 +2391,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2398,7 +2401,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
