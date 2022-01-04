@@ -1891,18 +1891,6 @@
 							},
 							{
 								"source": {
-									"name": "ACTIVE",
-									"type": "Byte",
-									"physicalType": "tinyint"
-								},
-								"sink": {
-									"name": "ACTIVE",
-									"type": "Byte",
-									"physicalType": "tinyint"
-								}
-							},
-							{
-								"source": {
 									"name": "UMWT_DATA_SRC",
 									"type": "Byte",
 									"physicalType": "tinyint"
