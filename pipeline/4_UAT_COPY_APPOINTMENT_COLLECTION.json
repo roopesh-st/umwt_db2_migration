@@ -543,7 +543,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "31E"
+				"defaultValue": "360"
 			}
 		},
 		"folder": {
