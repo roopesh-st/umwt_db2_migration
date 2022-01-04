@@ -127,7 +127,7 @@
 			}
 		],
 		"parameters": {
-			"OUTLET_ID": {
+			"382": {
 				"type": "string",
 				"defaultValue": "357"
 			}
