@@ -2986,14 +2986,14 @@
 							},
 							{
 								"source": {
-									"name": "C1ATYP",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "ADDRESS_TYPE",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "ADDRESS_TYPE",
-									"type": "String",
-									"physicalType": "varchar"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
