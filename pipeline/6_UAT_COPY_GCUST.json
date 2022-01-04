@@ -3034,14 +3034,14 @@
 							},
 							{
 								"source": {
-									"name": "C1ADST",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "STATE",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "STATE",
-									"type": "String",
-									"physicalType": "varchar"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
