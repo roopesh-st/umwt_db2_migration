@@ -300,18 +300,6 @@
 							},
 							{
 								"source": {
-									"name": "LifeCycleStatusCode",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "APPOINTMENT_STATUS",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
 									"name": "StartDate",
 									"type": "DateTime",
 									"physicalType": "datetime"
