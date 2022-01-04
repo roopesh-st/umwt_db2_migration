@@ -922,18 +922,6 @@
 							},
 							{
 								"source": {
-									"name": "OriginTypeCodeText",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "SOURCE",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
 									"name": "OriginTypeCode",
 									"type": "String",
 									"physicalType": "nvarchar"
@@ -1144,18 +1132,6 @@
 									"name": "UPDATED_BY",
 									"type": "Int32",
 									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "PDI_LeadSubSource_SDK",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "SUB_SOURCE",
-									"type": "String",
-									"physicalType": "varchar"
 								}
 							},
 							{
@@ -2443,7 +2419,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "31E"
+				"defaultValue": "360"
 			}
 		},
 		"variables": {
