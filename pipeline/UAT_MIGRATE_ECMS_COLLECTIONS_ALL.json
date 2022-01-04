@@ -1,0 +1,140 @@
+{
+	"name": "UAT_MIGRATE_ECMS_COLLECTIONS_ALL",
+	"properties": {
+		"activities": [
+			{
+				"name": "1_UAT_COPY_LEAD_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "1_UAT_COPY_LEAD_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "2_UAT_COPY_TASKS_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "1_UAT_COPY_LEAD_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "2_UAT_COPY_TASKS_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "3_UAT_COPY_PHONE_CALL_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "2_UAT_COPY_TASKS_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_UAT_COPY_PHONE_CALL_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "4_UAT_COPY_APPOINTMENT_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "3_UAT_COPY_PHONE_CALL_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "4_UAT_COPY_APPOINTMENT_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "5_UAT_COPY_OPPORTUNITY_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "4_UAT_COPY_APPOINTMENT_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "5_UAT_COPY_OPPORTUNITY_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "360"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
+		},
+		"annotations": []
+	}
+}
