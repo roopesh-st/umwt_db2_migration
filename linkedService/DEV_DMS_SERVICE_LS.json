@@ -5,8 +5,8 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"connectionString": "integrated security=False;data source=12.0.1.5;initial catalog=dms-service-qa-dec;user id=sa",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1MzUxM2IzMy01ZGU1LTRhMTAtOGMwZi0zOTI1MTVlMWJlZGMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=False;data source=12.0.1.5;initial catalog=dms-services-qa-dec;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyOTJjOWUzYi03ODk1LTQzM2MtODQyNC02ZDgzMTAzZGRmZWQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ADF-DMS-CLOUD-IR",
