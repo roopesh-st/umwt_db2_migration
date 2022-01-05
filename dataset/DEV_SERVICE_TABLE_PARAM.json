@@ -1,0 +1,33 @@
+{
+	"name": "DEV_SERVICE_TABLE_PARAM",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DEV_DMS_SERVICE_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SchemaName": {
+				"type": "string"
+			},
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DMS_DATASETS_QA"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().SchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
