@@ -1,0 +1,1682 @@
+{
+	"name": "pipeline3",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_ECMS_LEAD_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}')",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerPartyIDSales",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OwnerPartyIDSales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerUUIDSales",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OwnerUUIDSales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountryText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStateText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStateText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationIdentityUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreationIdentityUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeIdentityUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangeIdentityUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPA_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTPDPA_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTReturnMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "zsave_counter_KUT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "zsave_counter_KUT",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_LEAD",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_LEADS_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_ECMS_LEAD_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_LEADS_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_LEAD",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "AFTER_LEADS_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "LOOKUP_ORG_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": {
+							"value": "IF @{activity('LOOKUP_ORG_ID').output.firstRow.ID} IS NOT NULL\nDELETE FROM T_LEAD WHERE UMWT_DATA_SRC = 1 AND ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}\n\n",
+							"type": "Expression"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ECMS_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_Name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_PROSPECT_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "CUST_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_OriginTypeCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerPartyIDSales",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_OWNER_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "OWNER_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "OWNER_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ORG_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ORG_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "CREATED_DATE_TIME",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "UPDATED_DATE_TIME",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_IndividualCustomerGenderCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_IndividualCustomerMaritalStatusCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "MARITAL_STATUS",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_PDI_AutoAssignmentOption_SDKText",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerEMail",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMobile",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PHONE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"name": "DATE_OF_BIRTH",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "TITLE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_PDI_ActivityCategory_SDK",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_PDI_AutoAssignmentOption_SDK",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "BRAND",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CUST_TYPE",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "CUST_TYPE",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "DO_EMAIL",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "DO_EMAIL",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "DO_MAIL",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "DO_MAIL",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "DO_SMS",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "DO_SMS",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "LEAD_3IN1_CUSTOMER_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "IDENTIFICATION_NUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IDENTIFICATION_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "IDENTIFICATION_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"name": "PDPA_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "PDPA_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "PDPA_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategoryText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PROSPECT_CATEGORY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_KUTProspectCategory",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_KUTRace_KUT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUTText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "RACE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"name": "RETURN_MAIL_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "RETURN_MAIL",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "RETURN_MAIL",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PREFERRED_CONTACT_METHOD",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_KUT_CommunicationMode_KUT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_PDI_InterestedVariant1content_SDK",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_ZCDC_CUST_UUID_KUT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ECMS_ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ECMS_ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "ECMS_ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_ZTESTDRIVE_BRAND_KUT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ECMS_ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "ECMS_ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesOrganisationID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_CreatedBy",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_LastChangedBy",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesTerritoryID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesTerritoryName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_KUTCustomerType_KUTText",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_IndividualCustomerFormOfAddressCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ECMS_LifeCycleStatusCode",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "VARIANT_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "VARIANT_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "LEAD_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "LEAD_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ACTIVE",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "ACTIVE",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "CASH_BUYER",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "CASH_BUYER",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "TRADE_IN",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "TRADE_IN",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_COLLECTION_STAGING"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD"
+						}
+					}
+				]
+			},
+			{
+				"name": "LOOKUP_ORG_ID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT TOP (1) ID FROM T_ORG_STRUCTURE WHERE ORG_ID = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_ORG_STRUCTURE"
+						}
+					},
+					"firstRowOnly": true
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
+		},
+		"annotations": []
+	}
+}
