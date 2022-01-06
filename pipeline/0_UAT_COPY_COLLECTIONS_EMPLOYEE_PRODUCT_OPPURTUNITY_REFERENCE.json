@@ -154,7 +154,6 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -215,7 +214,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -266,7 +265,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT CAST(MAX(OpportunityLastChangeDateTime) AS datetime) AS 'OpportunityLastChangeDateTime'\nFROM T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
+						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(OpportunityLastChangeDateTime) IS NOT NULL \n            THEN CAST(MAX(OpportunityLastChangeDateTime) AS datetime) \n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'OpportunityLastChangeDateTime'\nFROM T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
