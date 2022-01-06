@@ -2389,7 +2389,14 @@
 			{
 				"name": "PRE_COPY_LEADS_CLEANUP_IN_TARGET",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_ORG_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -2403,10 +2410,10 @@
 					"storedProcedureParameters": {
 						"OutletId": {
 							"value": {
-								"value": "@pipeline().parameters.OUTLET_ID",
+								"value": "@{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
 								"type": "Expression"
 							},
-							"type": "String"
+							"type": "Int32"
 						}
 					}
 				},
@@ -2419,7 +2426,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "360"
+				"defaultValue": "382"
 			}
 		},
 		"variables": {
