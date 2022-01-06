@@ -1589,6 +1589,18 @@
 									"type": "Int32",
 									"physicalType": "int"
 								}
+							},
+							{
+								"source": {
+									"name": "LEAD_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "LEAD_TYPE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
 							}
 						],
 						"typeConversion": true,
