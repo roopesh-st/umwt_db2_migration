@@ -1637,6 +1637,18 @@
 									"type": "Byte",
 									"physicalType": "tinyint"
 								}
+							},
+							{
+								"source": {
+									"name": "RCO_GEN_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "RCO_GEN_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
 							}
 						],
 						"typeConversion": true,
