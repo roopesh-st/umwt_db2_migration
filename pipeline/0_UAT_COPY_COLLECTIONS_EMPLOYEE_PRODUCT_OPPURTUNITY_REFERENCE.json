@@ -153,8 +153,7 @@
 						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"tableOption": "autoCreate"
+						"type": "SqlServerSink"
 					},
 					"enableStaging": false,
 					"translator": {
