@@ -223,7 +223,7 @@
 				]
 			},
 			{
-				"name": "BEFORE_T_OPPORTUNITY_REF_COLLECTION_STAGING_COPY_PROC",
+				"name": "BEFORE_T_OPP_REF_COLLECTION_STAGING_COPY_PROC",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -247,7 +247,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "BEFORE_T_OPPORTUNITY_REF_COLLECTION_STAGING_COPY_PROC",
+						"activity": "BEFORE_T_OPP_REF_COLLECTION_STAGING_COPY_PROC",
 						"dependencyConditions": [
 							"Succeeded"
 						]
