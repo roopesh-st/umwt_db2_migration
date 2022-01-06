@@ -404,7 +404,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "360"
+				"defaultValue": "382"
 			}
 		},
 		"folder": {
