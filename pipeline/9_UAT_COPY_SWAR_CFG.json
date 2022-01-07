@@ -86,7 +86,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "COPY_VSPCOLR_STAGING",
+						"activity": "COPY_SWAR_CFG_STAGING",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -109,7 +109,7 @@
 				}
 			},
 			{
-				"name": "COPY_VSPCOLR_STAGING",
+				"name": "COPY_SWAR_CFG_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
