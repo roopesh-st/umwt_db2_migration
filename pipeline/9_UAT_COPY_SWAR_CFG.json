@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[BEFORE_AFTER_SWAR_CFG_STAGING_PROC]"
+					"storedProcedureName": "[dbo].[BEFORE_SWAR_CFG_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
 					"referenceName": "UAT_DMS_MASTER_LS",
