@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[BEFORE_VSPCOLR_STAGING_COPY]"
+					"storedProcedureName": "[dbo].[BEFORE_AFTER_SWAR_CFG_STAGING_PROC]"
 				},
 				"linkedServiceName": {
 					"referenceName": "UAT_DMS_MASTER_LS",
@@ -23,7 +23,7 @@
 				}
 			},
 			{
-				"name": "COPY_VSPCOLR",
+				"name": "COPY_SWAR_CFG",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -47,7 +47,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.VSPCOLR')  IS NOT NULL TRUNCATE TABLE dbo.VSPCOLR",
+						"preCopyScript": "IF OBJECT_ID('dbo.SWAR_CFG')  IS NOT NULL TRUNCATE TABLE dbo.SWAR_CFG",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -66,7 +66,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "VSPCOLR"
+							"TableName": "SWAR_CFG"
 						}
 					}
 				],
@@ -75,14 +75,14 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "VSPCOLR",
+							"TableName": "SWAR_CFG",
 							"SchemaName": "dbo"
 						}
 					}
 				]
 			},
 			{
-				"name": "AFTER_VSPCOLR_STAGING_COPY",
+				"name": "AFTER_SWAR_CFG_STAGING_COPY",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -101,7 +101,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[AFTER_VSPCOLR_STAGING_COPY]"
+					"storedProcedureName": "[dbo].[AFTER_SWAR_CFG_STAGING_COPY]"
 				},
 				"linkedServiceName": {
 					"referenceName": "UAT_DMS_MASTER_LS",
@@ -113,7 +113,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "COPY_VSPCOLR",
+						"activity": "COPY_SWAR_CFG",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -151,7 +151,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "VSPCOLR",
+							"TableName": "SWAR_CFG",
 							"SchemaName": "dbo"
 						}
 					}
@@ -162,17 +162,17 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "VSPCOLR_STAGING"
+							"TableName": "SWAR_CFG_STAGING"
 						}
 					}
 				]
 			},
 			{
-				"name": "CREATE_VEHICLE_PRICING_COLOUR_PROC",
+				"name": "MERGE_T_VEHICLE_WARRANTY_AND_DETAILS",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "AFTER_VSPCOLR_STAGING_COPY",
+						"activity": "AFTER_SWAR_CFG_STAGING_COPY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -187,10 +187,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_COLOUR_PROC]"
+					"storedProcedureName": "[dbo].[MERGE_T_VEHICLE_WARRANTY_AND_DETAILS]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
