@@ -34,7 +34,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_ADMIN_TABLE_PARAM",
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -66,7 +66,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_USER]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_ADMIN_LS",
+					"referenceName": "UAT_DMS_ADMIN_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -109,7 +109,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "QA_LEADS_TABLE_PARAM",
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -238,7 +238,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_LEADS_LS",
+					"referenceName": "UAT_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
