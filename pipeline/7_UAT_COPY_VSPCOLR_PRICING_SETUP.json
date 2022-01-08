@@ -190,7 +190,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_COLOUR_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "QA_DMS_MASTER_LS",
+					"referenceName": "UAT_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
