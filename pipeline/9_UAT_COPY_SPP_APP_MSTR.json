@@ -1,5 +1,5 @@
 {
-	"name": "COPY_SPP_APP_MSTR",
+	"name": "9_UAT_COPY_SPP_APP_MSTR",
 	"properties": {
 		"activities": [
 			{
@@ -344,7 +344,7 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
+			"name": "DMS - PHASE 1/MASTER DATA/UAT ENV"
 		},
 		"annotations": []
 	}
