@@ -1,0 +1,62 @@
+{
+	"name": "UAT_MIGRATE_LEADS_DATA_BY_OUTLET",
+	"properties": {
+		"activities": [
+			{
+				"name": "UAT_MIGRATE_ECMS_COLLECTIONS_ALL",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "UAT_MIGRATE_ECMS_COLLECTIONS_ALL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "UAT_MIGRATE_GCUST_VORDER_VOR_H_D",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "UAT_MIGRATE_ECMS_COLLECTIONS_ALL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "UAT_MIGRATE_GCUST_VORDER_VOR_H_D",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "953"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
+		},
+		"annotations": []
+	}
+}
