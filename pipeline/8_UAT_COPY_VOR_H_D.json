@@ -696,7 +696,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "2081"
+				"defaultValue": "382"
 			}
 		},
 		"folder": {
