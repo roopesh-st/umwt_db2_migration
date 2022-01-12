@@ -25,7 +25,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "SELECT * FROM E31DLIB3.REGN_D WHERE ID > @{activity('Lookup_Latest_REGN_D_ID_On_DMS').output.value.OLD_REG_ID}",
+							"value": "IF @{activity('Lookup_Latest_REGN_D_ID_On_DMS').output.value.OLD_REG_ID} IS NOT NULL\nSELECT * FROM E31DLIB3.REGN_D WHERE ID > @{activity('Lookup_Latest_REGN_D_ID_On_DMS').output.value.OLD_REG_ID}\nELSE \nSELECT * FROM E31DLIB3.REGN_D",
 							"type": "Expression"
 						}
 					},
