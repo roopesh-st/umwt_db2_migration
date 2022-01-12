@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL TRUNCATE TABLE dbo.SCUSTSP",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -51,6 +51,67 @@
 						"parameters": {
 							"TableName": "SCUSTSP",
 							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SCUSTSP_DMS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SCUSTSP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SCUSTSP",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SCUSTSP"
 						}
 					}
 				]
