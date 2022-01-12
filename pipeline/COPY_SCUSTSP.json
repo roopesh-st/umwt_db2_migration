@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.GUSER')  IS NOT NULL TRUNCATE TABLE dbo.GUSER",
+						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL TRUNCATE TABLE dbo.SCUSTSP WHERE B1BRCD = '@{pipeline().parameters.OUTLET_ID}'",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
