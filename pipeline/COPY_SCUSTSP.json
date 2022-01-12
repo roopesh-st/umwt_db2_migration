@@ -16,8 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "Db2Source",
-						"query": "SELECT * from E31DLIB3.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'"
+						"type": "Db2Source"
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -40,7 +39,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "SCUSTSP"
+							"TableName": "REGN_D"
 						}
 					}
 				],
