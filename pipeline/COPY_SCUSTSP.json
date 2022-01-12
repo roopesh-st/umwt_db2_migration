@@ -17,11 +17,11 @@
 				"typeProperties": {
 					"source": {
 						"type": "Db2Source",
-						"query": "SELECT * from E31DLIB3.SCUSTSP WHERE B1BRCD = '@{pipeline().parameters.OUTLET_ID}'"
+						"query": "SELECT * from E31DLIB3.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'"
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL TRUNCATE TABLE dbo.SCUSTSP WHERE B1BRCD = '@{pipeline().parameters.OUTLET_ID}'",
+						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL TRUNCATE TABLE dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
