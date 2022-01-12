@@ -3,36 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_Latest_REGN_D_ID_On_DMS",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderQuery": "IF OBJECT_ID('dbo.REGN_D')  IS NOT NULL  SELECT MAX(ID) AS OLD_REG_ID FROM dbo.REGN_D",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "REGN_D"
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
 				"name": "COPY_REGN_D",
 				"type": "Copy",
 				"dependsOn": [
@@ -55,7 +25,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "SELECT * FROM E31DLIB3.REGN_D WHERE ID > @{activity('Lookup_Latest_REGN_D_ID_On_DMS').output.OLD_REG_ID.value}",
+							"value": "SELECT * FROM E31DLIB3.REGN_D WHERE ID > @{activity('Lookup_Latest_REGN_D_ID_On_DMS').output.value.OLD_REG_ID}",
 							"type": "Expression"
 						}
 					},
@@ -154,6 +124,36 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Lookup_Latest_REGN_D_ID_On_DMS",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "IF EXISTS (SELECT * \n                 FROM INFORMATION_SCHEMA.TABLES \n                 WHERE TABLE_SCHEMA = 'dbo' \n                 AND  TABLE_NAME = 'REGN_D')\nBEGIN\n    SELECT MAX(ID) AS OLD_REG_ID FROM dbo.REGN_D\nEND",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "REGN_D"
+						}
+					},
+					"firstRowOnly": false
+				}
 			}
 		],
 		"folder": {
