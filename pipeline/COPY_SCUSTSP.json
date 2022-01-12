@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL TRUNCATE TABLE dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
