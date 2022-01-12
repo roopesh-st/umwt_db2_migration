@@ -140,7 +140,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "IF EXISTS (SELECT * \n                 FROM INFORMATION_SCHEMA.TABLES \n                 WHERE TABLE_SCHEMA = 'dbo' \n                 AND  TABLE_NAME = 'REGN_D')\nBEGIN\n    SELECT MAX(ID) AS OLD_REG_ID FROM dbo.REGN_D\nEND",
+						"sqlReaderQuery": "IF EXISTS (SELECT * \n                 FROM INFORMATION_SCHEMA.TABLES \n                 WHERE TABLE_SCHEMA = 'dbo' \n                 AND  TABLE_NAME = 'REGN_D')\nBEGIN\n    SELECT \n    CASE \n        WHEN MAX(ID) IS NOT NULL \n            THEN MAX(ID) \n        ELSE\n           0\n    END AS 'OLD_REG_ID'\nFROM dbo.REGN_D\nEND",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
