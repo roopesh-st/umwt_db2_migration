@@ -39,7 +39,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "REGN_D"
+							"TableName": "SCUSTSP"
 						}
 					}
 				],
