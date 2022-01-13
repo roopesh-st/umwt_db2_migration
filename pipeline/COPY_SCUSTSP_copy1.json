@@ -1,0 +1,217 @@
+{
+	"name": "COPY_SCUSTSP_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup_Piloted_Outlets",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT OUTLET_ID FROM dbo.DMS_OUTLET",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "DMS_OUTLET",
+							"SchemaName": "dbo"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach_Piloted_Outlet",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Piloted_Outlets",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup_Piloted_Outlets').output",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "COPY_SCUSTSP",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "Db2Source"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL TRUNCATE TABLE dbo.SCUSTSP",
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "UMWT_UAT_SRC_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "E31DLIB3",
+										"TableName": "SCUSTSP"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "SCUSTSP",
+										"SchemaName": "dbo"
+									}
+								}
+							]
+						},
+						{
+							"name": "COPY_SCUSTSP_DMS",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "COPY_SCUSTSP",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"preCopyScript": {
+										"value": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+										"type": "Expression"
+									},
+									"tableOption": "autoCreate"
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SINK_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": "SCUSTSP",
+										"SchemaName": "dbo"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "UAT_LEADS_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "dbo",
+										"TableName": "SCUSTSP"
+									}
+								}
+							]
+						},
+						{
+							"name": "Lookup_Latest_Date_In_DMS",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"sqlReaderQuery": {
+										"value": "SELECT \n    CASE \n        WHEN MAX(LAST_DATE) IS NOT NULL \n            THEN CAST(MAX(LAST_DATE) AS datetime) \n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = @{item()}",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "UAT_LEADS_TABLE_PARAM",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "dbo",
+										"TableName": "T_CUSTOMER_SP"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
+		},
+		"annotations": []
+	}
+}
