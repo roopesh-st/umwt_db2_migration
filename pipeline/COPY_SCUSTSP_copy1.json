@@ -46,7 +46,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup_Piloted_Outlets').output",
+						"value": "@activity('Lookup_Piloted_Outlets').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -54,7 +54,14 @@
 						{
 							"name": "COPY_SCUSTSP",
 							"type": "Copy",
-							"dependsOn": [],
+							"dependsOn": [
+								{
+									"activity": "Lookup_Latest_Date_In_DMS",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -130,10 +137,6 @@
 								},
 								"sink": {
 									"type": "SqlServerSink",
-									"preCopyScript": {
-										"value": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
-										"type": "Expression"
-									},
 									"tableOption": "autoCreate"
 								},
 								"enableStaging": false,
@@ -162,7 +165,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"SchemaName": "dbo",
-										"TableName": "SCUSTSP"
+										"TableName": "T_CUSTOMER_SP"
 									}
 								}
 							]
@@ -183,7 +186,7 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "SELECT \n    CASE \n        WHEN MAX(LAST_DATE) IS NOT NULL \n            THEN CAST(MAX(LAST_DATE) AS datetime) \n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = @{item()}",
+										"value": "SELECT \n    CASE \n        WHEN MAX(@{item().LAST_DATE}) IS NOT NULL \n            THEN CAST(MAX(@{item().LAST_DATE}) AS datetime) \n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = @{item().BIBRCD}",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
