@@ -2153,6 +2153,18 @@
 									"type": "Byte",
 									"physicalType": "tinyint"
 								}
+							},
+							{
+								"source": {
+									"name": "PDS_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "PDS_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
 							}
 						],
 						"typeConversion": true,
