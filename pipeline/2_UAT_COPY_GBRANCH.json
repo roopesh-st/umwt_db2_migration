@@ -1825,13 +1825,11 @@
 							},
 							{
 								"source": {
-									"name": "BIRGCD",
-									"type": "String",
+									"name": "REGION_ID",
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "REGION_CODE",
-									"type": "String",
+									"name": "REGION_ID",
 									"physicalType": "varchar"
 								}
 							},
