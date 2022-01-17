@@ -1,5 +1,5 @@
 {
-	"name": "COPY_REGN_D",
+	"name": "10_COPY_REGN_D",
 	"properties": {
 		"activities": [
 			{
@@ -184,7 +184,7 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 1/LEADS MODULE - QA"
+			"name": "DMS - PHASE 1/LEADS MODULE - UAT"
 		},
 		"annotations": []
 	}
