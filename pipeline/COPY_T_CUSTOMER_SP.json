@@ -287,12 +287,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"OUTLET_ID": {
-				"type": "string",
-				"defaultValue": "382"
-			}
-		},
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE/UAT ENV"
 		},
