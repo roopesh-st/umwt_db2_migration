@@ -74,7 +74,7 @@
 								"source": {
 									"type": "Db2Source",
 									"query": {
-										"value": "SELECT * FROM E31DLIB3.SCUSTSP WHERE BIBRCD = '@{item().OUTLET_ID}' AND LAST_DATE > CONVERT(DATETIME2,'@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}')",
+										"value": "SELECT * FROM E31DLIB3.SCUSTSP \nWHERE BIBRCD = '@{item().OUTLET_ID}' \nAND LAST_DATE > replace('@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}', \"T\", \" \")",
 										"type": "Expression"
 									}
 								},
