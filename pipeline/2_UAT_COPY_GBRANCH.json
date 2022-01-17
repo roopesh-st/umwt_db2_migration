@@ -1801,36 +1801,14 @@
 							},
 							{
 								"source": {
-									"name": "BIBRSN",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BIBRSN",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BISTCD",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BISTCD",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
 									"name": "REGION_ID",
-									"physicalType": "nvarchar"
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "REGION_ID",
-									"physicalType": "varchar"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -1855,82 +1833,6 @@
 									"name": "AREA_OPERATION_SERVICE",
 									"type": "String",
 									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BICOCD",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BICOCD",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BIBRPV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								},
-								"sink": {
-									"name": "UMWT_BIBRPV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								}
-							},
-							{
-								"source": {
-									"name": "BIBRCV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								},
-								"sink": {
-									"name": "UMWT_BIBRCV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								}
-							},
-							{
-								"source": {
-									"name": "BIRGPV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								},
-								"sink": {
-									"name": "UMWT_BIRGPV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								}
-							},
-							{
-								"source": {
-									"name": "BIRGCV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
-								},
-								"sink": {
-									"name": "UMWT_BIRGCV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 5
 								}
 							},
 							{
@@ -2003,50 +1905,26 @@
 							},
 							{
 								"source": {
-									"name": "BICURR",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "BRAND_ID",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
-									"name": "UMWT_BICURR",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "BRAND_ID",
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
 								"source": {
-									"name": "BRAND",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "CUSTOM_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								},
 								"sink": {
-									"name": "BRAND",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BIDBR",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BIDBR",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BIDHQ",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BIDHQ",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "CUSTOM_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							},
 							{
@@ -2059,18 +1937,6 @@
 									"name": "DEALER_FINANCIAL_FLAG",
 									"type": "Byte",
 									"physicalType": "tinyint"
-								}
-							},
-							{
-								"source": {
-									"name": "BICUID",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BICUID",
-									"type": "String",
-									"physicalType": "varchar"
 								}
 							},
 							{
@@ -2092,7 +1958,7 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "ACCOUNTING_BRANCH_CODE",
+									"name": "DEALER_ACCOUNTING_BRANCH_CODE",
 									"type": "String",
 									"physicalType": "varchar"
 								}
@@ -2105,18 +1971,6 @@
 								},
 								"sink": {
 									"name": "ACCOUNTING_COMM_CODE",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BISTKC",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "ROUTE_CODE",
 									"type": "String",
 									"physicalType": "varchar"
 								}
@@ -2159,30 +2013,6 @@
 							},
 							{
 								"source": {
-									"name": "BIEMFL",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BIEMFL",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BITXAR",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "TAX_AREA",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
 									"name": "BIGSTN",
 									"type": "String",
 									"physicalType": "nvarchar"
@@ -2195,18 +2025,6 @@
 							},
 							{
 								"source": {
-									"name": "BIRGNS",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "STOCKYARD_CODE",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
 									"name": "SAP_HR_FLAG",
 									"type": "Byte",
 									"physicalType": "tinyint"
@@ -2215,42 +2033,6 @@
 									"name": "SAP_HR_FLAG",
 									"type": "Byte",
 									"physicalType": "tinyint"
-								}
-							},
-							{
-								"source": {
-									"name": "BIGRPI",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BIGRPI",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BINBRC",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BINBRC",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "BIWSCD",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
-									"name": "UMWT_BIWSCD",
-									"type": "String",
-									"physicalType": "varchar"
 								}
 							},
 							{
@@ -2309,6 +2091,78 @@
 								},
 								"sink": {
 									"name": "FROM_UMWT_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "TAX_AREA_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "TAX_AREA_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ROUTE_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ROUTE_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "STOCKYARD_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "STOCKYARD_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "DELIVERY_WINDOW_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "DELIVERY_WINDOW_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "CENTRALIZED_STOCKYARD_FLAG",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "CENTRALIZED_STOCKYARD_FLAG",
 									"type": "Byte",
 									"physicalType": "tinyint"
 								}
