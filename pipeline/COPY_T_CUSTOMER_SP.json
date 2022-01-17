@@ -165,7 +165,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "UAT_LEADS_TABLE_PARAM",
+									"referenceName": "UAT_MASTER_TABLE_PARAM",
 									"type": "DatasetReference",
 									"parameters": {
 										"SchemaName": "dbo",
