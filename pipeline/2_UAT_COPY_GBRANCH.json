@@ -1917,18 +1917,6 @@
 							},
 							{
 								"source": {
-									"name": "CUSTOM_DATE",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								},
-								"sink": {
-									"name": "CUSTOM_DATE",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								}
-							},
-							{
-								"source": {
 									"name": "DEALER_FINANCIAL_FLAG",
 									"type": "Byte",
 									"physicalType": "tinyint"
@@ -1958,7 +1946,7 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "DEALER_ACCOUNTING_BRANCH_CODE",
+									"name": "ACCOUNTING_BRANCH_CODE",
 									"type": "String",
 									"physicalType": "varchar"
 								}
