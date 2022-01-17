@@ -81,7 +81,10 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+						"preCopyScript": {
+							"value": "IF OBJECT_ID('dbo.SCUSTSP')  IS NOT NULL DELETE FROM dbo.SCUSTSP WHERE BIBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						},
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -123,7 +126,7 @@
 			}
 		},
 		"folder": {
-			"name": "DMS - PHASE 1/LEADS MODULE"
+			"name": "DMS - PHASE 1/LEADS MODULE - QA"
 		},
 		"annotations": []
 	}
