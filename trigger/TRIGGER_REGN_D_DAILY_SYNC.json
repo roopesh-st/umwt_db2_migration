@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "COPY_REGN_D",
+					"referenceName": "10_COPY_REGN_D",
 					"type": "PipelineReference"
 				}
 			}
