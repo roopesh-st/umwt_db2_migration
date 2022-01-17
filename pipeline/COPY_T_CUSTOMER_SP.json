@@ -197,7 +197,7 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "SELECT \n    CASE \n        WHEN MAX(LAST_DATE) IS NOT NULL \n            THEN CAST(MAX(LAST_DATE) AS datetime) \n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = '@{item().OUTLET_ID}'",
+										"value": "SELECT \n    CASE \n        WHEN MAX(LAST_DATE) IS NOT NULL \n            THEN MAX(LAST_DATE)\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = '@{item().OUTLET_ID}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
