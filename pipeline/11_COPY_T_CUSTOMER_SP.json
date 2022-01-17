@@ -1,5 +1,5 @@
 {
-	"name": "COPY_T_CUSTOMER_SP",
+	"name": "11_COPY_T_CUSTOMER_SP",
 	"properties": {
 		"activities": [
 			{
@@ -292,7 +292,7 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 1/LEADS MODULE - UAT"
+			"name": "DMS - PHASE 1/MASTER DATA - UAT"
 		},
 		"annotations": []
 	}
