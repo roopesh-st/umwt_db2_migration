@@ -2073,12 +2073,11 @@
 							},
 							{
 								"source": {
-									"name": "FROM_UMWT_SRC",
-									"type": "Byte",
+									"name": "UMWT_DATA_SRC",
 									"physicalType": "tinyint"
 								},
 								"sink": {
-									"name": "FROM_UMWT_SRC",
+									"name": "UMWT_DATA_SRC",
 									"type": "Byte",
 									"physicalType": "tinyint"
 								}
