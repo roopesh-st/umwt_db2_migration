@@ -72,7 +72,11 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "Db2Source"
+									"type": "Db2Source",
+									"query": {
+										"value": "SELECT * FROM E31DLIB3.SCUSTSP WHERE BIBRCD = 'item().OUTLET_ID' AND LAST_DATE > '@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.value}'",
+										"type": "Expression"
+									}
 								},
 								"sink": {
 									"type": "SqlServerSink",
