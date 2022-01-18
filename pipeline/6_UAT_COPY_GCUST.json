@@ -2239,7 +2239,7 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "UMWT_C1CUID",
+									"name": "CUST_NUMBER",
 									"type": "String",
 									"physicalType": "varchar"
 								}
