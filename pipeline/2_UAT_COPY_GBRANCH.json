@@ -1777,7 +1777,7 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "BIBRCD",
+									"name": "ORG_ID",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
