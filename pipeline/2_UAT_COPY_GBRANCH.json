@@ -2165,6 +2165,18 @@
 									"type": "Byte",
 									"physicalType": "tinyint"
 								}
+							},
+							{
+								"source": {
+									"name": "BIBRCD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "DEALER_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
 							}
 						],
 						"typeConversion": true,
