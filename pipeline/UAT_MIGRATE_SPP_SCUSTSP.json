@@ -1,0 +1,44 @@
+{
+	"name": "UAT_MIGRATE_SPP_SCUSTSP",
+	"properties": {
+		"activities": [
+			{
+				"name": "12_UAT_COPY_SPP_APP_MSTR",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "11_UAT_COPY_T_CUSTOMER_SP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "12_UAT_COPY_SPP_APP_MSTR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "11_UAT_COPY_T_CUSTOMER_SP",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "11_UAT_COPY_T_CUSTOMER_SP",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - UAT"
+		},
+		"annotations": []
+	}
+}
