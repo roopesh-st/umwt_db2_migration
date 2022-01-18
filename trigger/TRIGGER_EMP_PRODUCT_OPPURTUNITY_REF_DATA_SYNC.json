@@ -1,0 +1,25 @@
+{
+	"name": "TRIGGER_EMP_PRODUCT_OPPURTUNITY_REF_DATA_SYNC",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 4,
+				"startTime": "2022-01-18T07:07:00",
+				"endTime": "2022-01-31T07:07:00",
+				"timeZone": "Singapore Standard Time"
+			}
+		}
+	}
+}
