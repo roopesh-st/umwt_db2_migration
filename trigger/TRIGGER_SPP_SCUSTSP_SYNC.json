@@ -1,0 +1,25 @@
+{
+	"name": "TRIGGER_SPP_SCUSTSP_SYNC",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "UAT_MIGRATE_SPP_SCUSTSP",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 4,
+				"startTime": "2022-01-18T08:39:00Z",
+				"endTime": "2022-01-31T08:39:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
