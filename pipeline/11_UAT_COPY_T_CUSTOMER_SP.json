@@ -74,7 +74,7 @@
 								"source": {
 									"type": "Db2Source",
 									"query": {
-										"value": "SELECT * FROM E31DLIB3.SCUSTSP \nWHERE BIBRCD = '@{item().OUTLET_ID}' \nAND LAST_DATE > replace('@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}', 'T', ' ')",
+										"value": "@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}",
 										"type": "Expression"
 									}
 								},
@@ -197,7 +197,7 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderQuery": {
-										"value": "SELECT \n    CASE \n        WHEN MAX(LAST_DATE) IS NOT NULL \n            THEN MAX(LAST_DATE)\n        ELSE\n            '1000-01-01 00:00:00'\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = '@{item().OUTLET_ID}'",
+										"value": "SELECT \n    CASE \n        WHEN MAX(LAST_DATE) IS NOT NULL \n            THEN CONCAT('SELECT * FROM E31DLIB3.SCUSTSP WHERE BIBRCD = ','''','@{item().OUTLET_ID}','''',' AND LAST_DATE >','''',replace(MAX(LAST_DATE),'T', ' '),'''')\n        ELSE\n            CONCAT('SELECT * FROM E31DLIB3.SCUSTSP WHERE BIBRCD = ','''','@{item().OUTLET_ID}','''')\n    END AS 'LAST_DATE'\nFROM dbo.T_CUSTOMER_SP\nWHERE BIBRCD = '@{item().OUTLET_ID}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
