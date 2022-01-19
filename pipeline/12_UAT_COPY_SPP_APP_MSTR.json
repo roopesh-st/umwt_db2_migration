@@ -88,6 +88,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SPP_MSTR_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.SPP_MSTR_STAGING",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
