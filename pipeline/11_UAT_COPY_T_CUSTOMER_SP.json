@@ -74,7 +74,7 @@
 								"source": {
 									"type": "Db2Source",
 									"query": {
-										"value": "IF '@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}' = '1000-01-01 00:00:00'\n    SELECT * FROM E31DLIB3.SCUSTSP \n    WHERE BIBRCD = '@{item().OUTLET_ID}' \nELSE\n    SELECT * FROM E31DLIB3.SCUSTSP \n    WHERE BIBRCD = '@{item().OUTLET_ID}' \n    AND LAST_DATE > replace('@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}', 'T', ' ')",
+										"value": "SELECT * FROM E31DLIB3.SCUSTSP \nWHERE BIBRCD = '@{item().OUTLET_ID}' \nAND LAST_DATE > replace('@{activity('Lookup_Latest_Date_In_DMS').output.firstRow.LAST_DATE}', 'T', ' ')",
 										"type": "Expression"
 									}
 								},
