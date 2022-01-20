@@ -2189,6 +2189,18 @@
 									"type": "String",
 									"physicalType": "varchar"
 								}
+							},
+							{
+								"source": {
+									"name": "USED_CAR_MANAGEMENT",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "USED_CAR_MANAGEMENT",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
 							}
 						],
 						"typeConversion": true,
