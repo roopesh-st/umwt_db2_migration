@@ -7,7 +7,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+						"activity": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF1",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -133,7 +133,7 @@
 				}
 			},
 			{
-				"name": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+				"name": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF1",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
