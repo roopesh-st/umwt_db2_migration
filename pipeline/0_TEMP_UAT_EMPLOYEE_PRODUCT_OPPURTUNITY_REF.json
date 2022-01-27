@@ -1,19 +1,54 @@
 {
-	"name": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+	"name": "0_TEMP_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
 	"properties": {
 		"activities": [
+			{
+				"name": "COPY_ECMS_EMPLOYEE_DATA",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.ECMS_EMPLOYEE_DATA')  IS NOT NULL TRUNCATE TABLE dbo.ECMS_EMPLOYEE_DATA",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_EMPLOYEE",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "ECMS_EMPLOYEE_DATA"
+						}
+					}
+				]
+			},
 			{
 				"name": "MERGE_T_USER",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "COPY_EMPLOYEE_COLLECTION",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "COPY_EMPLOYEE_ORG_UNIT_COLLECTION",
+						"activity": "COPY_ECMS_EMPLOYEE_DATA",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -242,94 +277,6 @@
 						}
 					}
 				}
-			},
-			{
-				"name": "COPY_EMPLOYEE_ORG_UNIT_COLLECTION",
-				"type": "Copy",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SapCloudForCustomerSource",
-						"query": "",
-						"httpRequestTimeout": "00:05:00"
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"tableOption": "autoCreate"
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"COLLECTION_NAME": "EmployeeOrganisationalUnitAssignmentCollection"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "UAT_ADMIN_TABLE_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "T_EMPLOYEE_ORG_UNIT_COLLECTION_STAGING"
-						}
-					}
-				]
-			},
-			{
-				"name": "COPY_EMPLOYEE_COLLECTION",
-				"type": "Copy",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SapCloudForCustomerSource",
-						"query": "$top=100",
-						"httpRequestTimeout": "00:05:00"
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"tableOption": "autoCreate"
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"COLLECTION_NAME": "EmployeeCollection"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "UAT_ADMIN_TABLE_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "T_EMPLOYEE_COLLECTION_STAGING"
-						}
-					}
-				]
 			}
 		],
 		"folder": {
