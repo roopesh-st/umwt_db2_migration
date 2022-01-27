@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+					"referenceName": "0_TEMP_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
 					"type": "PipelineReference"
 				}
 			}
