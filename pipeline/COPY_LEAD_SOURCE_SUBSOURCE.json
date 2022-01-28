@@ -1,5 +1,5 @@
 {
-	"name": "COPY_LEAD_SOURCE",
+	"name": "COPY_LEAD_SOURCE_SUBSOURCE",
 	"properties": {
 		"activities": [
 			{
