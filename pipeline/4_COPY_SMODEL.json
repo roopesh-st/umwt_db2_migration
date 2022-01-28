@@ -1,13 +1,13 @@
 {
-	"name": "3_COPY_SOPACCMAP",
+	"name": "4_COPY_SMODEL",
 	"properties": {
 		"activities": [
 			{
-				"name": "COPY_SOPACCMAP",
+				"name": "COPY_SMODEL",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "BEFORE_SOPACCMAP_STAGING_COPY",
+						"activity": "BEFORE_SMODEL_OIL_STAGING_COPY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -27,7 +27,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SOPACCMAP')  IS NOT NULL TRUNCATE TABLE dbo.SOPACCMAP",
+						"preCopyScript": "IF OBJECT_ID('dbo.SMODEL')  IS NOT NULL TRUNCATE TABLE dbo.SMODEL",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
@@ -48,7 +48,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "SOPACCMAP"
+							"TableName": "SMODEL"
 						}
 					}
 				],
@@ -57,18 +57,18 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SOPACCMAP",
+							"TableName": "SMODEL",
 							"SchemaName": "dbo"
 						}
 					}
 				]
 			},
 			{
-				"name": "COPY_SOPACCMAP_STAGING",
+				"name": "COPY_SMODEL_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "COPY_SOPACCMAP",
+						"activity": "COPY_SMODEL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -106,7 +106,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SOPACCMAP",
+							"TableName": "SMODEL",
 							"SchemaName": "dbo"
 						}
 					}
@@ -117,17 +117,17 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "SOPACCMAP_STAGING"
+							"TableName": "SMODEL_STAGING"
 						}
 					}
 				]
 			},
 			{
-				"name": "MERGE_T_OP_CODE_ACCESSORY_MAPPING_SETUP",
+				"name": "AFTER_SMODEL_OIL_STAGING_COPY",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "COPY_SOPACCMAP_STAGING",
+						"activity": "COPY_SMODEL_STAGING",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -142,7 +142,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[MERGE_T_OP_CODE_ACCESSORY_MAPPING_SETUP]"
+					"storedProcedureName": "[dbo].[AFTER_SMODEL_OIL_STAGING_COPY]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
@@ -150,7 +150,7 @@
 				}
 			},
 			{
-				"name": "BEFORE_SOPACCMAP_STAGING_COPY",
+				"name": "BEFORE_SMODEL_OIL_STAGING_COPY",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -162,7 +162,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[BEFORE_SOPACCMAP_STAGING_COPY]"
+					"storedProcedureName": "[dbo].[BEFORE_SMODEL_OIL_STAGING_COPY]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
@@ -170,11 +170,11 @@
 				}
 			},
 			{
-				"name": "AFTER_MERGE_T_OP_CODE_ACCESSORY_MAPPING_SETUP",
+				"name": "MERGE_T_SERVICE_MODEL",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "MERGE_T_OP_CODE_ACCESSORY_MAPPING_SETUP",
+						"activity": "AFTER_SMODEL_OIL_STAGING_COPY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -189,34 +189,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[AFTER_MERGE_T_OP_CODE_ACCESSORY_MAPPING_SETUP]"
-				},
-				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "MERGE_T_ACCESSORY_SERVICE_MODEL_OP_CODE_MAPPING",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "AFTER_MERGE_T_OP_CODE_ACCESSORY_MAPPING_SETUP",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[MERGE_T_ACCESSORY_SERVICE_MODEL_OP_CODE_MAPPING]"
+					"storedProcedureName": "[dbo].[MERGE_T_SERVICE_MODEL]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
