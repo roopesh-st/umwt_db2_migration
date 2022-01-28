@@ -262,6 +262,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.T_EMPLOYEE_ORG_UNIT_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.T_EMPLOYEE_ORG_UNIT_COLLECTION_STAGING",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false
@@ -305,6 +306,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.T_EMPLOYEE_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.T_EMPLOYEE_COLLECTION_STAGING",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false
