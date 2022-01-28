@@ -1,0 +1,340 @@
+{
+	"name": "0_UAT_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+	"properties": {
+		"activities": [
+			{
+				"name": "MERGE_T_USER",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_EMPLOYEE_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_EMPLOYEE_ORG_UNIT_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_USER]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_ADMIN_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_ECMS_PRODUCT_COLLECTION",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "MERGE_T_USER",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.PRODUCT_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.PRODUCT_COLLECTION_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_PRODUCT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "PRODUCT_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "MERGE_T_USER",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "LOOKUP_LAST_MODIFIED_DATE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=OpportunityLastChangeDateTime%20ge%20datetimeoffset%27@{CONCAT(activity('LOOKUP_LAST_MODIFIED_DATE').output.firstRow.OpportunityLastChangeDateTime,'Z')}%27",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ParentObjectID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ParentObjectID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OpportunityID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OpportunityID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OpportunityLastChangeDateTime",
+									"type": "DateTimeOffset"
+								},
+								"sink": {
+									"name": "OpportunityLastChangeDateTime",
+									"type": "DateTimeOffset"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"COLLECTION_NAME": "OpportunityBusinessTransactionDocumentReferenceCollection"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "BEFORE_T_OPP_REF_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "LOOKUP_LAST_MODIFIED_DATE",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_T_OPP_REF_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(OpportunityLastChangeDateTime) IS NOT NULL \n            THEN CAST(MAX(OpportunityLastChangeDateTime) AS datetime) \n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'OpportunityLastChangeDateTime'\nFROM T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_OPPORTUNITY_REFERENCE_COLLECTION_STAGING"
+						}
+					}
+				}
+			},
+			{
+				"name": "COPY_EMPLOYEE_ORG_UNIT_COLLECTION",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"COLLECTION_NAME": "EmployeeOrganisationalUnitAssignmentCollection"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_EMPLOYEE_ORG_UNIT_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_EMPLOYEE_COLLECTION",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"COLLECTION_NAME": "EmployeeCollection"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_EMPLOYEE_COLLECTION_STAGING"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - UAT"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-22T12:48:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
