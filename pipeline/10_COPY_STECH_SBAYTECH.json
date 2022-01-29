@@ -1,5 +1,5 @@
 {
-	"name": "10_COPY_STECH",
+	"name": "10_COPY_STECH_SBAYTECH",
 	"properties": {
 		"activities": [
 			{
@@ -190,6 +190,156 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[AFTER_STECH_STAGING_COPY]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_SBAYTECH",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SBAYTECH')  IS NOT NULL TRUNCATE TABLE dbo.SBAYTECH",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SBAYTECH"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SBAYTECH",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SBAYTECH_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SBAYTECH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SBAYTECH_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.SBAYTECH_STAGING",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SBAYTECH",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SBAYTECH_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "MERGE_T_SERVICE_BAY_AND_TECHNICIAN_MAPPING",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "MERGE_T_TECHNICIAN",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_SBAYTECH_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_SERVICE_BAY_AND_TECHNICIAN_MAPPING]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
