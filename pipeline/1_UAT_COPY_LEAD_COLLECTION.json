@@ -1649,30 +1649,6 @@
 									"type": "Byte",
 									"physicalType": "tinyint"
 								}
-							},
-							{
-								"source": {
-									"name": "LEAD_SOURCE_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "LEAD_SOURCE_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "LEAD_SUBSOURCE_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "LEAD_SUBSOURCE_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
 							}
 						],
 						"typeConversion": true,
