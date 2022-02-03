@@ -83,6 +83,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.GCCOPT_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.GCCOPT_STAGING",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
@@ -199,6 +200,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.GCCMAP_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.GCCMAP_STAGING",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
