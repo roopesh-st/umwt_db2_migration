@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "COPY_SFIXREASON",
+				"name": "COPY_SCHCDM",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -20,7 +20,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SFIXREASON')  IS NOT NULL TRUNCATE TABLE dbo.SFIXREASON",
+						"preCopyScript": "IF OBJECT_ID('dbo.SCHCDS')  IS NOT NULL TRUNCATE TABLE dbo.SCHCDS",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
@@ -41,7 +41,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "SFIXREASON"
+							"TableName": "SCHCDS"
 						}
 					}
 				],
@@ -50,18 +50,18 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SFIXREASON",
+							"TableName": "SCHCDS",
 							"SchemaName": "dbo"
 						}
 					}
 				]
 			},
 			{
-				"name": "COPY_SFIXREASON_STAGING",
+				"name": "COPY_SCHCDM_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "COPY_SFIXREASON",
+						"activity": "COPY_SCHCDM",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -102,7 +102,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SFIXREASON",
+							"TableName": "SCHCDS",
 							"SchemaName": "dbo"
 						}
 					}
@@ -113,7 +113,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "SFIXREASON_STAGING"
+							"TableName": "SCHCDS_STAGING"
 						}
 					}
 				]
