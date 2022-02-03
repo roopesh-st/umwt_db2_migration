@@ -51,7 +51,9 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.VORDER')  IS NOT NULL TRUNCATE TABLE dbo.VORDER",
+						"preCopyScript": "IF OBJECT_ID('dbo.VORDER')  IS NOT NULL DROP TABLE dbo.VORDER",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
