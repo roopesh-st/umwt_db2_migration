@@ -47,7 +47,7 @@
 						"referenceName": "UMWT_UAT_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB3",
+							"SchemaName": "TPSPRLIB",
 							"TableName": "PTT100P"
 						}
 					}
