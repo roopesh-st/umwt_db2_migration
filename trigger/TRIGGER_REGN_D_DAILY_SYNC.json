@@ -17,7 +17,7 @@
 				"frequency": "Day",
 				"interval": 1,
 				"startTime": "2022-01-12T08:19:00",
-				"endTime": "2022-02-15T08:19:00",
+				"endTime": "2022-03-31T08:19:00",
 				"timeZone": "Singapore Standard Time",
 				"schedule": {
 					"minutes": [
