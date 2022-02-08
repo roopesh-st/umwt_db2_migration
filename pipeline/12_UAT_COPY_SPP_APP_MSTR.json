@@ -347,6 +347,8 @@
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE - UAT"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-01-19T13:42:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

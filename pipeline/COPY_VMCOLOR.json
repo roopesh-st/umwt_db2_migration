@@ -60,7 +60,7 @@
 			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-11-16T01:29:30Z"
+		"lastPublishTime": "2021-12-05T06:43:45Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

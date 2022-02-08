@@ -60,7 +60,7 @@
 			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/TRAN_SIMPLE_COPY"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-11-14T00:43:37Z"
+		"lastPublishTime": "2021-12-18T01:14:46Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

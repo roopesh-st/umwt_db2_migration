@@ -200,6 +200,8 @@
 		"folder": {
 			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-02-01T14:25:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

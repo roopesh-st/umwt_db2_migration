@@ -334,6 +334,8 @@
 		"folder": {
 			"name": "DMS - PHASE 1/MASTER DATA - QA"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-01-27T12:15:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

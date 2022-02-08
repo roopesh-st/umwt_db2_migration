@@ -549,6 +549,8 @@
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE - QA"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-01-17T08:51:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

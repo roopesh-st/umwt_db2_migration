@@ -631,7 +631,7 @@
 			"name": "DATA_MIGRATION/MASTER_DATA/MASTER MODULE - UAT ENV"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-12-04T15:14:46Z"
+		"lastPublishTime": "2021-12-04T17:20:07Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

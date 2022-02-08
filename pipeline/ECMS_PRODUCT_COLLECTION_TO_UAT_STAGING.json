@@ -47,6 +47,8 @@
 		"folder": {
 			"name": "DATA_MIGRATION/ECMS MODULE/MIGRATION - UAT ENV"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2021-12-08T07:43:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

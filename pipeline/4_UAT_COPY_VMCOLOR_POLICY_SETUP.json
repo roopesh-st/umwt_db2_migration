@@ -307,6 +307,8 @@
 		"folder": {
 			"name": "DMS - PHASE 1/MASTER DATA - UAT"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-01-17T08:51:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
