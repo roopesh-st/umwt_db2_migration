@@ -30,6 +30,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "9_UAT_COPY_VINVOICE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"userProperties": [],
@@ -76,14 +82,7 @@
 			{
 				"name": "9_UAT_COPY_VINVOICE",
 				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "8_UAT_COPY_VOR_H_D",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
