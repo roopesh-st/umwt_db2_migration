@@ -201,7 +201,7 @@
 			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/PARTS_MODULE"
 		},
 		"annotations": [],
-		"lastPublishTime": "2022-02-03T12:45:31Z"
+		"lastPublishTime": "2022-02-10T08:44:16Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
