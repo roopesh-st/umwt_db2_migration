@@ -1,5 +1,5 @@
 {
-	"name": "COPY_SOILPARTS",
+	"name": "3_COPY_SOILPARTS",
 	"properties": {
 		"activities": [
 			{
@@ -198,7 +198,7 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV"
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/PARTS_MODULE"
 		},
 		"annotations": [],
 		"lastPublishTime": "2022-02-03T12:45:31Z"
