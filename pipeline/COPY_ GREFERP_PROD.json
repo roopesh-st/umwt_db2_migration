@@ -24,22 +24,8 @@
 						"preCopyScript": "IF OBJECT_ID('dbo.GREFERP')  IS NOT NULL TRUNCATE TABLE dbo.GREFERP",
 						"tableOption": "autoCreate"
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableStaging": false
 				},
-				"inputs": [
-					{
-						"referenceName": "UMWT_GCUSTPRD_DS",
-						"type": "DatasetReference"
-					}
-				],
 				"outputs": [
 					{
 						"referenceName": "SINK_TABLE_PARAM",

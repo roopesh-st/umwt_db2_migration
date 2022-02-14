@@ -24,22 +24,8 @@
 						"preCopyScript": "IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CUSTOMER_CONSOLIDATED_DATA]') AND type in (N'U'))\nBEGIN\n\tdelete from dbo.CUSTOMER_CONSOLIDATED_DATA\nEND",
 						"tableOption": "autoCreate"
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableStaging": false
 				},
-				"inputs": [
-					{
-						"referenceName": "UMWT_GCUSTPRD_DS",
-						"type": "DatasetReference"
-					}
-				],
 				"outputs": [
 					{
 						"referenceName": "SINK_TABLE_PARAM",
