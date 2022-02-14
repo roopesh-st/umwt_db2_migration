@@ -1,0 +1,16 @@
+{
+	"name": "UMWT_PRD_DB3",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Db2",
+		"typeProperties": {
+			"connectionString": "server=UMWTDEV:446;database=UMWTDEV;authenticationtype=Basic;username=tcs",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkNDQwZmU5YS0zOTU1LTQ0ZWYtYjdlYS1jM2U5MWNkYWJlM2MiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "UMWA-DEV-ADF-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
