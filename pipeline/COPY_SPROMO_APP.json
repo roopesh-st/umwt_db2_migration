@@ -1,0 +1,261 @@
+{
+	"name": "COPY_SPROMO_APP",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_SPROMO_APP",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_SPROMO_APP_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SPROMO_APP')  IS NOT NULL TRUNCATE TABLE dbo.SPROMO_APP",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SPROMO_APP"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SPROMO_APP",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SPROMO_APP_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SPROMO_APP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SPROMO_APP",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SPROMO_APP_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_SPROMO_APP_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_SPROMO_APP_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_SPROMO_APP_STAGING_COPY]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "BEFORE_SPROMO_APP_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_SPROMO_APP_STAGING_COPY]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_PROMO_SETUP_ORGANISATION_MAPPING",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_SPROMO_APP_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_PROMO_SETUP_ORGANISATION_MAPPING]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_PROMO_TARGET_CUSTOMER_CLASS_MAPPING",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_SPROMO_APP_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_PROMO_TARGET_CUSTOMER_CLASS_MAPPING]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_PROMO_TARGET_CUSTOMER_SERVICE_MODEL_MAPPING",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_SPROMO_APP_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_PROMO_TARGET_CUSTOMER_SERVICE_MODEL_MAPPING]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-01T14:25:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
