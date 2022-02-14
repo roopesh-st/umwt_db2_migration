@@ -1,0 +1,16 @@
+{
+	"name": "UMWT_UAT_DB_NEW",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Db2",
+		"typeProperties": {
+			"connectionString": "server=UMWTDEVD:446;database=UMWTDEVD;authenticationtype=Basic;username=E31TESTER;packagecollection=E31DLIB3",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkZjhiZmZmNS1kYTMwLTQ4NzYtYThmYi05NmE0M2IwMTlhYzgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "UMWA-DEV-ADF-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
