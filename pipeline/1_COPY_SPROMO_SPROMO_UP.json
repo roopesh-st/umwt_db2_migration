@@ -1,5 +1,5 @@
 {
-	"name": "COPY_SPROMO_SPROMO_UP",
+	"name": "1_COPY_SPROMO_SPROMO_UP",
 	"properties": {
 		"activities": [
 			{
@@ -722,7 +722,7 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV"
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/Common"
 		},
 		"annotations": [],
 		"lastPublishTime": "2022-02-10T05:30:41Z"
