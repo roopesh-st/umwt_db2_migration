@@ -42,10 +42,10 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB3",
+							"SchemaName": "TCSPRLIB",
 							"TableName": "VMPRICE"
 						}
 					}
@@ -77,7 +77,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_VMPRICE_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -131,7 +131,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_MASTER_TABLE_PARAM",
+						"referenceName": "PRD_MASTER_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -163,7 +163,7 @@
 					"storedProcedureName": "[dbo].[AFTER_VMPRICE_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -190,7 +190,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -217,7 +217,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_SELLING_PRICE_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -244,7 +244,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_COMPANY_COMMERCIAL_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -271,7 +271,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_INDIVIDUAL_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -298,7 +298,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_DETAILS_PRIVATE_COMPANY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -325,7 +325,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_O_D_ACCESSORY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -352,7 +352,7 @@
 					"storedProcedureName": "[dbo].[CREATE_VEHICLE_PRICING_S_R_ACCESSORY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
