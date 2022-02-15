@@ -16,8 +16,9 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "Db2Source",
-						"query": "SELECT * FROM E31DLIB5.GUSER"
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -26,6 +27,12 @@
 					},
 					"enableStaging": false
 				},
+				"inputs": [
+					{
+						"referenceName": "UAT_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference"
+					}
+				],
 				"outputs": [
 					{
 						"referenceName": "SINK_TABLE_PARAM",
