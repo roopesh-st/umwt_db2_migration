@@ -138,7 +138,7 @@
 					"storedProcedureName": "[dbo].[AFTER_GREFERP_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -165,7 +165,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_MASTER]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
