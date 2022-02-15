@@ -26,6 +26,16 @@
 					},
 					"enableStaging": false
 				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB5",
+							"TableName": "GCUST_DD"
+						}
+					}
+				],
 				"outputs": [
 					{
 						"referenceName": "SINK_TABLE_PARAM",
