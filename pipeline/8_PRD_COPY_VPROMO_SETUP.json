@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_VPROMO_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -62,10 +62,10 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB3",
+							"SchemaName": "TCSPRLIB",
 							"TableName": "VPROMO"
 						}
 					}
@@ -131,7 +131,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_MASTER_TABLE_PARAM",
+						"referenceName": "PRD_MASTER_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -163,7 +163,7 @@
 					"storedProcedureName": "[dbo].[AFTER_VPROMO_STAGING]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -190,7 +190,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_PROMOTION_SETUP]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_MASTER_LS",
+					"referenceName": "PRD_DMS_MASTER_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
