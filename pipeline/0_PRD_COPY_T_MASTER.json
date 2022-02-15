@@ -35,7 +35,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_PRD_SRC_PARAM",
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "TCSPRLIB",
