@@ -1,0 +1,16 @@
+{
+	"name": "PRD_DMS_LEADS_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=15.0.4.4;initial catalog=dms-leads;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjNTJlYTQwOC05ZjA2LTRjZjEtYTExZC0zNGQ2YzlhZjM0OGMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ADF-DMS-PRD-CLOUD-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
