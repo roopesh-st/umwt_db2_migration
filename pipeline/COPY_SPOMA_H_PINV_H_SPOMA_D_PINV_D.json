@@ -1,0 +1,477 @@
+{
+	"name": "COPY_SPOMA_H_PINV_H_SPOMA_D_PINV_D",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_SPOMA_H",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SPOMA_H')  IS NOT NULL TRUNCATE TABLE dbo.SPOMA_H",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SPOMA_H"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SPOMA_H",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SPOMA_H_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SPOMA_H",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SPOMA_H",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SPOMA_H_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_PINV_H",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.PINV_H')  IS NOT NULL TRUNCATE TABLE dbo.PINV_H",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "PINV_H"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "PINV_H",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_PINV_H_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_PINV_H",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "PINV_H",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "PINV_H_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SPOMA_D",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SPOMA_D')  IS NOT NULL TRUNCATE TABLE dbo.SPOMA_D",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SPOMA_D"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SPOMA_D",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SPOMA_D_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SPOMA_D",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SPOMA_D",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SPOMA_D_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_PINV_D_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_PINV_D",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "PINV_D",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "PINV_D_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_PINV_D",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.PINV_D')  IS NOT NULL TRUNCATE TABLE dbo.PINV_D",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "PINV_D"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "PINV_D",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/Original Table Move"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-10T05:30:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
