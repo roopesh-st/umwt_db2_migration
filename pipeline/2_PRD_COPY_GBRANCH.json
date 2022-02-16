@@ -2240,6 +2240,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "CREATE_PRICING_REGION_MAPPING_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
 				"policy": {
@@ -2279,6 +2285,26 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[CREATE_T_ORG_OPERATION_COMMUNICATION_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_ADMIN_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "CREATE_PRICING_REGION_MAPPING_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[CREATE_PRICING_REGION_MAPPING_PROC]"
 				},
 				"linkedServiceName": {
 					"referenceName": "PRD_DMS_ADMIN_LS",
