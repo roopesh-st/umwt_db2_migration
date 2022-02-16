@@ -1,0 +1,361 @@
+{
+	"name": "COPY_SFREEVEH_SFREEVEHLOG_SFSATTEND",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_SFREEVEH",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SFREEVEH')  IS NOT NULL TRUNCATE TABLE dbo.SFREEVEH",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SFREEVEH"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFREEVEH",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFREEVEH_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SFREEVEH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFREEVEH",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SFREEVEH_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFREEVEHLOG",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SFREEVEHLOG')  IS NOT NULL TRUNCATE TABLE dbo.SFREEVEHLOG",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SFREEVEHLOG"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFREEVEHLOG",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFREEVEHLOG_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SFREEVEHLOG",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFREEVEHLOG",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SFREEVEHLOG_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFSATTEND",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SFSATTEND')  IS NOT NULL TRUNCATE TABLE dbo.SFSATTEND",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SFSATTEND"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFSATTEND",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFSATTEND_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SFSATTEND",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFSATTEND",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SFSATTEND_STAGING"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/Original Table Move"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-10T05:30:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
