@@ -1,0 +1,477 @@
+{
+	"name": "COPY_SAOWAR_SWARJOB_SWARVEH",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_SAOWAR",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SAOWAR')  IS NOT NULL TRUNCATE TABLE dbo.SAOWAR",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SAOWAR"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SAOWAR",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SAOWAR_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SAOWAR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SAOWAR",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SAOWAR_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SWARJOB",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SWARJOB')  IS NOT NULL TRUNCATE TABLE dbo.SWARJOB",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SWARJOB"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SWARJOB",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SWARJOB_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SWARJOB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SWARJOB",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SWARJOB_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SWARVEH",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SWARVEH')  IS NOT NULL TRUNCATE TABLE dbo.SWARVEH",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SWARVEH"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SWARVEH",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SWARVEH_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SWARVEH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SWARVEH",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SWARVEH_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SINJOB_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SINJOB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SINJOB",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SINJOB_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SINJOB",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SINJOB')  IS NOT NULL TRUNCATE TABLE dbo.SINJOB",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SINJOB"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SINJOB",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/Original Table Move"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-10T05:30:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
