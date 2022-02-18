@@ -1,0 +1,184 @@
+{
+	"name": "2_PRD_COPY_LEAD_SOURCE_SUBSOURCE",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_LEAD_SOURCE",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.T_LEAD_ORIGIN_TYPECODE_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.T_LEAD_ORIGIN_TYPECODE_COLLECTION_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_COLLECTION_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"COLLECTION_NAME": "LeadOriginTypeCodeCollection"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_ORIGIN_TYPECODE_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_ACTIVITY_CATEGORY_COLLECTION",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.T_ACTIVITY_CATEGORY_MAPPING')  IS NOT NULL TRUNCATE TABLE dbo.T_ACTIVITY_CATEGORY_MAPPING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_ACTIVITY_COLLECTION_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"COLLECTION_NAME": "ActivityCategoryMappingRootCollection"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_ACTIVITY_CATEGORY_MAPPING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_LEAD_SUB_SOURCE",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.T_LEAD_SUB_SOURCE_COLLECTION_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.T_LEAD_SUB_SOURCE_COLLECTION_STAGING",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_CUST_COLLECTION_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"COLLECTION_NAME": "LeadSubSourceRootCollection"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_SUB_SOURCE_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "MERGE_T_LEAD_SOURCE_SUBSOURCE",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_LEAD_SOURCE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_LEAD_SUB_SOURCE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_ACTIVITY_CATEGORY_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_SOURCE_SUBSOURCE]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-28T12:53:08Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
