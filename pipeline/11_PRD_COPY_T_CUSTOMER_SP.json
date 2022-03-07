@@ -256,7 +256,7 @@
 								"storedProcedureName": "[dbo].[AFTER_SCUSTSP_STAGING_COPY]"
 							},
 							"linkedServiceName": {
-								"referenceName": "UAT_DMS_LEADS_LS",
+								"referenceName": "PRD_DMS_LEADS_LS",
 								"type": "LinkedServiceReference"
 							}
 						},
@@ -283,7 +283,7 @@
 								"storedProcedureName": "[dbo].[MERGE_T_CUSTOMER_SP]"
 							},
 							"linkedServiceName": {
-								"referenceName": "UAT_DMS_LEADS_LS",
+								"referenceName": "PRD_DMS_LEADS_LS",
 								"type": "LinkedServiceReference"
 							}
 						}
