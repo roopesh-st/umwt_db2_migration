@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_VORDER_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -45,7 +45,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "select * from E31DLIB3.VORDER where VOBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"value": "select * from TCSPRLIB.VORDER where VOBRCD = '@{pipeline().parameters.OUTLET_ID}'",
 							"type": "Expression"
 						}
 					},
@@ -68,10 +68,10 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB3",
+							"SchemaName": "TCSPRLIB",
 							"TableName": "VORDER"
 						}
 					}
@@ -1797,7 +1797,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -1829,7 +1829,7 @@
 					"storedProcedureName": "[dbo].[AFTER_VORDER_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -1856,7 +1856,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_LEAD_RCO]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -1883,7 +1883,7 @@
 					"storedProcedureName": "[dbo].[AFTER_MERGE_T_LEAD_RCO]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -1910,7 +1910,7 @@
 					"storedProcedureName": "[dbo].[CREATE_T_LEAD_RCO_ACCESSORY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
@@ -1918,7 +1918,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "31E"
+				"defaultValue": "382"
 			}
 		},
 		"folder": {
