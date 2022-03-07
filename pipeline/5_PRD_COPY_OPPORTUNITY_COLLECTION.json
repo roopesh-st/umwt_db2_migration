@@ -1,0 +1,518 @@
+{
+	"name": "5_PRD_COPY_OPPORTUNITY_COLLECTION",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_OPPORTUNITY_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}')",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "ProspectPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ProspectPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpectedProcessingStartDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ExpectedProcessingStartDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "CreatedByUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedByUUID",
+									"type": "Guid"
+								},
+								"sink": {
+									"name": "LastChangedByUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTInvoiceDateOppt_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTInvoiceDateOppt_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTInvoiceNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTInvoiceNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCOCancellationDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTRCOCancellationDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCODate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTRCODate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCONumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCONumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCORejectedReason_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCORejectedReason_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCORejectedReason_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCORejectedReason_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCOStatus",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCOStatus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRCOStatusText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRCOStatusText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRequireTestDrive",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTRequireTestDrive",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRequireTradeIn",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTRequireTradeIn",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTSetToLostDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTSetToLostDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTSetToWonDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTSetToWonDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CashBuyer_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUT_CashBuyer_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_LoanStatus_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_LoanStatus_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_LoanStatus_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_LoanStatus_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_LoanSubmissionDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUT_LoanSubmissionDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_ProspectStatus_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_ProspectStatus_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_ProspectStatus_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_ProspectStatus_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ObjectID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ObjectID",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_OPPORTUNITY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_OPPORTUNITY_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_T_OPPORTUNITY_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_OPPURTUNITIES",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_T_OPPORTUNITY_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_OPPURTUNITIES]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-17T08:51:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
