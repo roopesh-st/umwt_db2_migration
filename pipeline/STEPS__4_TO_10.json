@@ -1,0 +1,124 @@
+{
+	"name": "STEPS__4_TO_10",
+	"properties": {
+		"activities": [
+			{
+				"name": "4_PRD_COPY_VMCOLOR_POLICY_SETUP",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "4_PRD_COPY_VMCOLOR_POLICY_SETUP",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "5_PRD_COPY_VMTRIMCOLR_POLICY_SETUP",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "4_PRD_COPY_VMCOLOR_POLICY_SETUP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "5_PRD_COPY_VMTRIMCOLR_POLICY_SETUP",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "6_PRD_COPY_VMPRICE_PRICING_SETUP",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "5_PRD_COPY_VMTRIMCOLR_POLICY_SETUP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "6_PRD_COPY_VMPRICE_PRICING_SETUP",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "7_PRD_COPY_VSPCOLR_PRICING_SETUP",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "6_PRD_COPY_VMPRICE_PRICING_SETUP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "7_PRD_COPY_VSPCOLR_PRICING_SETUP",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "8_PRD_COPY_VPROMO_SETUP",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "7_PRD_COPY_VSPCOLR_PRICING_SETUP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "8_PRD_COPY_VPROMO_SETUP",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "10_PRD_COPY_SWAR_CFG",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "8_PRD_COPY_VPROMO_SETUP",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "10_PRD_COPY_SWAR_CFG",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/MASTER DATA - PRD"
+		},
+		"annotations": []
+	}
+}
