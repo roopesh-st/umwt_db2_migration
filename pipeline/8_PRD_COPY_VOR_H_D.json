@@ -1,0 +1,709 @@
+{
+	"name": "8_PRD_COPY_VOR_H_D",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_VOR_H_D_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_VOR_H_D_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_VOR_H",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_VOR_H_D_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": {
+							"value": "select * from TCSPRLIB.VOR_H where BHBRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VOR_H')  IS NOT NULL TRUNCATE TABLE dbo.VOR_H",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "TCSPRLIB",
+							"TableName": "VOR_H"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_H",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_VOR_H_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_VOR_H",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "BHORNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHORNO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBRCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHBRCD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCUID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHORDT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHORDT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCHQN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCHQN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCHQT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCHQT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCAMT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHCAMT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBCRG",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHBCRG",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBDEP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHBDEP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBKIN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHBKIN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHITEM",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHITEM",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHTIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHTIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHUSID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHUSID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHSTAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHSTAT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHHPCO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHHPCO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHPYMD",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHPYMD",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCDTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCDTY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCDNO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCDNO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCCRG",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHCCRG",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHVCHR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHVCHR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHAPCD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHAPCD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHTOWN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHTOWN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBIND",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHBIND",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHTHIR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHTHIR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHTNME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHTNME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHPSEQ",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHPSEQ",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCPNT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCPNT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHCPNN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHCPNN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHREMK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHREMK",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBITC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BHBITC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BHBAMT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHBAMT",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHTAXA",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHTAXA",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "BHRNDA",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "BHRNDA",
+									"type": "Decimal",
+									"physicalType": "Decimal"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_H",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "VOR_H_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_VOR_D",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_VOR_H_D_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": {
+							"value": "SELECT * FROM TCSPRLIB.VOR_D WHERE BDOGBR = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.VOR_D')  IS NOT NULL TRUNCATE TABLE dbo.VOR_D",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "TCSPRLIB",
+							"TableName": "VOR_D"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_D",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_VOR_D_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_VOR_D",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "VOR_D",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "VOR_D_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_VOR_H_D_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_VOR_H_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_VOR_D_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_VOR_H_D_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "UPDATE_T_LEAD_RCO",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_VOR_H_D_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[UPDATE_T_LEAD_RCO]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-18T08:35:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
