@@ -1,0 +1,544 @@
+{
+	"name": "4_PRD_COPY_APPOINTMENT_COLLECTION",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_APPOINTMENT_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisation eq '@{pipeline().parameters.OUTLET_ID}')",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Subject",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Subject",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "StartDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "EndDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "FullDayIndicator",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "FullDayIndicator",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Category",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Category",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Owner",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Owner",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Priority",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Priority",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisation",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisation",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedOn",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreatedOn",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_APPOINTMENT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_APPOINTMENT_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_T_APPOINTMENT_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_T_LEAD_APPOINTMENT",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "AFTER_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "LEAD_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "LEAD_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDate",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "START_DATE_TIME",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDate",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "END_DATE_TIME",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "Subject",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "NOTES",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ORG_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ORG_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ECMS_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "FullDayIndicator",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_FullDayIndicator",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Category",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_Category",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MainAccountPartyID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_MainAccountPartyID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Priority",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_Priority",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesTerritoryID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisation",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_SalesOrganisation",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountName",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ECMS_AccountName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedOn",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DATE_TIME",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "UPDATED_DATE_TIME",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								},
+								"sink": {
+									"name": "UMWT_DATA_SRC",
+									"type": "Byte",
+									"physicalType": "tinyint"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_APPOINTMENT_COLLECTION_STAGING"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_APPOINTMENT"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-17T08:51:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
