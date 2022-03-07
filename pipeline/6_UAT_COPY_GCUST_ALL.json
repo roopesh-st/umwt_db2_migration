@@ -18,7 +18,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_GCUST_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -27,7 +27,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "BEFORE_GCUST_STAGING_COPY",
+						"activity": "LOOKUP_LAST_COPIED_DATE_TIME",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -45,7 +45,7 @@
 					"source": {
 						"type": "Db2Source",
 						"query": {
-							"value": "SELECT * from E31DLIB3.GCUST WHERE C1BRCD = '@{pipeline().parameters.OUTLET_ID}'",
+							"value": "SELECT * from TCSPRLIB.GCUST WHERE C1UDTE > '@{activity('LOOKUP_LAST_COPIED_DATE_TIME').output.firstRow.LastCopiedCustomerDateTime}'",
 							"type": "Expression"
 						}
 					},
@@ -1080,10 +1080,10 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB3",
+							"SchemaName": "TCSPRLIB",
 							"TableName": "GCUST"
 						}
 					}
@@ -2163,7 +2163,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2195,7 +2195,7 @@
 					"storedProcedureName": "[dbo].[AFTER_GCUST_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -2354,7 +2354,7 @@
 							},
 							{
 								"source": {
-									"name": "C1MOBT",
+									"name": "MOBILE_NUMBER",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -2894,7 +2894,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -2904,7 +2904,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3179,12 +3179,36 @@
 							},
 							{
 								"source": {
-									"name": "C1TELN",
+									"name": "PHONE_NUMBER",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "PHONE_NUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MOBILE_NUMBER",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "MOBILE_NUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OFFICE_NUMBER",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "OFFICE_NUMBER",
 									"type": "String",
 									"physicalType": "varchar"
 								}
@@ -3253,14 +3277,44 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "LOOKUP_LAST_COPIED_DATE_TIME",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_GCUST_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(UPDATED_DATE_TIME) IS NOT NULL \n            THEN convert(varchar(8),CAST(MAX(UPDATED_DATE_TIME) AS date) ,112)\n        ELSE\n            '19000101'\n    END AS 'LastCopiedCustomerDateTime'\nFROM T_CUSTOMER WHERE UMWT_DATA_SRC = 1",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_CUSTOMER"
+						}
+					}
+				}
 			}
 		],
-		"parameters": {
-			"OUTLET_ID": {
-				"type": "string",
-				"defaultValue": "382"
-			}
-		},
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
 		},
