@@ -2936,7 +2936,7 @@
 					"storedProcedureName": "[dbo].[AFTER_T_CUSTOMER_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -3114,7 +3114,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3124,7 +3124,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3259,7 +3259,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -3269,7 +3269,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
