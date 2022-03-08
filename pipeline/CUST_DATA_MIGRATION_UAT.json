@@ -157,7 +157,7 @@
 			}
 		],
 		"folder": {
-			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/INCREMENTAL MIGRATION"
+			"name": "DMS - POC/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/INCREMENTAL MIGRATION"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-11-15T09:49:46Z"

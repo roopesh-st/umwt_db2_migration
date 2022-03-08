@@ -57,7 +57,7 @@
 			}
 		],
 		"folder": {
-			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/TRAN_SIMPLE_COPY"
+			"name": "DMS - POC/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/TRAN_SIMPLE_COPY"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-11-14T03:53:15Z"

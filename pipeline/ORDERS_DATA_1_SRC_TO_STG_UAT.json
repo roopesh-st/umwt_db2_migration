@@ -635,7 +635,7 @@
 			}
 		},
 		"folder": {
-			"name": "DATA_MIGRATION/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/ONE TIME MIGRATION - UAT ENV"
+			"name": "DMS - POC/PRE_SALES_TRAN_DATA_UMWT_TO_DMS/ONE TIME MIGRATION - UAT ENV"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-11-14T03:57:53Z"

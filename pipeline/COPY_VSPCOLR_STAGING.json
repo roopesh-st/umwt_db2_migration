@@ -58,7 +58,7 @@
 			}
 		],
 		"folder": {
-			"name": "DATA_MIGRATION/MASTER_DATA/SIMPLE_COPY_MASTER"
+			"name": "DMS - POC/MASTER_DATA/SIMPLE_COPY_MASTER"
 		},
 		"annotations": [],
 		"lastPublishTime": "2021-12-10T09:30:13Z"
