@@ -1720,43 +1720,6 @@
 							},
 							{
 								"source": {
-									"name": "VOFPID",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "VOFPID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "VOFPAM",
-									"type": "Decimal"
-								},
-								"sink": {
-									"name": "VOFPAM",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 9
-								}
-							},
-							{
-								"source": {
-									"name": "VOFPCV",
-									"type": "Decimal"
-								},
-								"sink": {
-									"name": "VOFPCV",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 2,
-									"precision": 9
-								}
-							},
-							{
-								"source": {
 									"name": "VOSWID",
 									"type": "Int32"
 								},
@@ -1764,17 +1727,6 @@
 									"name": "VOSWID",
 									"type": "Int32",
 									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "VORSID",
-									"type": "Int64"
-								},
-								"sink": {
-									"name": "VORSID",
-									"type": "Int64",
-									"physicalType": "bigint"
 								}
 							}
 						],
