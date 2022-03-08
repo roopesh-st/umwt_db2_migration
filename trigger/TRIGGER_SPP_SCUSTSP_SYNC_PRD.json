@@ -14,8 +14,8 @@
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
-				"frequency": "Minute",
-				"interval": 10,
+				"frequency": "Hour",
+				"interval": 1,
 				"startTime": "2022-03-08T01:22:00",
 				"timeZone": "Singapore Standard Time"
 			}
