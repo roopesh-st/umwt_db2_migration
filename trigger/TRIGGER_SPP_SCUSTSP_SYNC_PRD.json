@@ -1,0 +1,24 @@
+{
+	"name": "TRIGGER_SPP_SCUSTSP_SYNC_PRD",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "12_PRD_COPY_SPP_APP_MSTR",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 10,
+				"startTime": "2022-03-08T01:22:00",
+				"timeZone": "Singapore Standard Time"
+			}
+		}
+	}
+}
