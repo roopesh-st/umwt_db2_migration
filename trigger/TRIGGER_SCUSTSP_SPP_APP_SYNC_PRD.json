@@ -2,7 +2,7 @@
 	"name": "TRIGGER_SCUSTSP_SPP_APP_SYNC_PRD",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
