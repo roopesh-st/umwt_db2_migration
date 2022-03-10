@@ -1,5 +1,5 @@
 {
-	"name": "TRIGGER_SPP_SCUSTSP_SYNC",
+	"name": "TRIGGER_SCUSTSP_SPP_APP_SYNC_UAT",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
