@@ -14,11 +14,11 @@
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
-				"frequency": "Minute",
-				"interval": 10,
-				"startTime": "2022-01-18T08:39:00Z",
-				"endTime": "2022-03-31T08:39:00Z",
-				"timeZone": "UTC"
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2022-01-18T08:39:00",
+				"endTime": "2022-03-10T10:30:00",
+				"timeZone": "Singapore Standard Time"
 			}
 		}
 	}
