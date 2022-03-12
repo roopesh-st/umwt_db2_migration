@@ -1,0 +1,85 @@
+{
+	"name": "PRD_CUSTOMER_CONSOLIDATED_DATA_SRC_TO_STG",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_CUSTOMER_CONSOLIDATED_DATA",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source",
+						"query": "SELECT * FROM TCSPRLIB.GCUST_DD  "
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CUSTOMER_CONSOLIDATED_DATA]') AND type in (N'U'))\nBEGIN\n\tdelete from dbo.CUSTOMER_CONSOLIDATED_DATA\nEND",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "TCSPRLIB",
+							"TableName": "GCUST_DD"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "CUSTOMER_CONSOLIDATED_DATA",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "POST_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_CUSTOMER_CONSOLIDATED_DATA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[UPDATE_CUSTOMER_CONSOLIDATED_DATA]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DMS_ADF_DEMO_LS_SINK",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/DATA_DEDUPLICATION_PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T14:00:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
