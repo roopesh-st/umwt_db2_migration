@@ -33,7 +33,7 @@
 						]
 					},
 					{
-						"activity": "LOOKUP_LAST_COPIED_TASK_DATE_TIME",
+						"activity": "LOOKUP_LAST_COPIED_PHONE_CALL_DATE_TIME",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -51,7 +51,7 @@
 					"source": {
 						"type": "SapCloudForCustomerSource",
 						"query": {
-							"value": "$filter=(SalesOrganisation eq '@{pipeline().parameters.OUTLET_ID}' and LastChangeDateTime ge datetimeoffset'@{concat(activity('LOOKUP_LAST_COPIED_TASK_DATE_TIME').output.firstRow.LastChangeDateTime,'Z')}')",
+							"value": "$filter=(SalesOrganisation eq '@{pipeline().parameters.OUTLET_ID}' and LastChangeDateTime ge datetimeoffset'@{concat(activity('LOOKUP_LAST_COPIED_PHONE_CALL_DATE_TIME').output.firstRow.LastChangeDateTime,'Z')}')",
 							"type": "Expression"
 						},
 						"httpRequestTimeout": "00:05:00"
@@ -139,7 +139,7 @@
 				}
 			},
 			{
-				"name": "LOOKUP_LAST_COPIED_TASK_DATE_TIME",
+				"name": "LOOKUP_LAST_COPIED_PHONE_CALL_DATE_TIME",
 				"type": "Lookup",
 				"dependsOn": [
 					{
