@@ -912,7 +912,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(L.UPDATED_DATE_TIME) IS NOT NULL \n            THEN MAX(L.UPDATED_DATE_TIME)\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LastChangeDateTime'\nFROM T_LEAD L\nWHERE L.UMWT_DATA_SRC = 1 AND L.ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
+						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(L.UPDATED_DATE_TIME) IS NOT NULL \n            THEN CONVERT( DATETIME, CONVERT(DATE, MAX(L.UPDATED_DATE_TIME)))\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LastChangeDateTime'\nFROM T_LEAD L\nWHERE L.UMWT_DATA_SRC = 1 AND L.ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
