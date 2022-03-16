@@ -324,7 +324,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "T_LEAD"
+							"TableName": "T_LEAD_TASK"
 						}
 					}
 				}
