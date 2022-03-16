@@ -352,7 +352,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_LEAD_TASK_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "UAT_DMS_LEADS_LS",
+					"referenceName": "PRD_DMS_LEADS_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
