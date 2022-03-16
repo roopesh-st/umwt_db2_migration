@@ -51,7 +51,7 @@
 					"source": {
 						"type": "SapCloudForCustomerSource",
 						"query": {
-							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}' and LastChangeDateTime ge datetimeoffset'@{concat(activity('LOOKUP_LAST_COPIED_LEAD_DATE_TIME').output.firstRow.LastChangeDateTime,'Z')}')",
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}' and LastChangeDateTime ge datetimeoffset'@{concat(activity('LOOKUP_LAST_COPIED_LEAD_DATE_TIME').output.firstRow.LastChangeDateTime,'')}')",
 							"type": "Expression"
 						},
 						"httpRequestTimeout": "00:05:00"
