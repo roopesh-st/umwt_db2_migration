@@ -114,6 +114,26 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "3_UAT_COPY_PHONE_CALL_COLLECTION_INCR",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "1_UAT_COPY_LEAD_COLLECTION_INCR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_UAT_COPY_PHONE_CALL_COLLECTION_INCR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
