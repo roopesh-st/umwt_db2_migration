@@ -261,279 +261,6 @@
 				}
 			},
 			{
-				"name": "COPY_T_LEAD_APPOINTMENT",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "AFTER_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SqlServerSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"sink": {
-						"type": "SqlServerSink"
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "LEAD_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "LEAD_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "StartDate",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								},
-								"sink": {
-									"name": "START_DATE_TIME",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								}
-							},
-							{
-								"source": {
-									"name": "EndDate",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								},
-								"sink": {
-									"name": "END_DATE_TIME",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								}
-							},
-							{
-								"source": {
-									"name": "Subject",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "NOTES",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ORG_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "ORG_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "ECMS_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "ECMS_ID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "FullDayIndicator",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_FullDayIndicator",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Category",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_Category",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "MainAccountPartyID",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_MainAccountPartyID",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Priority",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_Priority",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "SalesTerritoryID",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_SalesTerritoryID",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "SalesOrganisation",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_SalesOrganisation",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "AccountName",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "ECMS_AccountName",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "CreatedOn",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "CREATED_DATE_TIME",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "LastChangeDateTime",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "UPDATED_DATE_TIME",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "UMWT_DATA_SRC",
-									"type": "Byte",
-									"physicalType": "tinyint"
-								},
-								"sink": {
-									"name": "UMWT_DATA_SRC",
-									"type": "Byte",
-									"physicalType": "tinyint"
-								}
-							},
-							{
-								"source": {
-									"name": "CREATED_BY",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "CREATED_BY",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "UPDATED_BY",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "UPDATED_BY",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "T_APPOINTMENT_COLLECTION_STAGING"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "UAT_LEADS_TABLE_PARAM",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "T_LEAD_APPOINTMENT"
-						}
-					}
-				]
-			},
-			{
 				"name": "LOOKUP_ORG_ID",
 				"type": "Lookup",
 				"dependsOn": [],
@@ -600,6 +327,33 @@
 							"TableName": "T_LEAD"
 						}
 					}
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_APPOINTMENT_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_T_APPOINTMENT_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_APPOINTMENT_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
