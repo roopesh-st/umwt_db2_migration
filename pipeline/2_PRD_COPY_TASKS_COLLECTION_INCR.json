@@ -1,0 +1,373 @@
+{
+	"name": "2_PRD_COPY_TASKS_COLLECTION_INCR",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_T_TASKS_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_T_TASKS_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_ECMS_TASKS_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_T_TASKS_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "LOOKUP_LAST_COPIED_TASK_DATE_TIME",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}' and LastChangeDateTime ge datetimeoffset'@{concat(activity('LOOKUP_LAST_COPIED_TASK_DATE_TIME').output.firstRow.LastChangeDateTime,'Z')}')",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "StartDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDatetimeZoneCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "StartDatetimeZoneCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DueDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "DueDatetime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "DueDatetimeZoneCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DueDatetimeZoneCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CompletionDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CompletionDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MainAccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Account",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Account",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Owner",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Owner",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OwnerUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_TASKS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_TASKS_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_TASKS_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_ECMS_TASKS_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_TASKS_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "LOOKUP_ORG_ID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT TOP (1) ID FROM T_ORG_STRUCTURE WHERE ORG_ID = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_ORG_STRUCTURE"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "LOOKUP_LAST_COPIED_TASK_DATE_TIME",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_ORG_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(L.UPDATED_DATE_TIME) IS NOT NULL \n            THEN MAX(L.UPDATED_DATE_TIME)\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LastChangeDateTime'\nFROM T_LEAD_TASK L\nWHERE L.UMWT_DATA_SRC = 1 AND L.ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD"
+						}
+					}
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_TASK_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_TASKS_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_TASK_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "UAT_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-17T08:51:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
