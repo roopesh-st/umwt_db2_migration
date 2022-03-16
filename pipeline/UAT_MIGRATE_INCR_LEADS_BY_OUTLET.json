@@ -40,7 +40,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "4_UAT_COPY_APPOINTMENT_COLLECTION_INCR",
+						"activity": "1_UAT_COPY_LEAD_COLLECTION_INCR",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -60,7 +60,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "5_UAT_COPY_OPPORTUNITY_COLLECTION",
+						"activity": "1_UAT_COPY_LEAD_COLLECTION_INCR",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -90,6 +90,26 @@
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "8_UAT_COPY_VOR_H_D",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "2_UAT_COPY_TASKS_COLLECTION_INCR",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "1_UAT_COPY_LEAD_COLLECTION_INCR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "2_UAT_COPY_TASKS_COLLECTION_INCR",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
