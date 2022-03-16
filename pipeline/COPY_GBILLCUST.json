@@ -1,5 +1,5 @@
 {
-	"name": "4_COPY_GBILLCUST",
+	"name": "COPY_GBILLCUST",
 	"properties": {
 		"activities": [
 			{
@@ -198,7 +198,7 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/Master"
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV/Transaction"
 		},
 		"annotations": [],
 		"lastPublishTime": "2022-02-08T04:34:45Z"
