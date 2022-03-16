@@ -1,0 +1,104 @@
+{
+	"name": "PRD_MIGRATE_INCR_LEADS_BY_OUTLET",
+	"properties": {
+		"activities": [
+			{
+				"name": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "4_PRD_COPY_APPOINTMENT_COLLECTION_INCR",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "4_PRD_COPY_APPOINTMENT_COLLECTION_INCR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "5_PRD_COPY_OPPORTUNITY_COLLECTION",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "4_PRD_COPY_APPOINTMENT_COLLECTION_INCR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "5_PRD_COPY_OPPORTUNITY_COLLECTION",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "7_PRD_COPY_VORDER",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "5_PRD_COPY_OPPORTUNITY_COLLECTION",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "7_PRD_COPY_VORDER",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "8_PRD_COPY_VOR_H_D",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "7_PRD_COPY_VORDER",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "8_PRD_COPY_VOR_H_D",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": []
+	}
+}
