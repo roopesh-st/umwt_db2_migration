@@ -114,6 +114,26 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "3_PRD_COPY_PHONE_CALL_COLLECTION_INCR",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_PRD_COPY_PHONE_CALL_COLLECTION_INCR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
