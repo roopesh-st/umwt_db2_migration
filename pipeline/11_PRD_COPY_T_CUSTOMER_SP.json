@@ -17,16 +17,16 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT OUTLET_ID FROM dbo.DMS_OUTLET",
+						"sqlReaderQuery": "SELECT OUTLET_ID FROM dbo.DMS_OUTLET WHERE ACTIVE = 1",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "SINK_TABLE_PARAM",
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "DMS_OUTLET",
-							"SchemaName": "dbo"
+							"SchemaName": "DMS_OUTLET",
+							"TableName": "dbo"
 						}
 					},
 					"firstRowOnly": false
