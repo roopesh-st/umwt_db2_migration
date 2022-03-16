@@ -1918,7 +1918,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "31E"
+				"defaultValue": "382"
 			}
 		},
 		"folder": {
