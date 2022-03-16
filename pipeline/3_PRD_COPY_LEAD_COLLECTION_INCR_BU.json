@@ -1,0 +1,1056 @@
+{
+	"name": "3_PRD_COPY_LEAD_COLLECTION_INCR_BU",
+	"properties": {
+		"activities": [
+			{
+				"name": "BEFORE_T_LEAD_COLLECTION_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_T_LEAD_COLLECTION_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_ECMS_LEAD_COLLECTION_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_T_LEAD_COLLECTION_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "LOOKUP_LAST_COPIED_LEAD_DATE_TIME",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapCloudForCustomerSource",
+						"query": {
+							"value": "$filter=(SalesOrganisationID eq '@{pipeline().parameters.OUTLET_ID}' and LastChangeDateTime ge datetimeoffset'@{concat(activity('LOOKUP_LAST_COPIED_LEAD_DATE_TIME').output.firstRow.LastChangeDateTime,'Z')}')",
+							"type": "Expression"
+						},
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ECMS_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountPartyID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AccountPartyName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AccountPartyName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OriginTypeCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerPartyIDSales",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OwnerPartyIDSales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OwnerUUIDSales",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OwnerUUIDSales",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesOrganisationID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CreationDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LastChangeDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SalesTerritoryName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerGenderCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerGenderCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMaritalStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerEMail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerMobile",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStreetName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCity",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountry",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressCountryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressCountryText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressState",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressStateText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressStateText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerAddressPostalCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "IndividualCustomerBirthDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerFormOfAddressCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IndividualCustomerFormOfAddressCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LifeCycleStatusCodeText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreationIdentityUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CreationIdentityUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastChangeIdentityUUID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LastChangeIdentityUUID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_LeadSubSource_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_ActivityCategory_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_AutoAssignmentOption_SDKText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerBrand_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTCustomerType_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTCustomerType_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotEmail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTDoNotSMS_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTExternalID1_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTICNumberNew_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobileAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADMobile_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhoneAreaCode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTLEADPhone_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTPDPADate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTPDPA_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTPDPA_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategory",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTProspectCategoryText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTRace_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUTRace_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "KUTReturnMailDate_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "KUTReturnMail_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "KUTReturnMail_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								},
+								"sink": {
+									"name": "KUT_CommunicationMode_KUTText",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PDI_InterestedVariant1content_SDK",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZCDC_CUST_UUID_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZOM_ASSIGN_SA_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_DATE_TIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "ZSA_LEAD_CONVERT_INDICATOR_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_BRAND_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_CARMODEL_KUT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_ONLINE_CREATE_DATUM_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ZTESTDRIVE_PREFERRED_DATETIME_KUT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "zsave_counter_KUT",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "zsave_counter_KUT",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SAP_ECMS_LEAD",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD_COLLECTION_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_LEADS_STAGING_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_ECMS_LEAD_COLLECTION_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_LEADS_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "AFTER_LEADS_COPY_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "MERGE_T_LEADS_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_LEADS_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "LOOKUP_ORG_ID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT TOP (1) ID FROM T_ORG_STRUCTURE WHERE ORG_ID = '@{pipeline().parameters.OUTLET_ID}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_ADMIN_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_ORG_STRUCTURE"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "LOOKUP_LAST_COPIED_LEAD_DATE_TIME",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_ORG_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(L.UPDATED_DATE_TIME) IS NOT NULL \n            THEN MAX(L.UPDATED_DATE_TIME)\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LastChangeDateTime'\nFROM T_LEAD L\nWHERE L.UMWT_DATA_SRC = 1 AND L.ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "T_LEAD"
+						}
+					}
+				}
+			},
+			{
+				"name": "MERGE_T_LEADS_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_LEADS_STAGING_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEADS_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_CONTACT_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_LEADS_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_CONTACT_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_TEST_DRIVE_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_LEADS_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_TEST_DRIVE_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_LEAD_ADDRESS_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_LEADS_COPY_PROC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_LEAD_ADDRESS_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"OUTLET_ID": {
+				"type": "string",
+				"defaultValue": "382"
+			}
+		},
+		"variables": {
+			"ORG_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-02-03T12:45:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
