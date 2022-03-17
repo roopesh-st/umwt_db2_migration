@@ -1,0 +1,24 @@
+{
+	"name": "TRIGGER_EMP_PRD_OPP_REF_PRD",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "1_PRD_EMPLOYEE_PRODUCT_OPPURTUNITY_REF",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 8,
+				"startTime": "2022-03-17T05:12:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
