@@ -1,0 +1,24 @@
+{
+	"name": "PRD_SYNC_INCR_LEADS",
+	"properties": {
+		"activities": [
+			{
+				"name": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": []
+	}
+}
