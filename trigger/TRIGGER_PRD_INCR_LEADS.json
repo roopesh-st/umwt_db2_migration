@@ -1,0 +1,24 @@
+{
+	"name": "TRIGGER_PRD_INCR_LEADS",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PRD_SYNC_INCR_LEADS",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 5,
+				"startTime": "2022-03-17T06:30:00",
+				"timeZone": "Singapore Standard Time"
+			}
+		}
+	}
+}
