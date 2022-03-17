@@ -2,7 +2,7 @@
 	"name": "TRIGGER_PRD_MIGRATE_INCR_LEADS",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
