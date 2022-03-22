@@ -1,5 +1,5 @@
 {
-	"name": "PRD_CUSTOMER_CONSOLIDATED_DATA_SRC_TO_STG",
+	"name": "1_PRD_CUSTOMER_CONSOLIDATED_DATA_SRC_TO_STG",
 	"properties": {
 		"activities": [
 			{
