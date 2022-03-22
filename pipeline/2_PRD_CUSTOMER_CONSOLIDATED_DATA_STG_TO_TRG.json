@@ -1,0 +1,67 @@
+{
+	"name": "2_PRD_CUSTOMER_CONSOLIDATED_DATA_STG_TO_TRG",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_CUSTOMER_CONSOLIDATED_DATE_TO_TRG",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CUSTOMER_CONSOLIDATED_DATA]') AND type in (N'U'))\nBEGIN\n\tdelete from dbo.CUSTOMER_CONSOLIDATED_DATA\nEND",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "CUSTOMER_CONSOLIDATED_DATA",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "CUSTOMER_CONSOLIDATED_DATA"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/DATA_DEDUPLICATION_PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-11-01T13:46:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
