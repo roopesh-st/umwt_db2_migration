@@ -1,5 +1,5 @@
 {
-	"name": "CUSTOMER_CONSOLIDATED_DATA_SRC_TO_STG",
+	"name": "PRD_CUSTOMER_CONSOLIDATED_DATA_SRC_TO_STG",
 	"properties": {
 		"activities": [
 			{
@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "Db2Source",
-						"query": "SELECT * FROM E31DLIB5.GCUST_DD  "
+						"query": "SELECT * FROM TCSPRLIB.GCUST_DD  "
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -28,10 +28,10 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"referenceName": "UMWT_PRD2_SRC_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB5",
+							"SchemaName": "TCSPRLIB",
 							"TableName": "GCUST_DD"
 						}
 					}
@@ -76,10 +76,10 @@
 			}
 		],
 		"folder": {
-			"name": "DMS - PHASE 1/DATA_DE_DUPLICATION_UAT"
+			"name": "DMS - PHASE 1/DATA_DEDUPLICATION_PRD"
 		},
 		"annotations": [],
-		"lastPublishTime": "2022-03-16T13:19:43Z"
+		"lastPublishTime": "2022-03-16T13:19:46Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

@@ -160,7 +160,7 @@
 			"name": "DMS - POC/MASTER_DATA/MASTER MODULE - UAT ENV"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-11-16T01:31:26Z"
+		"lastPublishTime": "2022-03-08T11:30:36Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

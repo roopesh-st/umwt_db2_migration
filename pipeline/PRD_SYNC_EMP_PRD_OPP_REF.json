@@ -39,6 +39,8 @@
 		"folder": {
 			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-03-17T05:15:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

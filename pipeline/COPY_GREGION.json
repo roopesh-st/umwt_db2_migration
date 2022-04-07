@@ -95,7 +95,7 @@
 			"name": "DMS - POC/MASTER_DATA/SIMPLE_COPY_MASTER"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-12-05T06:43:45Z"
+		"lastPublishTime": "2022-03-08T11:30:34Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

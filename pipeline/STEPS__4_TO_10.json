@@ -119,6 +119,8 @@
 		"folder": {
 			"name": "DMS - PHASE 1/MASTER DATA - PRD"
 		},
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2022-03-08T01:24:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

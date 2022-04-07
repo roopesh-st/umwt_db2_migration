@@ -96,7 +96,7 @@
 			"name": "DMS - POC/ECMS MODULE/ECMS_SIMPLE_COPY"
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-11-26T04:35:51Z"
+		"lastPublishTime": "2022-03-08T11:30:34Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

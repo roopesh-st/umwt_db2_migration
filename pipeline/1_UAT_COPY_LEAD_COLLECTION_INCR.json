@@ -912,7 +912,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT \n    CASE \n        WHEN MAX(L.UPDATED_DATE_TIME) IS NOT NULL \n            THEN CONVERT( DATETIME, CONVERT(DATE, MAX(L.UPDATED_DATE_TIME)))\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LastChangeDateTime'\nFROM T_LEAD L\nWHERE L.UMWT_DATA_SRC = 1 AND L.ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
+						"sqlReaderQuery": {
+							"value": "SELECT \n    CASE \n        WHEN MAX(L.UPDATED_DATE_TIME) IS NOT NULL \n            THEN CONVERT( DATETIME, CONVERT(DATE, MAX(L.UPDATED_DATE_TIME)))\n        ELSE\n            '1900-01-01 00:00:00'\n    END AS 'LastChangeDateTime'\nFROM T_LEAD L\nWHERE L.UMWT_DATA_SRC = 1 AND L.ORG_ID = @{activity('LOOKUP_ORG_ID').output.firstRow.ID}",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -1050,7 +1053,7 @@
 			"name": "DMS - PHASE 1/LEADS MODULE - UAT"
 		},
 		"annotations": [],
-		"lastPublishTime": "2022-02-03T12:45:30Z"
+		"lastPublishTime": "2022-03-16T13:19:43Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
