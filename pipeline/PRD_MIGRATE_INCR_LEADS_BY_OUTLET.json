@@ -12,7 +12,13 @@
 						"referenceName": "3_PRD_COPY_LEAD_COLLECTION_INCR",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -32,7 +38,13 @@
 						"referenceName": "4_PRD_COPY_APPOINTMENT_COLLECTION_INCR",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -52,7 +64,13 @@
 						"referenceName": "5_PRD_COPY_OPPORTUNITY_COLLECTION",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -72,7 +90,13 @@
 						"referenceName": "7_PRD_COPY_VORDER",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -92,7 +116,13 @@
 						"referenceName": "8_PRD_COPY_VOR_H_D",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -112,7 +142,13 @@
 						"referenceName": "2_PRD_COPY_TASKS_COLLECTION_INCR",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			},
 			{
@@ -132,14 +168,20 @@
 						"referenceName": "3_PRD_COPY_PHONE_CALL_COLLECTION_INCR",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"OUTLET_ID": {
+							"value": "@pipeline().parameters.OUTLET_ID",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "382"
+				"defaultValue": "357"
 			}
 		},
 		"folder": {
