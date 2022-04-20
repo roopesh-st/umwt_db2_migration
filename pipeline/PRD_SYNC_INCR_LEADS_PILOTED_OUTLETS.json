@@ -1,0 +1,53 @@
+{
+	"name": "PRD_SYNC_INCR_LEADS_PILOTED_OUTLETS",
+	"properties": {
+		"activities": [
+			{
+				"name": "DMS_LEADS_AUTO_ASSIGN_PROC",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "3_PRD_COPY_LEAD_COLLECTION_INCR_PILOTED_OUTLETS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[DMS_LEADS_AUTO_ASSIGN_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "PRD_DMS_LEADS_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "3_PRD_COPY_LEAD_COLLECTION_INCR_PILOTED_OUTLETS",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "3_PRD_COPY_LEAD_COLLECTION_INCR_PILOTED_OUTLETS",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-03-20T16:39:31Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
