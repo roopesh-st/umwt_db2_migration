@@ -1,0 +1,24 @@
+{
+	"name": "TRIGGER_COPY_INCR_LEADS_PILOTED_OUTLETS_PRD",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PRD_SYNC_INCR_LEADS_PILOTED_OUTLETS",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 10,
+				"startTime": "2022-04-20T12:15:00",
+				"timeZone": "Singapore Standard Time"
+			}
+		}
+	}
+}
