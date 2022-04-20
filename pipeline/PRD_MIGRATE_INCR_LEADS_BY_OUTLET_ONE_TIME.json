@@ -1,5 +1,5 @@
 {
-	"name": "PRD_MIGRATE_INCR_LEADS_BY_OUTLET",
+	"name": "PRD_MIGRATE_INCR_LEADS_BY_OUTLET_ONE_TIME",
 	"properties": {
 		"activities": [
 			{
