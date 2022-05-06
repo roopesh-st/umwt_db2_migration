@@ -1,0 +1,16 @@
+{
+	"name": "UAT_DMS_SERVICE_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=12.0.1.6;initial catalog=dms-service;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1MjhjY2RlYS05ZTcxLTQzZTQtOTI4NS1jZGMxODRlN2FmNjYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ADF-DMS-CLOUD-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
