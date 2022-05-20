@@ -113,7 +113,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"referenceName": "UAT_SERVICE_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -145,7 +145,7 @@
 					"storedProcedureName": "[dbo].[AFTER_SBAY_JOB_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -165,7 +165,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_SBAY_JOB_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -192,7 +192,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_BAY_JOB_MAPPING]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
