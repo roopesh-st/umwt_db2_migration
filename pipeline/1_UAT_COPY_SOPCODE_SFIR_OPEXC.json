@@ -111,7 +111,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"referenceName": "UAT_SERVICE_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -229,7 +229,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"referenceName": "UAT_SERVICE_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -267,7 +267,7 @@
 					"storedProcedureName": "[dbo].[AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY_PROC]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -283,6 +283,9 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_SOPCODE_SFIR_OPEXC_STAGING_COPY]"
+				},
 				"linkedServiceName": {
 					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
@@ -311,7 +314,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_OP_CODE]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
