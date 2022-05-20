@@ -113,7 +113,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"referenceName": "UAT_SERVICE_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -145,7 +145,7 @@
 					"storedProcedureName": "[dbo].[AFTER_SBAY_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -165,12 +165,12 @@
 					"storedProcedureName": "[dbo].[BEFORE_SBAY_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
 			{
-				"name": "MERGE_T_BAY_MASTER",
+				"name": "MERGE_T_SERVICE_BAY_AND_AVAILABILITY",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -189,10 +189,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[MERGE_T_BAY_MASTER]"
+					"storedProcedureName": "[dbo].[MERGE_T_SERVICE_BAY_AND_AVAILABILITY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
