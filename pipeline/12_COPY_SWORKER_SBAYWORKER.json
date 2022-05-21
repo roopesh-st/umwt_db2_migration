@@ -113,7 +113,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"referenceName": "UAT_SERVICE_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -138,7 +138,7 @@
 					"storedProcedureName": "[dbo].[BEFORE_SWORKER_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -165,7 +165,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_SUBLET_WORKER_CREATION]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -192,7 +192,7 @@
 					"storedProcedureName": "[dbo].[AFTER_SWORKER_STAGING_COPY]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			},
@@ -304,7 +304,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"referenceName": "UAT_SERVICE_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
@@ -342,7 +342,7 @@
 					"storedProcedureName": "[dbo].[MERGE_T_SERVICE_BAY_AND_SUBLET_WORKER_MAPPING]"
 				},
 				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
+					"referenceName": "UAT_DMS_SERVICE_LS",
 					"type": "LinkedServiceReference"
 				}
 			}
