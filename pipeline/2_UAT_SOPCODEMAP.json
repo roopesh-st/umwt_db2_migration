@@ -44,7 +44,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
