@@ -350,6 +350,85 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "OP_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_CODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BAY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BAY_TYPE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TM",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_TM",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TM",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "UPDATED_TM",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -359,7 +438,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
