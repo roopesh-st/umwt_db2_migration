@@ -1,5 +1,5 @@
 {
-	"name": "7_UAT_COPY_SBAY_JOB",
+	"name": "7_UAT_COPY_SBAY_JOB_NOT_NEEDED",
 	"properties": {
 		"activities": [
 			{
@@ -44,7 +44,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
