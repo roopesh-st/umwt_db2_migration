@@ -127,7 +127,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "COPY_SOPACCMAP_STAGING",
+						"activity": "AFTER_SOPACCMAP_STAGING_COPY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -217,6 +217,33 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dbo].[MERGE_T_ACCESSORY_SERVICE_MODEL_OP_CODE_MAPPING]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "AFTER_SOPACCMAP_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_SOPACCMAP_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_SOPACCMAP_STAGING_COPY]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
