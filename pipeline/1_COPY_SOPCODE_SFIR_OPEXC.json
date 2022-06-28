@@ -1,13 +1,13 @@
 {
-	"name": "12_COPY_SWORKER_SBAYWORKER",
+	"name": "1_COPY_SOPCODE_SFIR_OPEXC",
 	"properties": {
 		"activities": [
 			{
-				"name": "COPY_SWORKER",
+				"name": "COPY_SOPCODE",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "BEFORE_SWORKER_STAGING_COPY",
+						"activity": "BEFORE_SOPCODE_FIR_STAGING_COPY",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -27,9 +27,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SWORKER')  IS NOT NULL TRUNCATE TABLE dbo.SWORKER",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": true,
+						"preCopyScript": "IF OBJECT_ID('dbo.SOPCODE')  IS NOT NULL TRUNCATE TABLE dbo.SOPCODE",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -48,7 +46,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "SWORKER"
+							"TableName": "SOPCODE"
 						}
 					}
 				],
@@ -57,18 +55,18 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SWORKER",
+							"TableName": "SOPCODE",
 							"SchemaName": "dbo"
 						}
 					}
 				]
 			},
 			{
-				"name": "COPY_SWORKER_STAGING",
+				"name": "COPY_SOPCODE_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "COPY_SWORKER",
+						"activity": "COPY_SOPCODE",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -106,7 +104,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SWORKER",
+							"TableName": "SOPCODE",
 							"SchemaName": "dbo"
 						}
 					}
@@ -117,89 +115,22 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "SWORKER_STAGING"
+							"TableName": "SOPCODE_STAGING"
 						}
 					}
 				]
 			},
 			{
-				"name": "BEFORE_SWORKER_STAGING_COPY",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[BEFORE_SWORKER_STAGING_COPY]"
-				},
-				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "MERGE_T_SUBLET_WORKER_CREATION",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "AFTER_SWORKER_STAGING_COPY",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[MERGE_T_SUBLET_WORKER_CREATION]"
-				},
-				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "AFTER_SWORKER_STAGING_COPY",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "COPY_SWORKER_STAGING",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[AFTER_SWORKER_STAGING_COPY]"
-				},
-				"linkedServiceName": {
-					"referenceName": "DEV_DMS_SERVICE_LS",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
-				"name": "COPY_SBAYWORKER",
+				"name": "COPY_SFIR_OPEXC",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "BEFORE_SOPCODE_FIR_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -214,9 +145,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SBAYWORKER')  IS NOT NULL TRUNCATE TABLE dbo.SBAYWORKER",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": true,
+						"preCopyScript": "IF OBJECT_ID('dbo.SFIR_OPEXC')  IS NOT NULL TRUNCATE TABLE dbo.SFIR_OPEXC",
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
@@ -235,7 +164,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "E31DLIB3",
-							"TableName": "SBAYWORKER"
+							"TableName": "SFIR_OPEXC"
 						}
 					}
 				],
@@ -244,18 +173,18 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SBAYWORKER",
+							"TableName": "SFIR_OPEXC",
 							"SchemaName": "dbo"
 						}
 					}
 				]
 			},
 			{
-				"name": "COPY_SBAYWORKER_STAGING",
+				"name": "COPY_SFIR_OPEXC_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "COPY_SBAYWORKER",
+						"activity": "COPY_SFIR_OPEXC",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -276,11 +205,7 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SBAYWORKER_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.SBAYWORKER_STAGING",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": true,
-						"tableOption": "autoCreate"
+						"type": "SqlServerSink"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -297,7 +222,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SBAYWORKER",
+							"TableName": "SFIR_OPEXC",
 							"SchemaName": "dbo"
 						}
 					}
@@ -308,23 +233,23 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "SBAYWORKER_STAGING"
+							"TableName": "SFIR_OPEXC_STAGING"
 						}
 					}
 				]
 			},
 			{
-				"name": "MERGE_T_SERVICE_BAY_AND_SUBLET_WORKER_MAPPING",
+				"name": "AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "MERGE_T_SUBLET_WORKER_CREATION",
+						"activity": "COPY_SOPCODE_STAGING",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					},
 					{
-						"activity": "COPY_SBAYWORKER_STAGING",
+						"activity": "COPY_SFIR_OPEXC_STAGING",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -339,7 +264,54 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[MERGE_T_SERVICE_BAY_AND_SUBLET_WORKER_MAPPING]"
+					"storedProcedureName": "[dbo].[AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "BEFORE_SOPCODE_FIR_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_SOPCODE_FIR_STAGING_COPY]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_OP_CODE",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_OP_CODE]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
@@ -351,7 +323,7 @@
 			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV"
 		},
 		"annotations": [],
-		"lastPublishTime": "2022-02-08T04:34:45Z"
+		"lastPublishTime": "2022-01-28T16:25:59Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
