@@ -78,7 +78,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "3_PRD_COPY_LEAD_COLLECTION_INCR",
+						"activity": "5_PRD_COPY_OPPORTUNITY_COLLECTION",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -181,7 +181,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "333"
+				"defaultValue": "397"
 			}
 		},
 		"folder": {
