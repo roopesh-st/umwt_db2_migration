@@ -2,7 +2,7 @@
 	"name": "TRIGGER_COPY_INCR_LEADS_PILOTED_OUTLETS_PRD",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipeline": {
 			"pipelineReference": {
 				"referenceName": "PRD_SYNC_INCR_LEADS_PILOTED_OUTLETS",
