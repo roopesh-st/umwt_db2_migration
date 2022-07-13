@@ -181,7 +181,7 @@
 		"parameters": {
 			"OUTLET_ID": {
 				"type": "string",
-				"defaultValue": "369"
+				"defaultValue": "333"
 			}
 		},
 		"folder": {
