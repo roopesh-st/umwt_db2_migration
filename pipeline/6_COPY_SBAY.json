@@ -170,7 +170,7 @@
 				}
 			},
 			{
-				"name": "MERGE_T_BAY_MASTER",
+				"name": "MERGE_T_SERVICE_BAY_AND_AVAILABILITY",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -189,7 +189,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[MERGE_T_BAY_MASTER]"
+					"storedProcedureName": "[dbo].[MERGE_T_SERVICE_BAY_AND_AVAILABILITY]"
 				},
 				"linkedServiceName": {
 					"referenceName": "DEV_DMS_SERVICE_LS",
