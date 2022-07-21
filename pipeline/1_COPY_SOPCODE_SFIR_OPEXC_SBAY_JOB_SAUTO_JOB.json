@@ -606,6 +606,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SAUTO_JOB_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.SAUTO_JOB_STAGING",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
