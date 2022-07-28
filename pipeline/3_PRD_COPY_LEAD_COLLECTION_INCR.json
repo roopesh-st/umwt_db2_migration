@@ -782,6 +782,16 @@
 									"name": "zsave_counter_KUT",
 									"type": "Decimal"
 								}
+							},
+							{
+								"source": {
+									"name": "Notes",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NOTES",
+									"type": "String"
+								}
 							}
 						]
 					}
