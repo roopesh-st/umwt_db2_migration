@@ -48,7 +48,28 @@
 						"value": "@activity('LOOKUP_PILOTING_OUTLETS').output.value",
 						"type": "Expression"
 					},
-					"isSequential": true
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "PRD_MIGRATE_INCR_LEADS_BY_OUTLET_ONE_TIME",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PRD_MIGRATE_INCR_LEADS_BY_OUTLET_ONE_TIME",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"OUTLET_ID": {
+										"value": "'@{item().OUTLET_ID}'",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
 				}
 			}
 		],
