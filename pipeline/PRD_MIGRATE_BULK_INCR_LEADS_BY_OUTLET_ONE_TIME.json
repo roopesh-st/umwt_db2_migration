@@ -1,0 +1,60 @@
+{
+	"name": "PRD_MIGRATE_BULK_INCR_LEADS_BY_OUTLET_ONE_TIME",
+	"properties": {
+		"activities": [
+			{
+				"name": "LOOKUP_PILOTING_OUTLETS",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT OUTLET_ID FROM DMS_OUTLET WHERE ACTIVE = 2 AND OUTLET_PILOTED_DATE <= CURRENT_TIMESTAMP ",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_LEADS_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "DMS_OUTLET"
+						}
+					}
+				}
+			},
+			{
+				"name": "ForEach_Piloting_Outlet",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LOOKUP_PILOTING_OUTLETS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LOOKUP_PILOTING_OUTLETS').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 1/LEADS MODULE - PRD"
+		},
+		"annotations": []
+	}
+}
