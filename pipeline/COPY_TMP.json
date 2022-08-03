@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "COPY_SPROMO_APP",
+				"name": "COPY_P1PARTP",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -20,7 +20,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.SPROMO_APP')  IS NOT NULL TRUNCATE TABLE dbo.SPROMO_APP",
+						"preCopyScript": "IF OBJECT_ID('dbo.P1PARTP')  IS NOT NULL TRUNCATE TABLE dbo.P1PARTP",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
@@ -37,11 +37,11 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "UMWT_UAT_SRC_PARAM",
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "E31DLIB3",
-							"TableName": "SPROMO_APP"
+							"SchemaName": "TPSDLIB3",
+							"TableName": "P1PARTP"
 						}
 					}
 				],
@@ -50,18 +50,18 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SPROMO_APP",
+							"TableName": "P1PARTP",
 							"SchemaName": "dbo"
 						}
 					}
 				]
 			},
 			{
-				"name": "COPY_SPROMO_APP_STAGING",
+				"name": "COPY_P1PARTP_STAGING",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "COPY_SPROMO_APP",
+						"activity": "COPY_P1PARTP",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -83,6 +83,7 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.P1PARTP_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.P1PARTP_STAGING",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": true,
 						"tableOption": "autoCreate"
@@ -102,7 +103,7 @@
 						"referenceName": "SINK_TABLE_PARAM",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "SPROMO_APP",
+							"TableName": "P1PARTP",
 							"SchemaName": "dbo"
 						}
 					}
@@ -113,7 +114,124 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "SPROMO_APP_STAGING"
+							"TableName": "P1PARTP_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_P1PMAUPH",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.P1PMAUPH')  IS NOT NULL TRUNCATE TABLE dbo.P1PMAUPH",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "TPSDLIB3",
+							"TableName": "P1PMAUPH"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "P1PMAUPH",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_P1PMAUPH_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_P1PMAUPH",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.P1PMAUPH_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.P1PMAUPH_STAGING",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "P1PMAUPH",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "P1PMAUPH_STAGING"
 						}
 					}
 				]
