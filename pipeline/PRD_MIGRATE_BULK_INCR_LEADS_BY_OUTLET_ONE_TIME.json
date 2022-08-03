@@ -64,7 +64,7 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"OUTLET_ID": {
-										"value": "'@{item().OUTLET_ID}'",
+										"value": "@{item().OUTLET_ID}",
 										"type": "Expression"
 									}
 								}
