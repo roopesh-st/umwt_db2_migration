@@ -126,7 +126,13 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[dbo].[UPDATE_OUTLET_PILOTING_FAILURE_PROC]"
+								"storedProcedureName": "[dbo].[UPDATE_OUTLET_PILOTING_FAILURE_PROC]",
+								"storedProcedureParameters": {
+									"OutletId": {
+										"value": "@{item().OUTLET_ID}",
+										"type": "String"
+									}
+								}
 							},
 							"linkedServiceName": {
 								"referenceName": "PRD_DMS_LEADS_LS",
