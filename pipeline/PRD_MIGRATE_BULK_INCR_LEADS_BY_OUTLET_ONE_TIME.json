@@ -28,7 +28,8 @@
 							"SchemaName": "dbo",
 							"TableName": "DMS_OUTLET"
 						}
-					}
+					},
+					"firstRowOnly": false
 				}
 			},
 			{
