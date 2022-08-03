@@ -71,7 +71,7 @@
 							}
 						},
 						{
-							"name": "ACTIVE_PILOTED_OUTLET_PROC",
+							"name": "UPDATE_OUTLET_PILOTING_SUCCESS_PROC",
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
@@ -90,7 +90,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[dbo].[ACTIVE_PILOTED_OUTLET_PROC]",
+								"storedProcedureName": "[dbo].[UPDATE_OUTLET_PILOTING_SUCCESS_PROC]",
 								"storedProcedureParameters": {
 									"OutletId": {
 										"value": {
@@ -100,6 +100,33 @@
 										"type": "String"
 									}
 								}
+							},
+							"linkedServiceName": {
+								"referenceName": "PRD_DMS_LEADS_LS",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "UPDATE_OUTLET_PILOTING_FAILURE_PROC",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "PRD_MIGRATE_INCR_LEADS_BY_OUTLET_ONE_TIME",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[dbo].[UPDATE_OUTLET_PILOTING_FAILURE_PROC]"
 							},
 							"linkedServiceName": {
 								"referenceName": "PRD_DMS_LEADS_LS",
