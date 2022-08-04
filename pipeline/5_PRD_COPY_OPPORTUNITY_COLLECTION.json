@@ -339,26 +339,6 @@
 							},
 							{
 								"source": {
-									"name": "KUTSetToLostDate_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "KUTSetToLostDate_KUT",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "KUTSetToWonDate_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "KUTSetToWonDate_KUT",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
 									"name": "KUT_CashBuyer_KUT",
 									"type": "Boolean"
 								},
@@ -385,16 +365,6 @@
 								"sink": {
 									"name": "KUT_LoanStatus_KUTText",
 									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KUT_LoanSubmissionDate_KUT",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "KUT_LoanSubmissionDate_KUT",
-									"type": "DateTime"
 								}
 							},
 							{
