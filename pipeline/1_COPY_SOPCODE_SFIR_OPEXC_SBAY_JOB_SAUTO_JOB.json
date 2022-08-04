@@ -1,0 +1,758 @@
+{
+	"name": "1_COPY_SOPCODE_SFIR_OPEXC_SBAY_JOB_SAUTO_JOB",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_SOPCODE",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_SOPCODE_FIR_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SOPCODE')  IS NOT NULL TRUNCATE TABLE dbo.SOPCODE",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SOPCODE"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SOPCODE",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SOPCODE_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SOPCODE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SOPCODE",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SOPCODE_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFIR_OPEXC",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "BEFORE_SOPCODE_FIR_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SFIR_OPEXC')  IS NOT NULL TRUNCATE TABLE dbo.SFIR_OPEXC",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SFIR_OPEXC"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFIR_OPEXC",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SFIR_OPEXC_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SFIR_OPEXC",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SFIR_OPEXC",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SFIR_OPEXC_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "COPY_SOPCODE_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_SFIR_OPEXC_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_SBAY_JOB_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "COPY_SAUTO_JOB_STAGING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY_PROC]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "BEFORE_SOPCODE_FIR_STAGING_COPY",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[BEFORE_SOPCODE_SFIR_OPEXC_STAGING_COPY]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "MERGE_T_OP_CODE",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "AFTER_SOPCODE_SFIR_OPEXC_STAGING_COPY",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_OP_CODE]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "COPY_SBAY_JOB",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SBAY_JOB')  IS NOT NULL TRUNCATE TABLE dbo.SBAY_JOB",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "OP_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_CODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BAY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BAY_TYPE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TM",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_TM",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TM",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "UPDATED_TM",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SBAY_JOB"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SBAY_JOB",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SBAY_JOB_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SBAY_JOB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SBAY_JOB_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.SBAY_JOB_STAGING",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SBAY_JOB",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SBAY_JOB_STAGING"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SAUTO_JOB",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "Db2Source"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SAUTO_JOB')  IS NOT NULL TRUNCATE TABLE dbo.SAUTO_JOB",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "OP_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_CODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BAY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BAY_TYPE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TM",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_TM",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TM",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "UPDATED_TM",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "UMWT_UAT_SRC_PARAM_NEW",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "E31DLIB3",
+							"TableName": "SAUTO_JOB"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SAUTO_JOB",
+							"SchemaName": "dbo"
+						}
+					}
+				]
+			},
+			{
+				"name": "COPY_SAUTO_JOB_STAGING",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "COPY_SAUTO_JOB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.SAUTO_JOB_STAGING')  IS NOT NULL TRUNCATE TABLE dbo.SAUTO_JOB_STAGING",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SINK_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SAUTO_JOB",
+							"SchemaName": "dbo"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DEV_SERVICE_TABLE_PARAM",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "SAUTO_JOB"
+						}
+					}
+				]
+			},
+			{
+				"name": "MERGE_T_OP_CODE_AND_BRAND_MAPPING",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "MERGE_T_OP_CODE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[MERGE_T_OP_CODE_AND_BRAND_MAPPING]"
+				},
+				"linkedServiceName": {
+					"referenceName": "DEV_DMS_SERVICE_LS",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DMS - PHASE 2/SERVICE MODULE/QA ENV"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-01-28T16:25:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
