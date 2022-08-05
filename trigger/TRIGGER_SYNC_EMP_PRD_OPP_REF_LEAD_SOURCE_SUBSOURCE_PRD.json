@@ -2,7 +2,7 @@
 	"name": "TRIGGER_SYNC_EMP_PRD_OPP_REF_LEAD_SOURCE_SUBSOURCE_PRD",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
