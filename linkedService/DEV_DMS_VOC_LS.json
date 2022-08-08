@@ -1,0 +1,16 @@
+{
+	"name": "DEV_DMS_VOC_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=12.0.1.5;initial catalog=DMS-VOC;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2NDllZTQwZS04NDJjLTQxOGMtODgzMy1iNjE5ZjE2M2I3ZGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ADF-DMS-CLOUD-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
