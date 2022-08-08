@@ -1,0 +1,18 @@
+{
+	"name": "SAP_ECMS_VOC_PARAM_DEV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "UMWT_ECMS_VOC_MIGRATION_TEST_LS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SAP_VOC_DATASET_DEV"
+		},
+		"annotations": [],
+		"type": "SapCloudForCustomerResource",
+		"schema": [],
+		"typeProperties": {
+			"path": "ServiceIssueCategoryCatalogueCategoryCollection"
+		}
+	}
+}
